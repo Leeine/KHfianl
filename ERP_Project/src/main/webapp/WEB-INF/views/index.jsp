@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>INDEX TEST PAGE</h1>
+	<h3>INDEX TEST PAGE</h3>
 </body>
 </html>
