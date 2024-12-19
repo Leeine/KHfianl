@@ -12,10 +12,10 @@
 <!-- include summernote css/js -->
 <!--  <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>-->
-<link href="/test/css/summernote/summernote-lite.css" rel="stylesheet">
-<link href="/test/css/test.css" rel="stylesheet">
-<script src="/test/js/summernote/summernote-lite.js"></script>
-<script src="/test/js/summernote/lang/summernote-ko-KR.js"></script>
+<link href="/erp/css/summernote/summernote-lite.css" rel="stylesheet">
+<link href="/erp/css/test.css" rel="stylesheet">
+<script src="/erp/js/summernote/summernote-lite.js"></script>
+<script src="/erp/js/summernote/lang/summernote-ko-KR.js"></script>
 </head>
 <body>
     <textarea id="summernote" style="resize:'none'"></textarea>
