@@ -1,0 +1,107 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
+#user-info-menu{
+  height: 150px;
+}
+
+#sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 100vh;
+  background-color: rgb(55, 78, 121);
+  margin: 0;
+  transition: width 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#sidebar:hover{
+  width: 150px;
+}
+
+#sidebar:hover{
+  width: 250px;
+}
+
+.side-menu{
+  color: white;
+  width: fit-content;
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+.side-menu:hover{
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#sidebar:hover .side-menu-text{
+  opacity: 1;
+  transition: opacity 0.4s ease, margin-left 0.4s ease;
+  margin-left: 10px; /* 텍스트 약간 오른쪽 이동 */
+}
+
+.side-menu-text{
+  opacity: 0;
+  vertical-align: 10px;
+}
+
+.sub-menu{
+  color: white;
+  display: none;
+  margin-top: 5px;
+  margin-left: 70px;
+}
+
+.sub-menu>li{
+  margin: 15px 0;
+}
+
+.sub-menu a{
+  text-decoration: none;
+  color: white;
+}
+
+.sub-menu:hover{
+  cursor: pointer;
+}
+
+ul,li{
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.menu-item:not(:last-child){
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.sign-out {
+  font-size: 18px;
+  color: white;
+  margin: 10px;
+}
+
+.sign-out:hover{
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#sidebar>ul{
+  height: calc(100vh - 200px);
+}
+
+.icon{
+  width: 35px;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(157deg) brightness(102%) contrast(102%);
+}
