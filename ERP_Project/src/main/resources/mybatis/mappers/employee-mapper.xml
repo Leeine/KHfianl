@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="employeeMapper">
+	
+	<resultMap type="Employee" id="employeeResultSet">
+		<result column="EMP_NO" property="empNo"/>
+		<result column="EMP_PWD" property="empPwd"/>
+		<result column="EMP_RANK" property="empRank"/>
+		<result column="DEPT_CODE" property="deptCode"/>
+		<result column="EMP_NAME" property="empName"/>
+		<result column="AGE" property="age"/>
+		<result column="PHONE" property="phone"/>
+		<result column="EMAIL" property="email"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="BIRTHDAY" property="birthday"/>
+		<result column="VACATION" property="vacation"/>
+		<result column="JOIN_DATE" property="joinDate"/>
+	</resultMap>
+	
+	<select id="login" parameterType="Employee" resultMap="employeeResultSet">
+		SELECT *
+		FROM EMPLOYEE
+		WHERE EMP_NO = #{empNo}
+	</select>
+	<update id="enrollPwd" parameterType="Employee">
+		UPDATE EMPLOYEE
+		SET EMP_PWD = #{empPwd}
+		WHERE EMP_NO = #{empNo}
+	</update>
+</mapper>
