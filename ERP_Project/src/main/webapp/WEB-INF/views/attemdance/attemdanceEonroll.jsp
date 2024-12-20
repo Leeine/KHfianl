@@ -141,7 +141,7 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer" align="center">
-                        <button type="submit" class="btn btn-primary">추가하기</button>
+                        <button type="submit" class="btn btn-primary" id="attInsert">추가하기</button>
                     </div>
                 </form>
             </div>
@@ -186,7 +186,17 @@
 			});
 		}
 		
-		//근태 항목 수정 모달
+		//근태 항목 추가
+		$("#attInsert").click(function(){
+			$.ajax({
+				url : "attInsert",
+				data : {
+					
+				}
+			});
+		});
+		
+		//근태 항목 수정 모달 필요
 		$("#attList").on("click","tbody>tr .attUpdate",function(){
 				
 			var code = $(this).closest("tr").children().first().text();
