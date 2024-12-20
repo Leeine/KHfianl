@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import kr.or.erp.employee.model.service.EmployeeService;
 import kr.or.erp.employee.model.vo.Employee;
 
+
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -33,17 +34,15 @@ public class EmployeeController {
 	
 	//로그인
 	@PostMapping("/login")
-	public ModelAndView login(@RequestParam("inputId")String inputId, 
-						@RequestParam("inputPwd")String inputPwd, 
+	public ModelAndView login(String inputId, 
+						String inputPwd, 
 						@RequestParam(value="saveId", defaultValue ="off")String saveId,
 						HttpSession session,
 						ModelAndView mv,
 						HttpServletResponse response) {
 		//아이디 저장 (쿠키)
 		Cookie cookie;
-		System.out.println(saveId);
 		if(saveId.equals("on")) {
-			System.out.println("ck");
 			cookie = new Cookie("empNo",inputId);
 			
 			cookie.setMaxAge(60*60*24); //초 단위 표현(하루)
@@ -56,7 +55,7 @@ public class EmployeeController {
 			response.addCookie(cookie);
 		}
 		//로그인 입력 정보 객체 생성
-		Employee e = new Employee().builder().empNo(Integer.parseInt(inputId)).build();
+		Employee e = Employee.builder().empNo(Integer.parseInt(inputId)).build();
 		Employee loginUser = employeeService.login(e);
 		
 		if(loginUser==null) {	
@@ -88,13 +87,13 @@ public class EmployeeController {
 	
 	//첫 로그인 비밀번호 설정
 	@PostMapping("/enrollPwd")
-	public String enrollPwd(@RequestParam("inputId")String inputId, 
-								@RequestParam("inputPwd")String inputPwd,
-								HttpSession session) {
+	public String enrollPwd(String inputId, 
+							String inputPwd,
+							HttpSession session) {
 
 		String encPwd = bcryptPasswordEncoder.encode(inputPwd);
 		
-		Employee e = new Employee().builder().empNo(Integer.parseInt(inputId)).empPwd(encPwd).build();
+		Employee e = Employee.builder().empNo(Integer.parseInt(inputId)).empPwd(encPwd).build();
 		
 		int result = employeeService.enrollPwd(e);
 		if(result>0) {
