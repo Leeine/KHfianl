@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import kr.or.erp.attemdance.model.service.AttemdanceService;
 import kr.or.erp.attemdance.model.template.Pagination;
 import kr.or.erp.attemdance.model.vo.Attemdance;
+import kr.or.erp.attemdance.model.vo.EmpAttemdance;
 import kr.or.erp.attemdance.model.vo.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,10 +49,6 @@ public class AttemdanceController {
 		
 		ArrayList<Attemdance> list = attService.selectAttList(pi);
 		
-//		model.addAttribute("list",list);
-//		model.addAttribute("pi",pi);
-		
-		
 		return list;
 	} 
 	
@@ -60,7 +57,7 @@ public class AttemdanceController {
 	@PostMapping("/attInsert")
 	public String attInsert(Attemdance att) {
 		
-//		System.out.println(att);
+		System.out.println(att);
 		
 		int result = attService.attInsert(att);
 		
@@ -77,10 +74,26 @@ public class AttemdanceController {
 	
 	//근태 항목 수정
 	@ResponseBody
-	@PostMapping("/attUpdate")
-	public String attUpdate(Attemdance att) {
+	@GetMapping("/attUpdate")
+	public String attUpdate(@RequestParam("attCode") int attCode) {
 		
-		int result = attService.attUpdate(att);
+		int result = attService.attUpdate(attCode);
+		
+		String resultStr = "";
+		
+		if(result >0) {
+			resultStr = "NNNNY";
+		}else {
+			resultStr = "NNNNN";
+		}
+		
+		return resultStr;
+	}
+	@ResponseBody
+	@GetMapping("/attUpdate2")
+	public String attUpdate2(@RequestParam("attCode") int attCode) {
+		
+		int result = attService.attUpdate2(attCode);
 		
 		String resultStr = "";
 		
@@ -93,13 +106,12 @@ public class AttemdanceController {
 		return resultStr;
 	}
 	
-	
 	//근태 항목 삭제
 	@ResponseBody
 	@GetMapping("/attDelete")
 	public String attDelete(@RequestParam("attCode") int attCode) {
 		
-//		System.out.println(attCode);
+		System.out.println(attCode);
 		
 		int result = attService.attDelete(attCode);
 		
@@ -110,9 +122,33 @@ public class AttemdanceController {
 		}else {
 			resultStr = "NNNNN";
 		}
-		
+		System.out.println(resultStr);
 		return resultStr;
 	}
+	
+	//사원 ------------------------
+	
+	//사원 근태 조회 페이지로 이동
+	@GetMapping("/empAttListPage")
+	public String empAttListPage() {
+		
+		return "/attemdance/empAttemdance";
+	}
+	
+	//사원 근태 목록 조회
+		@ResponseBody
+		@GetMapping("/empAttList")
+		public ArrayList<EmpAttemdance> empAttList(@RequestParam(value="currentPage",defaultValue = "1")int currentPage, Model model){
+			int listCount = attService.empAttListCount();
+			int pageLimit = 5;
+			int boardLimit = 15;
+			
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+			
+			ArrayList<EmpAttemdance> list = attService.empAttList(pi);
+			
+			return list;
+		} 
 	
 	
 }

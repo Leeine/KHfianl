@@ -20,12 +20,48 @@
 	</select>
 	
 	<insert id="attInsert" parameterType="attemdance">
-		
+		INSERT INTO ATTEMDANCE
+		VALUES(SEQ_ANO.NEXTVAL
+		      ,#{attTypeCode}
+		      ,#{attName}
+		      ,#{attCount}
+		      ,DEFAULT)
 	</insert>
 
 	<delete id="attDelete">
 		DELETE ATTEMDANCE
 		WHERE ATT_CODE = #{attCode}
 	</delete>
+	
+	<update id="attUpdate">
+		UPDATE ATTEMDANCE
+		SET ATT_STATE = 'N'
+		WHERE ATT_CODE = #{attCode}
+	</update>
+	<update id="attUpdate2">
+		UPDATE ATTEMDANCE
+		SET ATT_STATE = 'Y'
+		WHERE ATT_CODE = #{attCode}
+	</update>
+	
+	<!-- 사원 -->
+	
+	<select id="empAttListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM EMP_ATTEMDANCE
+	</select>
+	
+	<select id="empAttList" resultType="empAttemdance">
+		SELECT EMP_ATT_TIME
+			  ,ATT_CODE
+		      ,ATT_NAME
+		      ,EMP_NO
+		      ,EMP_NAME
+		      ,EMP_ATT_COUNT
+		      ,EMP_ATT_STATE
+		FROM EMP_ATTEMDANCE
+		JOIN ATTEMDANCE USING (ATT_CODE)
+		JOIN EMPLOYEE USING (EMP_NO)
+	</select>
 	
 </mapper>

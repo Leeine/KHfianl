@@ -16,12 +16,15 @@ public interface AttemdanceService {
 	//근태 항목 등록
 	int attInsert(Attemdance att);
 	//근태 수정
-	int attUpdate(Attemdance att);
+	int attUpdate(int attCode);
+	int attUpdate2(int attCode);
 	//근태 삭제
 	int attDelete(int attCode);
 	
 	//사원 근태 개수
-	int empListCount();
+	int empAttListCount();
+	//사원 근태 목록 조회
+	ArrayList<EmpAttemdance> empAttList(PageInfo pi);
 	//사원 근태 조회
 	EmpAttemdance selectEmpAtt(int empNo);
 	//사원 근태 등록

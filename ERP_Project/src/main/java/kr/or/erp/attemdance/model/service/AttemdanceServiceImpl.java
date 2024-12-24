@@ -42,9 +42,14 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 	
 	//근태 항목 수정
 	@Override
-	public int attUpdate(Attemdance att) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int attUpdate(int attCode) {
+		
+		return attDao.attUpdate(sqlSession, attCode);
+	}
+	@Override
+	public int attUpdate2(int attCode) {
+		
+		return attDao.attUpdate2(sqlSession, attCode);
 	}
 
 	//근태 항목 삭제
@@ -54,11 +59,19 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 		return attDao.attDelete(sqlSession, attCode);
 	}
 
+	//사원 --------------------
+	
 	//사원 근태 리스트 개수
 	@Override
-	public int empListCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int empAttListCount() {
+		
+		return attDao.empAttListCount(sqlSession);
+	}
+	
+	//사원 근태 리스트 조회
+	@Override
+	public ArrayList<EmpAttemdance> empAttList(PageInfo pi){
+		return attDao.empAttList(sqlSession, pi);
 	}
 
 	//사원 근태 조회

@@ -26,31 +26,24 @@
 </head>
 <body>
 	<div>
-		<table id="attList" class="table table-hover" align="center">
+		<table id="empAttList" class="table table-hover" align="center">
         	<thead>
             	<tr>
-                	<th>근태코드</th>
-                	<th>근태명칭</th>
-                	<th>근태유형</th>
+            		<th>근태일자</th>
+                	<th>사원명</th>
+                	<th>근태</th>
+                	<th>근태수</th>
                 	<th>사용</th>
                 	<th></th>
             	</tr>
 	       	</thead>
 	    	<tbody>
-	    	<!-- 
-            	<tr>
-				    <td>${list[0].attCode }</td>
-				    <td>${list[0].attTypeName }</td>
-				    <td>${list[0].attName }</td>
-				    <td>${list[0].attState }</td>
-			    </tr>
-	    	 -->
         	</tbody>
 		</table>
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insrtAttForm">항목추가</button>
 	</div>
 	
-	<div class="modal fade" id="insrtAttForm">
+	<div class="modal fade" id="insrtEmpAttForm">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -66,12 +59,12 @@
                     	<table align="center">
 			            	<tr>
 			                	<th>근태명칭</th>
-			                	<td><input type="text" class="form-control" id="attName" name="attName"></td>
+			                	<td><input type="text" class="form-control" name="attName"></td>
 			            	</tr>
 			            	<tr>
 			            		<th>근태유형</th>
 			            		<td>
-			            			<select id="attTypeCode" name="attTypeCode">
+			            			<select name="attTypeCode">
 			            				<option value="100">연차</option>
 			            				<option value="101">반차</option>
 			            				<option value="102">월차</option>
@@ -80,7 +73,7 @@
 			            	</tr>
 			            	<tr>
 			            		<th>근태수</th>
-			            		<td><input type="number" class="form-control" id="attCount" name="attCount"></td>
+			            		<td><input type="number" class="form-control" name="attCount"></td>
 			            	</tr>
 			            	<tr>
 			            		<th>적요</th>
@@ -90,7 +83,7 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer" align="center">
-                        <button type="button" class="btn btn-primary" id="attInsert">추가하기</button>
+                        <button type="submit" class="btn btn-primary">추가하기</button>
                     </div>
                 </form>
             </div>
@@ -101,17 +94,16 @@
 		</div>
     </div>
     
-    
 	
 	<script>
 	
 		$(function(){
-			selectEmpAttList();
+			selectAttList();
 		});
 		
-		function selectEmpAttList(){
+		function selectAttList(){
 			$.ajax({
-				url : "attList",
+				url : "empAttList",
 				success : function(list){
 					//console.log(list);
 					
@@ -119,15 +111,22 @@
 					
 					for(var att of list){
 						str += "<tr>"
-							 + "<td>"+ att.attCode +"</td>"
+							 + "<td>"+ att.empAttTime +"</td>"
+							 + "<td>"+ att.empName +"</td>"
 							 + "<td>"+ att.attName +"</td>"
-							 + "<td>"+ att.attTypeName +"</td>"
-							 + "<td>"+ att.attState +"</td>"
+							 + "<td>"+ att.empAttCount +"</td>"
 							 + "<td>";
-							 
-						if(att.attState == 'Y'){
-							str += "<button class='btn btn-secondary attUpdate'>중지</button>";
+						
+						if(att.empAttState == null){
+							str += "</td>";
 						}else{
+							str += att.empAttState +"</td>" + "<td>";
+						}
+							 
+						
+						if(att.empAttState == 'Y'){
+							str += "<button class='btn btn-secondary attUpdate'>중지</button>";
+						}else if(att.empAttState == 'N'){
 							str += "<button class='btn btn-secondary attUpdate2'>사용</button>";
 						}
 						
@@ -135,7 +134,7 @@
 							 + "</td>"
 							 + "</tr>";
 					}
-					$("#attList tbody").html(str);
+					$("#empAttList tbody").html(str);
 				},
 				error : function(){
 					console.log("통신 오류");
@@ -145,24 +144,16 @@
 		
 		//근태 항목 추가
 		$("#attInsert").click(function(){
-			
 			$.ajax({
 				url : "attInsert",
-				type : "post",
 				data : {
-					attName : $("#attName").val(),
-					attTypeCode : $("#attTypeCode").val(),
-					attCount : $("#attCount").val()
+					attName : $("#attName"),
+					attTypeCode : $("#attTypeCode"),
+					attCount : $("#attCount")
 				},
-				success : function(result) {
-	                if (result == "NNNNY") {
+				success : function(response) {
+	                if (response === "NNNNY") {
 	                    alert("추가되었습니다.");
-	                    
-	                    $("#insrtAttForm").modal("hide");
-	                    $("#attName").val("");
-	                    $("#attTypeCode").val("");
-	                    $("#attCount").val("");
-	                    
 	                    selectAttList();
 	                } else {
 	                    alert("추가 실패");
@@ -173,63 +164,10 @@
 				}
 			});
 		});
-		
-		//근태 항목 수정
-		$("#attList").on("click","tbody>tr .attUpdate",function(){
-				
-			var code = $(this).closest("tr").children().first().text();
-			//console.log(code);
-			
-			if (confirm("해당 항목의 사용을 중지하시겠습니까?")){
-				$.ajax({
-					url : "attUpdate",
-					data : {
-						attCode : code
-					},
-					success : function(result){
-						if (result == "NNNNY") {
-		                    alert("수정이 완료되었습니다.");
-		                    selectAttList();
-		                } else {
-		                    alert("수정 실패");
-		                }
-					},
-					error : function(){
-						
-					}
-				});
-			}
-		});
-		
-		$("#attList").on("click","tbody>tr .attUpdate2",function(){
-			
-			var code = $(this).closest("tr").children().first().text();
-			//console.log(code);
-			
-			if (confirm("해당 항목을 사용하시겠습니까?")){
-				$.ajax({
-					url : "attUpdate2",
-					data : {
-						attCode : code
-					},
-					success : function(result){
-						if (result == "NNNNY") {
-		                    alert("수정이 완료되었습니다.");
-		                    selectAttList();
-		                } else {
-		                    alert("수정 실패");
-		                }
-					},
-					error : function(){
-						
-					}
-				});
-			}
-		});
-		
+
 		
 		//근태 항목 삭제
-		$("#attList").on("click","tbody>tr .attDelete",function(){
+		$("#empAttList").on("click","tbody>tr .attDelete",function(){
 				
 			var code = $(this).closest("tr").children().first().text();
 			console.log(code);
@@ -239,8 +177,8 @@
 		            url: "attDelete",
 		            method: "GET",
 		            data: { attCode: code },
-		            success: function(result) {
-		                if (result == "NNNNY") {
+		            success: function(response) {
+		                if (response === "NNNNY") {
 		                    alert("삭제가 완료되었습니다.");
 		                    selectAttList();
 		                } else {
