@@ -1,0 +1,16 @@
+#item-customer-page>div{
+	margin : 10px 0;
+}
+table {
+	border-collapse: collapse;
+}
+#item-customer-table{
+	width: 100%;
+}
+
+#item-customer-table th,
+#item-customer-table td{
+	
+	border : 2px solid black;
+	text-align: center;
+}

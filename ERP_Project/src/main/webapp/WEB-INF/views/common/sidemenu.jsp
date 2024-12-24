@@ -14,10 +14,7 @@
 	
 	<div id="sidebar">
         <div id="user-info-menu">
-            사용자 정보<br>
-            부서<br>
-            직책<br>
-            이름
+            ${loginUser.empName} 님
         </div>
 
 
@@ -57,7 +54,14 @@
                     <span class="side-menu-text">재고 관리</span>
                 </div>
                 <ul class="sub-menu">
-                    <li><a onclick="itemPage();">서브메뉴3</a></li>
+                    <li><a onclick="itemCustomerPage();">거래처 등록</a></li>
+                    <li><a onclick="itemInsertPage();">품목 등록</a></li>
+                    <li><a onclick="itemListPage();">재고 현황</a></li>
+                    <li><a onclick="">발주 입력</a></li>
+                    <li><a onclick="">발주 조회</a></li>
+                    <li><a onclick="">판매 입력</a></li>
+                    <li><a onclick="">판매 조회</a></li>
+                    <li><a onclick="">출하 조회</a></li>
                 </ul>
             </li>
 
@@ -97,11 +101,14 @@
                     <li><a href="">서브메뉴4</a></li>
                 </ul>
             </li>
-
+            
+            <li class="menu-item admin">
+                <div class="side-menu">
+                    <img src="${contextPath}/icon/admin.png" class="icon">
+                    <span class="side-menu-text">관리자</span>
+                </div>
+            </li>
         </ul>
-
-
-
 
 
         <div class="sign-out">
@@ -109,7 +116,20 @@
             <span class="side-menu-text">Sign out</span>
         </div>
     </div>
+    
+    
     <script>
+    	//관리자 기능
+    	$(function(){
+    		var dept = ("${loginUser.deptCode}").substring(0,1);
+    		if(dept != "D"){
+    			$(".admin").hide();
+    		}
+    	});
+    	
+    	
+    	
+    
         $(".side-menu").click(function(){
             $($(this).parent()).siblings().find(".sub-menu").slideUp();
             $(this).siblings(".sub-menu").slideToggle();
