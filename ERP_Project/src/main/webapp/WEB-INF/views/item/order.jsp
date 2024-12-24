@@ -8,9 +8,8 @@
 <link href="/erp/css/item/item.css" rel="stylesheet">
 </head>
 <body>
-	<div id="item-management-page">
-		<h2>재고관리 페이지</h2>
-		<div>내용</div>
+	<div id="item-order-page">
+		<div>발주</div>
 	</div>
 </body>
 </html>
