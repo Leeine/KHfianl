@@ -57,7 +57,7 @@
                     <span class="side-menu-text">재고 관리</span>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="">서브메뉴3</a></li>
+                    <li><a onclick="itemPage();">서브메뉴3</a></li>
                 </ul>
             </li>
 
