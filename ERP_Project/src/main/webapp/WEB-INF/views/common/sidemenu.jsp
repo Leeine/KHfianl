@@ -51,16 +51,13 @@
             <li class="menu-item">
                 <div class="side-menu">
                     <img src="${contextPath}/icon/storage.png" class="icon">
-                    <span class="side-menu-text">재고 관리</span>
+                    <span class="side-menu-text">제품 관리</span>
                 </div>
                 <ul class="sub-menu">
-                    <li><a onclick="itemCustomerPage();">거래처 등록</a></li>
-                    <li><a onclick="itemInsertPage();">품목 등록</a></li>
-                    <li><a onclick="itemListPage();">재고 현황</a></li>
-                    <li><a onclick="">발주 입력</a></li>
-                    <li><a onclick="">발주 조회</a></li>
-                    <li><a onclick="">판매 입력</a></li>
-                    <li><a onclick="">판매 조회</a></li>
+                    <li><a onclick="itemCustomerPage();">거래처 관리</a></li>
+                    <li><a onclick="itemListPage();">재고 관리</a></li>
+                    <li><a onclick="">발주 관리</a></li>
+                    <li><a onclick="">판매 관리</a></li>
                     <li><a onclick="">출하 조회</a></li>
                 </ul>
             </li>

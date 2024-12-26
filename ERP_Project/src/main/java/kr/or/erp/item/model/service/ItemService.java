@@ -11,4 +11,8 @@ public interface ItemService {
 
 	int searchCustomerListCount(String keyword);
 
+	int customerListCount();
+
+	ArrayList<Customer> searchCustomer(PageInfo pi);
+
 }

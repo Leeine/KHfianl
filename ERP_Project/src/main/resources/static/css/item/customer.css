@@ -14,3 +14,7 @@ table {
 	border : 2px solid black;
 	text-align: center;
 }
+
+#item-customer-pagingbar>input{
+	width: 30px;
+}

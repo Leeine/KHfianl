@@ -28,27 +28,43 @@ public class ItemController {
 		return "item/customer";
 	}
 	
-	//거래처 검색
+	//거래처 리스트
 	@ResponseBody
-	@GetMapping(value="/customer/search", produces = "application/json;charset=UTF-8")
-	public HashMap<String,Object> searchCustomer(
-			String keyword,
-			@RequestParam(value="currentPage", defaultValue ="1") String currentPage
-			){
-		
+	@GetMapping(value="/customer/list", produces = "application/json;charset=UTF-8")
+	public HashMap<String,Object> listCustomer(
+			@RequestParam(value="currentPage", defaultValue ="1")
+			String currentPage){
 		
 		HashMap<String,Object> resultMap = new HashMap<>();
 		
 
-		int searchCount = itemService.searchCustomerListCount(keyword);
-		int pageLimit = 5;	
+		int searchCount = itemService.customerListCount();
+		int pageLimit = 1;	
 		int boardLimit = 20;
 		PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
 
-		System.out.println(pi);
+		ArrayList<Customer> searchList = itemService.searchCustomer(pi);
+
+		resultMap.put("pi", pi);
+		resultMap.put("result", searchList);
+		return resultMap;
+	}
+	
+	//거래처 검색
+	@ResponseBody
+	@GetMapping(value="/customer/search", produces = "application/json;charset=UTF-8")
+	public HashMap<String,Object> searchCustomer(String keyword,
+			@RequestParam(value="currentPage", defaultValue ="1") String currentPage){
+		
+		HashMap<String,Object> resultMap = new HashMap<>();
+
+		int searchCount = itemService.searchCustomerListCount(keyword);
+		int pageLimit = 1;	
+		int boardLimit = 20;
+		PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
+
 		ArrayList<Customer> searchList = itemService.searchCustomer(pi,keyword);
 
-		System.out.println("4");
 		resultMap.put("pi", pi);
 		resultMap.put("result", searchList);
 		return resultMap;
