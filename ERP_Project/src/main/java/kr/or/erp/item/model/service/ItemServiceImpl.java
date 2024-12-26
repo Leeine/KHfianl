@@ -25,8 +25,17 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public ArrayList<Customer> searchCustomer(PageInfo pi, String keyword) {
-		
 		return itemDao.searchCustomerList(sqlSession,keyword,pi);
+	}
+
+	@Override
+	public int customerListCount() {
+		return itemDao.customerListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Customer> searchCustomer(PageInfo pi) {
+		return itemDao.customerList(sqlSession,pi);
 	}
 
 }

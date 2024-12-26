@@ -8,8 +8,8 @@
 <link href="/erp/css/item/item.css" rel="stylesheet">
 </head>
 <body>
-	<div id="item-insert-page">
-		<div>등록</div>
+	<div id="item-release-page">
+		<div>판매</div>
 	</div>
 </body>
 </html>

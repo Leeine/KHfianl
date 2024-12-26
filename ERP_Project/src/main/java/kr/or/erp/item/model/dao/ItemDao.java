@@ -11,7 +11,18 @@ import kr.or.erp.item.model.vo.Customer;
 
 @Repository
 public class ItemDao {
+	public int customerListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("itemMapper.customerListCount");
+	}
 
+	public ArrayList<Customer> customerList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1)*limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("itemMapper.customerList",null,rowBounds);
+	}
+	
 	public int searchCustomerListCount(SqlSessionTemplate sqlSession, String keyword) {
 		return sqlSession.selectOne("itemMapper.searchCustomerListCount",keyword);
 	}
@@ -24,5 +35,7 @@ public class ItemDao {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return (ArrayList)sqlSession.selectList("itemMapper.searchCustomerList",keyword,rowBounds);
 	}
+
+	
 
 }
