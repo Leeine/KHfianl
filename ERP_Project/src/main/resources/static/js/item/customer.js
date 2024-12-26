@@ -107,3 +107,25 @@ function item_customer_add(){
         }
 	});
 }; 
+
+//거래처 정보 수정
+function item_customer_info(){
+	
+};
+
+//모달 내부 dom 변경
+function item_customer_modal_add(){	//거래처 추가
+	modalShow();
+	$(".modal .modalMode").val('1');
+	$(".modal h3").text("거래처 추가");
+}
+function item_customer_modal_info(list){	//거래처 수정
+	modalShow();
+	$(".modal .modalMode").val('2');
+	$(".modal h3").text("거래처 정보 수정");
+	
+	$(".modal-customerNo").val(list[0]);
+	$(".modal-input1").val(list[1]);
+	$(".modal-input2").val(list[2]);
+	$(".modal-input3").val(list[3]);
+}
