@@ -95,8 +95,8 @@
 
 		<!-- 거래처 추가 모달 -->
 		<div class="modal-overlay">
-			<div class="modal-custom">
-				<div class="modal-custom-header">
+			<div class="modal">
+				<div class="modal-header">
 					<img src="${contextPath}/icon/x.png" class="modalHide">
 				</div>
 				<h3>거래처 추가</h3>
