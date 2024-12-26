@@ -38,4 +38,9 @@ public class ItemServiceImpl implements ItemService {
 		return itemDao.customerList(sqlSession,pi);
 	}
 
+	@Override
+	public int customerInsert(Customer customer) {
+		return itemDao.customerInsert(sqlSession,customer);
+	}
+
 }

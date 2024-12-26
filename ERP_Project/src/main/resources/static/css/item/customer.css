@@ -1,20 +1,36 @@
-#item-customer-page>div{
-	margin : 10px 0;
+#item-customer-page>div {
+	margin: 10px 0;
 }
+
 table {
 	border-collapse: collapse;
 }
-#item-customer-table{
+
+#item-customer-table {
 	width: 100%;
 }
 
 #item-customer-table th,
-#item-customer-table td{
-	
-	border : 2px solid black;
+#item-customer-table td {
+
+	border: 2px solid black;
 	text-align: center;
 }
 
-#item-customer-pagingbar>input{
+#item-customer-pagingbar>input {
 	width: 30px;
 }
+#customer-maxPage{
+	color: gray;
+}
+#item-customer-search-keyword{
+	margin-left: 20px;
+}
+.add {
+	float: right;
+}
+
+input {
+	outline: none;
+}
+

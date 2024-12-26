@@ -7,6 +7,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <script src="/erp/js/common/menu.js"></script>
+<script src="/erp/js/common/modal.js"></script>
+<link href="/erp/css/common/modal.css" rel="stylesheet">
 <link href="/erp/css/item/customer.css" rel="stylesheet">
 <script src="/erp/js/item/customer.js"></script>
 <title>Insert title here</title>

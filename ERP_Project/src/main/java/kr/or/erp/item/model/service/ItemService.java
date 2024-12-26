@@ -15,4 +15,6 @@ public interface ItemService {
 
 	ArrayList<Customer> searchCustomer(PageInfo pi);
 
+	int customerInsert(Customer customer);
+
 }

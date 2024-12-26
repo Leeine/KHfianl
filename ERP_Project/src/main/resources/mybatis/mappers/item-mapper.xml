@@ -30,7 +30,10 @@
 		OR CUSTOMER_ADDRESS LIKE '%'||#{keyword}||'%'
 	</select>
 	
-	
+	<insert id="customerInsert" parameterType="Customer">
+		INSERT INTO CUSTOMER
+		VALUES(SEQ_CUSTOMER_NO.NEXTVAL,#{customerName},#{customerTel},#{customerAddress})
+	</insert>
 	
 	
 </mapper>
