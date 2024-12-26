@@ -10,7 +10,7 @@
 	z-index: 1000;
 }
 
-.modal-custom {
+.modal {
 	right: 0;
     text-align: center;
 	width: 800px;
@@ -20,25 +20,25 @@
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.4);
     overflow: hidden;
 }
-.modal-custom input{
+.modal input{
 	border: 0;
 	width: 100%;
 	outline: none;
 }
-.modal-custom>table {
+.modal>table {
 	width: 80%;
 	border: 2px solid black;
 	margin: 0 auto;
 }
-.modal-custom th, .modal-custom td{
+.modal th, .modal td{
 	border: 2px solid black;
 	
 }
-.modal-custom-button{
+.modal-button{
 	margin: 10px auto;
 	width: 80%;
 }
-.modal-custom-header{
+.modal-header{
 	background-color: rgb(55, 78, 121);
 	height : 30px;
 	width: 100%;

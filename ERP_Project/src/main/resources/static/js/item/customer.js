@@ -118,6 +118,7 @@ function item_customer_modal_add(){	//거래처 추가
 	modalShow();
 	$(".modal .modalMode").val('1');
 	$(".modal h3").text("거래처 추가");
+	$(".modal input").val("");
 }
 function item_customer_modal_info(list){	//거래처 수정
 	modalShow();
