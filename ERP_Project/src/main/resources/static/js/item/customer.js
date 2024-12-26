@@ -10,7 +10,9 @@ function item_customer_list(){
 			var pi = data.pi;
 			var result = data.result;
 			if(result.length == 0){
-				$("#item-customer-table>tbody").remove();
+				var tr = $("<tr>");
+				tr.append($("<td colspan='4'>").text("조회된 거래처가 없습니다."));
+				$("#item-customer-table>tbody").html(tr);
 			}else{
 				var tbody = $("<tbody>");
 				for(var c of result){
@@ -50,7 +52,9 @@ function item_customer_search(){
 			var pi = data.pi;
 			var result = data.result;
 			if(result.length == 0){
-				$("#item-customer-table>tbody").remove();
+				var tr = $("<tr>");
+				tr.append($("<td colspan='4'>").text("조회된 거래처가 없습니다."));
+				$("#item-customer-table>tbody").html(tr);
 			}else{
 				var tbody = $("<tbody>");
 				for(var c of result){
