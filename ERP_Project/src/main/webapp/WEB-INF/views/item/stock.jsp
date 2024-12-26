@@ -19,7 +19,7 @@
 			
 			<input type="text" id="item-customer-search-keyword">
 			<button id="customer-search-btn">search</button>
-			<button class="add" onclick="item_customer_modal_add();">거래처 추가</button>
+			<button class="add" onclick="modalShow();">거래처 추가</button>
 		</div>
 		<script>
 			$(function() {
@@ -52,24 +52,7 @@
 						item_customer_list();
 					}
 				});
-				
-				$("#item-customer-table").on("click","td",function(){
-					let list = [];
-					$(this).parent().find("td").each(function(){
-						list.push($(this).text());
-					})
-					item_customer_modal_info(list);
-				})
 
-				//추가
-				$(".add-btn").click(function(){
-					item_customer_add();
-				})
-				//수정
-				$(".info-btn").click(function(){
-					item_customer_info();
-				})
-				
 				//모달 숨기기
 				$(".modalHide").click(function() {
 					modalHide();
@@ -101,7 +84,6 @@
 					<img src="${contextPath}/icon/x.png" class="modalHide">
 				</div>
 				<h3>거래처 추가</h3>
-				<input type="hidden" class="modal-customerNo">
 				<table>
 					<tbody>
 						<tr>
@@ -118,7 +100,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<button>입력</button>
+				<button onclick="item_customer_add();">입력</button><br>
 			</div>
 		</div>
 	</div>

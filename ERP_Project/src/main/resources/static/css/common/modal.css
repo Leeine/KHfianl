@@ -1,0 +1,56 @@
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+}
+
+.modal {
+	right: 0;
+    text-align: center;
+	width: 800px;
+	height: 600px;
+	background-color: white;
+	border-radius: 10px;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+.modal input{
+	border: 0;
+	width: 100%;
+	outline: none;
+}
+.modal>table {
+	width: 80%;
+	border: 2px solid black;
+	margin: 0 auto;
+}
+.modal th, .modal td{
+	border: 2px solid black;
+	
+}
+.modal button{
+	margin: 10px auto;
+	width: 80%;
+}
+.modal-header{
+	background-color: rgb(55, 78, 121);
+	height : 30px;
+	width: 100%;
+	padding: 5px;
+}
+.modalHide{
+	width: 20px;
+	height: 20px;
+	float: right;
+	filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(157deg) brightness(102%) contrast(102%);
+}
+
+.modalHide:hover{
+	cursor: pointer;
+}

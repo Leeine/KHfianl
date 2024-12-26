@@ -36,6 +36,10 @@ public class ItemDao {
 		return (ArrayList)sqlSession.selectList("itemMapper.searchCustomerList",keyword,rowBounds);
 	}
 
+	public int customerInsert(SqlSessionTemplate sqlSession, Customer customer) {
+		return sqlSession.insert("itemMapper.customerInsert",customer);
+	}
+
 	
 
 }

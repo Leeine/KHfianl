@@ -20,6 +20,8 @@
 <meta charset="UTF-8">
 <script src="/erp/js/summernote/summernote-ajax.js"></script>
 <script src="/erp/js/common/menu.js"></script>
+<script src="/erp/js/common/modal.js"></script>
+<link href="/erp/css/common/modal.css" rel="stylesheet">
 <link href="/erp/css/item/customer.css" rel="stylesheet">
 <script src="/erp/js/item/customer.js"></script>
 

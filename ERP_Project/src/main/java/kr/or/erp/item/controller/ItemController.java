@@ -70,6 +70,18 @@ public class ItemController {
 		return resultMap;
 	}
 	
+	//거래처 추가
+	@ResponseBody
+	@GetMapping("/customer/insert")
+	public String customerInsert(Customer customer) {
+		int result = itemService.customerInsert(customer);
+		if(result>0) {
+			return "NNNNY";
+		}else{
+			return "NNNNN";
+		}
+	}
+	
 
 	//물품 등록 페이지
 	@GetMapping("/insert")
