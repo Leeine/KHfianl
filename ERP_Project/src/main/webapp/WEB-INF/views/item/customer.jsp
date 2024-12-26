@@ -8,8 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:set var="contextPath"
-		value="${pageContext.servletContext.contextPath}" />
+	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}" />
 	<div id="item-customer-page">
 		<div id=item-customer-input-area>
 			<span id="item-customer-pagingbar"> 
@@ -92,12 +91,12 @@
 				</tr>
 			</thead>
 		</table>
-
+		
 
 		<!-- 거래처 추가 모달 -->
-		<div class="modal-overlay" id="modal">
-			<div class="modal" id="draggable-modal">
-				<div class="modal-header">
+		<div class="modal-overlay">
+			<div class="modal-custom">
+				<div class="modal-custom-header">
 					<img src="${contextPath}/icon/x.png" class="modalHide">
 				</div>
 				<h3>거래처 추가</h3>
@@ -118,7 +117,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<button>입력</button>
+				<button class="modal-custom-button">입력</button>
 			</div>
 		</div>
 	</div>

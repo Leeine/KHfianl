@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="/erp/css/common/menu.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
@@ -115,28 +114,6 @@
     </div>
     
     
-    <script>
-    	//관리자 기능
-    	$(function(){
-    		var dept = ("${loginUser.deptCode}").substring(0,1);
-    		if(dept != "D"){
-    			$(".admin").hide();
-    		}
-    	});
-    	
-    	
-    	
     
-        $(".side-menu").click(function(){
-            $($(this).parent()).siblings().find(".sub-menu").slideUp();
-            $(this).siblings(".sub-menu").slideToggle();
-        });
-        $("#sidebar").mouseleave(function(){
-            $(".sub-menu").slideUp();
-        })
-        $(".sign-out").click(function(){
-        	location.href ="${contextPath}/employee/logout";
-        })
-    </script>
 </body>
 </html>
