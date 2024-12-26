@@ -28,7 +28,7 @@
                     <span class="side-menu-text">전자결재</span>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="">서브메뉴1</a></li>
+                    <li><a onclick="testDocument()">결재테스트</a></li>
                     <li><a href="">서브메뉴1</a></li>
                     <li><a href="">서브메뉴1</a></li>
                 </ul>

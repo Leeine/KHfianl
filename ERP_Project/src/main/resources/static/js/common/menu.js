@@ -32,3 +32,22 @@ function itemListPage(){
         }
 	})
 };
+
+function testDocument(){
+	$.ajax({
+		url : "/erp/approve/insert",
+		method: 'GET',
+		success: function (data){ 
+			$("#main-content-header").html("<h2>결재 서류</h2>")
+            $("#main-content-block").html($(data).filter("#textdiv")[0]);
+            
+		},
+		error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        },
+        complete : function(){
+			testsummernote();
+		}
+		
+	})
+}
