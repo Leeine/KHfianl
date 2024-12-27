@@ -1,4 +1,4 @@
-//거래처 리스트
+//재고 리스트
 function item_stock_list(){
 	$.ajax({
 		url : "/erp/item/stock/list",
@@ -17,17 +17,18 @@ function item_stock_list(){
 				var tbody = $("<tbody>");
 				for(var c of result){
 					var tr = $("<tr>");
-					tr.append($("<td>").append(c.stockNo));
-					tr.append($("<td>").append(c.stockName));
-					tr.append($("<td>").append(c.stockTel));
-					tr.append($("<td>").append(c.stockAddress));
+					tr.append($("<td>").append(c.itemCode));
+					tr.append($("<td>").append(c.itemName));
+					tr.append($("<td>").append(c.itemPrice));
+					tr.append($("<td>").append(c.itemCount)); 
+					tr.append($("<td>").append(c.itemCategoryName));
 					tbody.append(tr);
 				}
 				$("#item-stock-table>tbody").remove();
 				$("#item-stock-table").append(tbody);
 				
 				$("#stock-currentPage").val(pi.currentPage);
-				$("#stock-maxPage").val(pi.maxPage);
+				$("#stock-maxPage").text(pi.maxPage);
 			}
         },
         error : function(error) {
@@ -39,7 +40,7 @@ function item_stock_list(){
 
 
 
-//거래처 검색
+//재고 검색
 function item_stock_search(){
 	$.ajax({
 		url : "/erp/item/stock/search",
@@ -59,17 +60,17 @@ function item_stock_search(){
 				var tbody = $("<tbody>");
 				for(var c of result){
 					var tr = $("<tr>");
-					tr.append($("<td>").append(c.stockNo));
-					tr.append($("<td>").append(c.stockName));
-					tr.append($("<td>").append(c.stockTel));
-					tr.append($("<td>").append(c.stockAddress));
+					tr.append($("<td>").append(c.customerNo));
+					tr.append($("<td>").append(c.customerName));
+					tr.append($("<td>").append(c.customerTel));
+					tr.append($("<td>").append(c.customerAddress));
 					tbody.append(tr);
 				}
 				$("#item-stock-table>tbody").remove();
 				$("#item-stock-table").append(tbody);
 				
 				$("#stock-currentPage").val(pi.currentPage);
-				$("#stock-maxPage").val(pi.maxPage);
+				$("#stock-maxPage").text(pi.maxPage);
 			}
         },
         error : function(error) {
@@ -79,18 +80,20 @@ function item_stock_search(){
 };
 
 
-//거래처 추가
-function item_stock_add(){
+//제품 정보 수정
+function item_stock_info(){
+	var no = $(".modal-stockNo").val();
 	var name = $(".modal-input1").val();
 	var tel = $(".modal-input2").val();
 	var address = $(".modal-input3").val();
 	$.ajax({
-		url : "/erp/item/stock/insert",
+		url : "/erp/item/stock/update",
 		method : 'GET',
-		data : {
-			stockName : name,
-			stockTel : tel,
-			stockAddress : address
+		data : { 
+
+
+
+
 		},
 		success : function(result){
 			if(result=="NNNNY"){
@@ -99,11 +102,24 @@ function item_stock_add(){
 				$("#item-stock-search-keyword").val('');
 				$('#stock-currentPage').val('1');
 				item_stock_list();
-				alert("추가완료");
+				alert("수정 완료");
+			}else{
+				alert("수정 실패");
 			}
 		},
         error: function(error) {
             console.error('AJAX 요청 실패:', error);
         }
 	});
-}; 
+};
+
+//모달 내부 dom 변경
+function item_stock_modal_info(list){	//제품 정보 수정
+	modalShow();
+	$(".modal h3").text("제품 정보 수정");
+	
+	$(".modal-itemNo").val(list[0]);
+	$(".modal-input1").val(list[1]);
+	$(".modal-input2").val(list[2]);
+	$(".modal-input3").val(list[3]);
+}

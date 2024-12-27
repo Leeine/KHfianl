@@ -34,6 +34,36 @@
 		INSERT INTO CUSTOMER
 		VALUES(SEQ_CUSTOMER_NO.NEXTVAL,#{customerName},#{customerTel},#{customerAddress})
 	</insert>
+	<update id="customerUpdate" parameterType="Customer">
+		UPDATE CUSTOMER
+		SET CUSTOMER_NAME = #{customerName}
+			, CUSTOMER_TEL = #{customerTel}
+			, CUSTOMER_ADDRESS = #{customerAddress}
+		WHERE CUSTOMER_NO = #{customerNo}
+	</update>
+	
+	<select id="stockListCount" resultType="_int">
+		SELECT COUNT(*) COUNT
+		FROM ITEM
+		ORDER BY ITEM_NAME
+	</select>
+	<select id="stockList" resultType="Item">
+		SELECT I.ITEM_CODE AS "ITEM_CODE",
+		       ITEM_NAME,
+		       ITEM_PRICE,
+		       ITEM_COUNT,
+		       LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS "ITEM_CATEGORY_NAME"
+		FROM ITEM I
+		LEFT JOIN ITEM_CATEGORY C ON I.ITEM_CODE = C.ITEM_CODE
+		LEFT JOIN ITEM_CATEGORY_LIST CL ON C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO
+		GROUP BY I.ITEM_CODE, ITEM_NAME, ITEM_PRICE, ITEM_COUNT
+		ORDER BY I.ITEM_CODE
+	</select>
+	
+	
+	
+	
+	
 	
 	
 </mapper>

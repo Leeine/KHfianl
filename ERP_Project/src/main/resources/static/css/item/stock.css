@@ -7,7 +7,7 @@ table {
 }
 
 #item-stock-table {
-	width: 100%;
+	width: 1200px;
 }
 
 #item-stock-table th,
@@ -16,20 +16,31 @@ table {
 	border: 2px solid black;
 	text-align: center;
 }
-
+#item-stock-table thead{
+    background-color: rgb(225, 235, 255);
+}
+#item-stock-table tr:hover {
+	background-color: rgb(192, 192, 192);
+}
+#item-stock-table>thead>tr:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
 #item-stock-pagingbar>input {
 	width: 30px;
-}
-#stock-maxPage{
-	color: gray;
 }
 #item-stock-search-keyword{
 	margin-left: 20px;
 }
+#item-stock-input-area{
+	width: 1200px;
+}
 .add {
 	float: right;
 }
-
+.modal-submit-btn{
+	width: 80%;
+	margin-top: 10px;
+}
 input {
 	outline: none;
 }

@@ -13,7 +13,7 @@
 		<div id=item-customer-input-area>
 			<span id="item-customer-pagingbar"> 
 				<input type="hidden" id="customer-startPage" value="1"> 
-				<input type="text" id="customer-currentPage"> / <input type="text" id="customer-maxPage" value="1" readonly>
+				<input type="text" id="customer-currentPage"> / <span id="customer-maxPage">1</span>
 			</span> 
 			
 			<input type="text" id="item-customer-search-keyword">
@@ -37,7 +37,7 @@
 					if (num == '') {
 						$(this).val('1');
 					}
-					var maxPage = $('#customer-maxPage').val();
+					var maxPage = $('#customer-maxPage').text();
 					var startPage = $("#customer-startPage").val();
 
 					if (num > maxPage || num < startPage) {
@@ -59,15 +59,6 @@
 					})
 					item_customer_modal_info(list);
 				})
-
-				//추가
-				$(".add-btn").click(function(){
-					item_customer_add();
-				})
-				//수정
-				$(".info-btn").click(function(){
-					item_customer_info();
-				})
 				
 				//모달 숨기기
 				$(".modalHide").click(function() {
@@ -77,10 +68,10 @@
 		</script>
 		<table id="item-customer-table">
 			<colgroup>
-				<col style="width: 15%">
-				<col style="width: 35%">
-				<col style="width: 20%">
-				<col style="width: 30%">
+				<col style="width: 100px">
+				<col style="width: 450px">
+				<col style="width: 150px">
+				<col style="width: 500px">
 			</colgroup>
 			<thead>
 				<tr>
@@ -117,7 +108,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<button class="modal-custom-button">입력</button>
+				<button class="modal-submit-btn" onclick="modal_submit();">입력</button>
 			</div>
 		</div>
 	</div>
