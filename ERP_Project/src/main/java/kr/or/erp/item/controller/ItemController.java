@@ -40,13 +40,13 @@ public class ItemController {
 
 		int searchCount = itemService.customerListCount();
 		int pageLimit = 1;	
-		int boardLimit = 20;
+		int boardLimit = 25;
 		PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
 
-		ArrayList<Customer> searchList = itemService.searchCustomer(pi);
+		ArrayList<Customer> list = itemService.customerList(pi);
 
 		resultMap.put("pi", pi);
-		resultMap.put("result", searchList);
+		resultMap.put("result", list);
 		return resultMap;
 	}
 	
@@ -60,7 +60,7 @@ public class ItemController {
 
 		int searchCount = itemService.searchCustomerListCount(keyword);
 		int pageLimit = 1;	
-		int boardLimit = 20;
+		int boardLimit = 25;
 		PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
 
 		ArrayList<Customer> searchList = itemService.searchCustomer(pi,keyword);
@@ -81,21 +81,52 @@ public class ItemController {
 			return "NNNNN";
 		}
 	}
+	//거래처 정보 수정
+	@ResponseBody
+	@GetMapping("/customer/update")
+	public String customerUpdate(Customer customer) {
+		int result = itemService.customerUpdate(customer);
+		if(result>0) {
+			return "NNNNY";
+		}else{
+			return "NNNNN";
+		}
+	}
+	
+	//===============================================================================================================================
+	
 	
 
-	//물품 등록 페이지
-	@GetMapping("/insert")
-	public String insert() {
-		
-		return "item/insert";
-	}
-
-	//거래처 관리 페이지
-	@GetMapping("/list")
+	//재고 관리 페이지 이동
+	@GetMapping("/stock")
 	public String list() {
 		
-		return "item/list";
+		return "item/stock";
 	}
+	
+	//재고 확인
+	@ResponseBody
+	@GetMapping(value="/stock/list", produces = "application/json;charset=UTF-8")
+	public HashMap<String,Object> itemList(
+			@RequestParam(value="currentPage", defaultValue ="1")
+			String currentPage){
+		
+		HashMap<String,Object> resultMap = new HashMap<>();
+		
+
+		int searchCount = itemService.stockListCount();
+		int pageLimit = 1;	
+		int boardLimit = 20;
+		PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
+
+		ArrayList<Customer> searchList = itemService.stockList(pi);
+
+		resultMap.put("pi", pi);
+		resultMap.put("result", searchList);
+		return resultMap;
+	}
+	
+	
 	
 	
 	

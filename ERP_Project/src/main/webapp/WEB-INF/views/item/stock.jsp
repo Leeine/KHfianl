@@ -14,12 +14,12 @@
 		<div id=item-stock-input-area>
 			<span id="item-stock-pagingbar"> 
 				<input type="hidden" id="stock-startPage" value="1"> 
-				<input type="text" id="stock-currentPage"> / <input type="text" id="stock-maxPage" value="1" readonly>
+				<input type="text" id="stock-currentPage"> / <span id="stock-maxPage">1</span>
 			</span> 
 			
 			<input type="text" id="item-stock-search-keyword">
 			<button id="stock-search-btn">search</button>
-			<button class="add" onclick="modalShow();">거래처 추가</button>
+			<button class="add"onclick="modalShow();">카테고리 관리</button>
 		</div>
 		<script>
 			$(function() {
@@ -38,7 +38,7 @@
 					if (num == '') {
 						$(this).val('1');
 					}
-					var maxPage = $('#stock-maxPage').val();
+					var maxPage = $('#stock-maxPage').text();
 					var startPage = $("#stock-startPage").val();
 
 					if (num > maxPage || num < startPage) {
@@ -52,7 +52,15 @@
 						item_stock_list();
 					}
 				});
-
+				
+				$("#item-stock-table").on("click","td",function(){
+					let list = [];
+					$(this).parent().find("td").each(function(){
+						list.push($(this).text());
+					})
+					item_stock_modal_info(list);
+				})
+				
 				//모달 숨기기
 				$(".modalHide").click(function() {
 					modalHide();
@@ -61,10 +69,11 @@
 		</script>
 		<table id="item-stock-table">
 			<colgroup>
-				<col style="width: 15%">
-				<col style="width: 35%">
-				<col style="width: 20%">
-				<col style="width: 30%">
+				<col style="width: 100px">
+				<col style="width: 400px">
+				<col style="width: 100px">
+				<col style="width: 70px">
+				<col style="width: 530px">
 			</colgroup>
 			<thead>
 				<tr>
@@ -72,30 +81,31 @@
 					<th>제품명</th>
 					<th>가격</th>
 					<th>수량</th>
+					<th>카테고리</th>
 				</tr>
 			</thead>
 		</table>
 
-
-		<!-- 제품 추가 모달 -->
-		<div class="modal-overlay" id="modal">
-			<div class="modal" id="draggable-modal">
+		<!-- 모달 -->
+		<div class="modal-overlay">
+			<div class="modal">
 				<div class="modal-header">
 					<img src="${contextPath}/icon/x.png" class="modalHide">
 				</div>
-				<h3>제품 추가</h3>
+				<h3>모달창</h3>
+				<input type="hidden" class="modal-itemNo">
 				<table>
 					<tbody>
 						<tr>
-							<th>거래처명</th>
+							<th>제품명</th>
 							<td><input type="text" class="modal-input1"></td>
 						</tr>
 						<tr>
-							<th>전화</th>
+							<th>가격</th>
 							<td><input type="text" class="modal-input2"></td>
 						</tr>
 						<tr>
-							<th>주소</th>
+							<th>카테고리</th>
 							<td><input type="text" class="modal-input3"></td>
 						</tr>
 					</tbody>
