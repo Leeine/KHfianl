@@ -1,107 +1,193 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
-	<!-- jQuery ¶óÀÌºê·¯¸® -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- ºÎÆ®½ºÆ®·¦¿¡¼­ Á¦°øÇÏ°í ÀÖ´Â ½ºÅ¸ÀÏ -->
+	<!-- ë¶€íŠ¸ìŠ¤íŠ¸ë©ì—ì„œ ì œê³µí•˜ê³  ìˆëŠ” ìŠ¤íƒ€ì¼ -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- ºÎÆ®½ºÆ®·¦¿¡¼­ Á¦°øÇÏ°í ÀÖ´Â ½ºÅ©¸³Æ® -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
-    <!-- alertify alertÃ¢ º¯È­ -->
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
-	<!-- CSS -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
-	<!-- Default theme -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/>
-	<!-- Semantic UI theme -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
-	<!-- Bootstrap theme -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css"/>
-	 
+<style>
+	 	body {
+    		background-color: rgb(225, 235, 255);
+	    }
+	    #main-content-header{
+	    	margin : 30px;
+	    	width : 93%;
+	    	height : 100px;
+	    	border-radius : 20px;
+			background-color: white;
+	    }
+		#main-content{
+			margin-left : 60px;
+		}
+		#main-content-block{
+			margin : 30px;
+			padding : 1px 15px;
+			background-color: white;
+			border-radius: 20px;
+			width : 93%;
+			height : 80vh;
+		}
+	 </style>
 </head>
 <body>
-	<div>
-		<table id="empAttList" class="table table-hover" align="center">
-        	<thead>
-            	<tr>
-            		<th>±ÙÅÂÀÏÀÚ</th>
-                	<th>»ç¿ø¸í</th>
-                	<th>±ÙÅÂ</th>
-                	<th>±ÙÅÂ¼ö</th>
-                	<th>»ç¿ë</th>
-                	<th></th>
-            	</tr>
-	       	</thead>
-	    	<tbody>
-        	</tbody>
-		</table>
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insrtAttForm">Ç×¸ñÃß°¡</button>
-	</div>
-	
-	<div class="modal fade" id="insrtEmpAttForm">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Ç×¸ñ Ãß°¡</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <form action="attInsert" method="post">
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                    	<table align="center">
-			            	<tr>
-			                	<th>±ÙÅÂ¸íÄª</th>
-			                	<td><input type="text" class="form-control" name="attName"></td>
-			            	</tr>
-			            	<tr>
-			            		<th>±ÙÅÂÀ¯Çü</th>
-			            		<td>
-			            			<select name="attTypeCode">
-			            				<option value="100">¿¬Â÷</option>
-			            				<option value="101">¹İÂ÷</option>
-			            				<option value="102">¿ùÂ÷</option>
-			            			</select>
-			            		</td>
-			            	</tr>
-			            	<tr>
-			            		<th>±ÙÅÂ¼ö</th>
-			            		<td><input type="number" class="form-control" name="attCount"></td>
-			            	</tr>
-			            	<tr>
-			            		<th>Àû¿ä</th>
-			            		<td><input type="text" class="form-control"></td>
-			            	</tr>
-				    	</table>
-                    </div>
-                    <!-- Modal footer -->
-                    <div class="modal-footer" align="center">
-                        <button type="submit" class="btn btn-primary">Ãß°¡ÇÏ±â</button>
-                    </div>
-                </form>
-            </div>
-            
-            <script>
-            	
-            </script>
+	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
+	<%@include file="/WEB-INF/views/attemdance/modal.jsp"%>
+	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
+	<div id="main-content">
+		<c:if test="${not empty alertMsg}">
+			<script>
+				alert("${alertMsg}");
+			</script>
+			<c:remove var="alertMsg"/>
+		</c:if>
+		
+		<div id="main-content-header">
 		</div>
-    </div>
+		
+		
+		<div id="main-content-block">
+				<table id="empAttList" class="table table-hover" align="center">
+		        	<thead>
+		            	<tr>
+		            		<th>ê·¼íƒœì¼ì</th>
+		                	<th>ì‚¬ì›ëª…</th>
+		                	<th>ê·¼íƒœ</th>
+		                	<th>ê·¼íƒœìˆ˜</th>
+		                	<th>ì‚¬ìš©</th>
+		                	<th></th>
+		            	</tr>
+			       	</thead>
+			    	<tbody>
+		        	</tbody>
+				</table>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insrtEmpAttForm">í•­ëª©ì¶”ê°€</button>
+		</div>
+		
+		<div class="modal fade" id="insrtEmpAttForm">
+		        <div class="modal-dialog modal-dialog-centered">
+		            <div class="modal-content">
+		
+		                <!-- Modal Header -->
+		                <div class="modal-header">
+		                    <h4 class="modal-title">ê·¼íƒœ ì¶”ê°€</h4>
+		                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+		                </div>
+		
+		                <form action="empAttInsert" method="post">
+		                    <!-- Modal body -->
+		                    <div class="modal-body">
+		                    	<table align="center">
+					            	<tr>
+					            		<th>ê·¼íƒœì¼ì</th>
+					            		<td>
+						                	<select id="timeY">
+						            			<option value="2025">2025</option>
+						            			<option value="2024">2024</option>
+						            			<option value="2023">2023</option>
+						            			<option value="2022">2022</option>
+						            			<option value="2021">2021</option>
+						            			<option value="2020">2020</option>
+						            		</select>
+						            		-
+						            		<select id="timeM">
+						            			<option value="01">1</option>
+						            			<option value="02">2</option>
+						            			<option value="03">3</option>
+						            			<option value="04">4</option>
+						            			<option value="05">5</option>
+						            			<option value="06">6</option>
+						            			<option value="07">7</option>
+						            			<option value="08">8</option>
+						            			<option value="09">9</option>
+						            			<option value="10">10</option>
+						            			<option value="11">11</option>
+						            			<option value="12">12</option>
+						            		</select>
+						            		-
+						            		<input type="number" id="timeD" required>
+						            		<input type="hidden" name="empAttTime" id="empAttTime">
+					            		</td>
+					            	</tr>
+					            	<tr>
+					            		<th>ì‚¬ì›ëª…</th>
+					            		<td>
+					            			<input type="hidden" name="empNo" id="empNo">
+					            			<input type="text" name="empName" id="empName" readonly  data-toggle="modal" data-target="#empList">
+					            		</td>
+					            	</tr>
+					            	<tr>
+					            		<th>ê·¼íƒœ</th>
+					            		<td>
+					            			<select name="attCode" id="attCode">
+											</select>
+					            		</td>
+					            	</tr>
+					            	<tr>
+					            		<th>ê·¼íƒœìˆ˜</th>
+					            		<td><input type="number" name="empAttCount"></td>
+					            	</tr>
+					            	<tr>
+					            		<th></th>
+					            		<td></td>
+					            	</tr>
+						    	</table>
+		                    </div>
+		                    <!-- Modal footer -->
+		                    <div class="modal-footer" align="center">
+		                        <button type="submit" id="empAttInsert" class="btn btn-primary">ì¶”ê°€í•˜ê¸°</button>
+		                    </div>
+		                </form>
+		            </div>
+				</div>
+		</div>
+		
+		<div class="modal fade" id="empList">
+		        <div class="modal-dialog modal-dialog-centered">
+		            <div class="modal-content">
+		
+		                <!-- Modal Header -->
+		                <div class="modal-header">
+		                    <h4 class="modal-title">ì‚¬ì› ëª©ë¡</h4>
+		                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+		                </div>
+		                <!-- Modal body -->
+		                <div class="modal-body">
+		                    <table align="center" class="table table-hover" id="empListTable">
+		                    	<thead>
+		                    		<tr>
+						            	<th>ì‚¬ì›ì½”ë“œ</th>
+						            	<th>ì‚¬ì›ëª…</th>
+						            	<th>ë¶€ì„œ</th>
+						            	<th>ë‚¨ì€ ìˆ˜</th>
+						            </tr>
+		                    	</thead>
+		                    	<tbody>
+		                    	
+		                    	</tbody>
+							</table>
+		            	</div>
+		            </div>
+				</div>
+		</div>
+		
+	</div>
+
+	
     
 	
 	<script>
 	
 		$(function(){
-			selectAttList();
+			empAttList();
+			optionList();
+			empList();
 		});
 		
-		function selectAttList(){
+		function empAttList(){
 			$.ajax({
 				url : "empAttList",
 				success : function(list){
@@ -112,81 +198,241 @@
 					for(var att of list){
 						str += "<tr>"
 							 + "<td>"+ att.empAttTime +"</td>"
-							 + "<td>"+ att.empName +"</td>"
-							 + "<td>"+ att.attName +"</td>"
-							 + "<td>"+ att.empAttCount +"</td>"
+							 + "<td data-value='"+ att.empNo +"'>"+ att.empName +"</td>"
+							 + "<td data-value='"+ att.attCode +"'>"+ att.attName +"</td>"
+							 + "<td data-value='"+ att.empAttCount +"'>"+ att.empAttCount +"</td>"
 							 + "<td>";
 						
 						if(att.empAttState == null){
-							str += "</td>";
+							str += "</td>" + "<td>";
 						}else{
 							str += att.empAttState +"</td>" + "<td>";
 						}
 							 
 						
 						if(att.empAttState == 'Y'){
-							str += "<button class='btn btn-secondary attUpdate'>ÁßÁö</button>";
+							str += "<button class='btn btn-secondary attUpdate'>ì¤‘ì§€</button>";
 						}else if(att.empAttState == 'N'){
-							str += "<button class='btn btn-secondary attUpdate2'>»ç¿ë</button>";
+							str += "<button class='btn btn-secondary attUpdate2'>ì‚¬ìš©</button>";
+						}else{
+							str += "<button class='btn btn-secondary attUpdate3'>í™•ì¸</button>";
 						}
 						
-						str += "<button  class='btn btn-danger attDelete'>»èÁ¦</button>"
+						str += "<button  class='btn btn-danger attDelete'>ì‚­ì œ</button>"
 							 + "</td>"
 							 + "</tr>";
 					}
 					$("#empAttList tbody").html(str);
 				},
 				error : function(){
-					console.log("Åë½Å ¿À·ù");
+					console.log("í†µì‹  ì˜¤ë¥˜");
 				}
 			});
 		}
 		
-		//±ÙÅÂ Ç×¸ñ Ãß°¡
-		$("#attInsert").click(function(){
+		function optionList(){
 			$.ajax({
-				url : "attInsert",
-				data : {
-					attName : $("#attName"),
-					attTypeCode : $("#attTypeCode"),
-					attCount : $("#attCount")
-				},
-				success : function(response) {
-	                if (response === "NNNNY") {
-	                    alert("Ãß°¡µÇ¾ú½À´Ï´Ù.");
-	                    selectAttList();
-	                } else {
-	                    alert("Ãß°¡ ½ÇÆĞ");
-	                }
+				url : "attOptList",
+				success : function(list){
+					
+					var str = "";
+					
+					for (var opt of list){
+						str += "<option value='"+ opt.attCode +"'>" + opt.attName + "</option>";
+					}
+					
+					$("#attCode").html(str);
 				},
 				error : function(){
-					console.log("Åë½Å ¿À·ù");
+					console.log("í†µì‹  ì˜¤ë¥˜");
 				}
 			});
-		});
-
+		}
 		
-		//±ÙÅÂ Ç×¸ñ »èÁ¦
+		//ì‚¬ì› ëª©ë¡ ì¡°íšŒ
+		function empList(){
+			$.ajax({
+				url : "empList",
+				success : function(list){
+					var str = "";
+					
+					for(var emp of list){
+						str += "<tr>"
+							 + "<td>"+ emp.empNo +"</td>"
+							 + "<td>"+ emp.empName +"</td>";
+							 
+						if(emp.deptCode == "null"){
+							str += "<td>"+ emp.deptCode +"</td>";
+						}else{
+							str += "<td></td>";
+						}
+						
+						str += "<td>"+ emp.vacation +"</td>"
+							 + "</tr>";
+					}
+					
+					$("#empListTable tbody").html(str);
+				},
+				error : function(){
+					console.log("í†µì‹  ì˜¤ë¥˜");
+				}
+			});
+		}
+		
+		//ì‚¬ì› ê°’ ë„£ê¸°
+		$("#empListTable").on("click","tbody tr", function(){
+			
+			var empNo = $(this).find("td:nth-child(1)").text();
+			var empName = $(this).find("td:nth-child(2)").text();
+			
+			$("#empNo").val(empNo);
+			$("#empName").val(empName);
+			
+			$("#empList").modal("hide");
+		});
+		
+		//ê·¼íƒœ ì¼ì
+		$("#empAttInsert").click(function(){
+			var timeY = $("#timeY").val();
+			var timeM = $("#timeM").val();
+			var timeD = $("#timeD").val();
+			
+			var empAttTime = timeY + "-" + timeM  + "-" + timeD;
+			
+			$("#empAttTime").val(empAttTime);
+			
+		});
+		
+		//ê·¼íƒœ í•­ëª© ì‚­ì œ
 		$("#empAttList").on("click","tbody>tr .attDelete",function(){
 				
-			var code = $(this).closest("tr").children().first().text();
-			console.log(code);
+			var tr = $(this).closest("tr");
+			var empAttTime = tr.find("td:nth-child(1)").text();
+			var empNo = tr.find("td:nth-child(2)").data("value");
+			var attCode = tr.find("td:nth-child(3)").data("value");
 			
-			if (confirm("º¹±¸°¡ ºÒ°¡´ÉÇÕ´Ï´Ù. Á¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
+			if (confirm("ë³µêµ¬ê°€ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤. ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
 		        $.ajax({
-		            url: "attDelete",
-		            method: "GET",
-		            data: { attCode: code },
-		            success: function(response) {
-		                if (response === "NNNNY") {
-		                    alert("»èÁ¦°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
-		                    selectAttList();
+		            url: "empAttDelete",
+		            method: "post",
+		            data: {
+		            	empAttTime : empAttTime,
+		            	empNo : empNo,
+		            	attCode : attCode
+		            },
+		            success: function(result) {
+		                if (result == "NNNNY") {
+		                    alert("ì‚­ì œê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+		                    empAttList();
 		                } else {
-		                    alert("»èÁ¦ ½ÇÆĞ");
+		                    alert("ì‚­ì œ ì‹¤íŒ¨");
 		                }
 		            },
 		            error: function() {
-		                alert("Åë½Å ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.");
+		                console.log("í†µì‹  ì˜¤ë¥˜");
+		            }
+		        });
+		    }
+		});
+		
+		//ê·¼íƒœ í™•ì¸
+		$("#empAttList").on("click","tbody>tr .attUpdate3",function(){
+			
+			var tr = $(this).closest("tr");
+			var empAttTime = tr.find("td:nth-child(1)").text();
+			var empNo = tr.find("td:nth-child(2)").data("value");
+			var attCode = tr.find("td:nth-child(3)").data("value");
+			var empAttCount = tr.find("td:nth-child(4)").data("value");
+			
+			if (confirm("í™•ì¸ ì²˜ë¦¬ë¥¼ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
+		        $.ajax({
+		            url: "empAttUpdate",
+		            method: "post",
+		            data: {
+		            	empAttTime : empAttTime,
+		            	empNo : empNo,
+		            	attCode : attCode,
+		            	empAttCount : empAttCount
+		            },
+		            success: function(result) {
+		                if (result == "NNNNY") {
+		                    alert("ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+		                    empAttList();
+		                    empList();
+		                } else {
+		                    alert("ì‹¤íŒ¨");
+		                }
+		            },
+		            error: function() {
+		                console.log("í†µì‹  ì˜¤ë¥˜");
+		            }
+		        });
+		    }
+		});
+		
+		$("#empAttList").on("click","tbody>tr .attUpdate2",function(){
+			
+			var tr = $(this).closest("tr");
+			var empAttTime = tr.find("td:nth-child(1)").text();
+			var empNo = tr.find("td:nth-child(2)").data("value");
+			var attCode = tr.find("td:nth-child(3)").data("value");
+			var empAttCount = tr.find("td:nth-child(4)").data("value");
+			
+			if (confirm("í•´ë‹¹ í•­ëª©ì„ ì‚¬ìš©í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
+		        $.ajax({
+		            url: "empAttUpdate",
+		            method: "post",
+		            data: {
+		            	empAttTime : empAttTime,
+		            	empNo : empNo,
+		            	attCode : attCode,
+		            	empAttCount : empAttCount
+		            },
+		            success: function(result) {
+		                if (result == "NNNNY") {
+		                    alert("ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+		                    empAttList();
+		                    empList();
+		                } else {
+		                    alert("ì‹¤íŒ¨");
+		                }
+		            },
+		            error: function() {
+		                console.log("í†µì‹  ì˜¤ë¥˜");
+		            }
+		        });
+		    }
+		});
+		
+		$("#empAttList").on("click","tbody>tr .attUpdate",function(){
+			
+			var tr = $(this).closest("tr");
+			var empAttTime = tr.find("td:nth-child(1)").text();
+			var empNo = tr.find("td:nth-child(2)").data("value");
+			var attCode = tr.find("td:nth-child(3)").data("value");
+			var empAttCount = tr.find("td:nth-child(4)").data("value");
+			
+			if (confirm("ì‚¬ìš©ì„ ì¤‘ì§€í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
+		        $.ajax({
+		            url: "empAttUpdate2",
+		            method: "post",
+		            data: {
+		            	empAttTime : empAttTime,
+		            	empNo : empNo,
+		            	attCode : attCode,
+		            	empAttCount : empAttCount
+		            },
+		            success: function(result) {
+		                if (result == "NNNNY") {
+		                    alert("ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+		                    empAttList();
+		                    empList();
+		                } else {
+		                    alert("ì‹¤íŒ¨");
+		                }
+		            },
+		            error: function() {
+		                console.log("í†µì‹  ì˜¤ë¥˜");
 		            }
 		        });
 		    }

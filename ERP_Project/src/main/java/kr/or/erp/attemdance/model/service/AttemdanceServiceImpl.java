@@ -10,6 +10,7 @@ import kr.or.erp.attemdance.model.dao.AttemdanceDao;
 import kr.or.erp.attemdance.model.vo.Attemdance;
 import kr.or.erp.attemdance.model.vo.EmpAttemdance;
 import kr.or.erp.attemdance.model.vo.PageInfo;
+import kr.or.erp.employee.model.vo.Employee;
 
 @Service
 public class AttemdanceServiceImpl implements AttemdanceService{
@@ -83,9 +84,57 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 
 	//사원 근태 등록
 	@Override
-	public int insertEmpATt(EmpAttemdance empAtt) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int empAttInsert(EmpAttemdance empAtt) {
+		
+		return attDao.empAttInsert(sqlSession, empAtt);
 	}
+	
+	//근태 선택 옵션
+	@Override
+	public ArrayList<Attemdance> empOptList() {
+		
+		return attDao.empOptList(sqlSession);
+	}
+
+	//사원 리스트
+	@Override
+	public ArrayList<Employee> empList(PageInfo pi) {
+		
+		return attDao.empList(sqlSession, pi);
+	}
+
+	//삭제
+	@Override
+	public int empAttDelete(EmpAttemdance empAtt) {
+		
+		return attDao.empAttDelete(sqlSession, empAtt);
+	}
+
+	//count -
+	@Override
+	public int empAttCount(EmpAttemdance empAtt) {
+		
+		return attDao.empAttCount(sqlSession, empAtt);
+	}
+	//count +
+	@Override
+	public int empAttCount2(EmpAttemdance empAtt) {
+		
+		return attDao.empAttCount2(sqlSession, empAtt);
+	}
+
+	//사원 근태 수정
+	@Override
+	public int empAttUpdate(EmpAttemdance empAtt) {
+		
+		return attDao.empAttUpdate(sqlSession, empAtt);
+	}
+	@Override
+	public int empAttUpdate2(EmpAttemdance empAtt) {
+		
+		return attDao.empAttUpdate2(sqlSession, empAtt);
+	}
+
+	
 
 }

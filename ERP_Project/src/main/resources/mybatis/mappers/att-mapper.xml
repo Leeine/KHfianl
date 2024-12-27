@@ -62,6 +62,73 @@
 		FROM EMP_ATTEMDANCE
 		JOIN ATTEMDANCE USING (ATT_CODE)
 		JOIN EMPLOYEE USING (EMP_NO)
+		ORDER BY INPUT_DATE DESC
 	</select>
+	
+	<!-- 근태옵션리스트 -->
+	<select id="empOptList" resultType="attemdance">
+		SELECT ATT_NAME
+			  ,ATT_CODE
+		FROM ATTEMDANCE
+		WHERE ATT_STATE = 'Y'
+	</select>
+	
+	<!-- 사원 리스트 -->
+	<select id="empList" resultType="employee">
+		SELECT EMP_NO
+		      ,EMP_NAME
+		      ,DEPT_CODE
+		      ,VACATION
+		FROM EMPLOYEE
+		WHERE VACATION BETWEEN 0 AND 50
+	</select>
+	
+	<!-- 사원 근태 추가 -->
+	<insert id="empAttInsert" parameterType="empAttemdance">
+		INSERT INTO EMP_ATTEMDANCE
+		VALUES(#{empAttTime}
+			  ,#{attCode}
+			  ,#{empNo}
+			  ,#{empAttCount}
+			  ,DEFAULT
+			  ,NULL)
+	</insert>
+	
+	<!-- count - -->
+	<update id="empAttCount" parameterType="empAttemdance">
+		UPDATE EMPLOYEE
+		SET VACATION = VACATION - #{empAttCount}
+		WHERE EMP_NO = #{empNo}
+	</update>
+	<!-- count + -->
+	<update id="empAttCount2" parameterType="empAttemdance">
+		UPDATE EMPLOYEE
+		SET VACATION = VACATION + #{empAttCount}
+		WHERE EMP_NO = #{empNo}
+	</update>
+	
+	<!-- 사원 근태 삭제 -->
+	<delete id="empAttDelete" parameterType="empAttemdance">
+		DELETE EMP_ATTEMDANCE
+		WHERE EMP_ATT_TIME = #{empAttTime}
+		  AND EMP_NO = #{empNo}
+		  AND ATT_CODE = #{attCode}
+	</delete>
+	
+	<!-- 사원 근태 수정 -->
+	<update id="empAttUpdate">
+		UPDATE EMP_ATTEMDANCE
+		SET EMP_ATT_STATE = 'Y'
+		WHERE EMP_ATT_TIME = #{empAttTime}
+		  AND EMP_NO = #{empNo}
+		  AND ATT_CODE = #{attCode}
+	</update>
+	<update id="empAttUpdate2">
+		UPDATE EMP_ATTEMDANCE
+		SET EMP_ATT_STATE = 'N'
+		WHERE EMP_ATT_TIME = #{empAttTime}
+		  AND EMP_NO = #{empNo}
+		  AND ATT_CODE = #{attCode}
+	</update>
 	
 </mapper>

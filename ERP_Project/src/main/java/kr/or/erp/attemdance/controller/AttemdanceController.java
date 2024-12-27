@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpSession;
 import kr.or.erp.attemdance.model.service.AttemdanceService;
@@ -20,6 +21,7 @@ import kr.or.erp.attemdance.model.template.Pagination;
 import kr.or.erp.attemdance.model.vo.Attemdance;
 import kr.or.erp.attemdance.model.vo.EmpAttemdance;
 import kr.or.erp.attemdance.model.vo.PageInfo;
+import kr.or.erp.employee.model.vo.Employee;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,7 +36,7 @@ public class AttemdanceController {
 	@GetMapping("/attListPage")
 	public String attListPage(){
 		
-		return "/attemdance/attemdanceEonroll";
+		return "/attemdance/attemdance";
 	}
 	
 	//근태 항목 조회
@@ -57,8 +59,6 @@ public class AttemdanceController {
 	@PostMapping("/attInsert")
 	public String attInsert(Attemdance att) {
 		
-		System.out.println(att);
-		
 		int result = attService.attInsert(att);
 		
 		String resultStr = "";
@@ -68,7 +68,7 @@ public class AttemdanceController {
 		}else {
 			resultStr = "NNNNN";
 		}
-		
+
 		return resultStr;
 	}
 	
@@ -111,8 +111,6 @@ public class AttemdanceController {
 	@GetMapping("/attDelete")
 	public String attDelete(@RequestParam("attCode") int attCode) {
 		
-		System.out.println(attCode);
-		
 		int result = attService.attDelete(attCode);
 		
 		String resultStr = "";
@@ -122,7 +120,7 @@ public class AttemdanceController {
 		}else {
 			resultStr = "NNNNN";
 		}
-		System.out.println(resultStr);
+		
 		return resultStr;
 	}
 	
@@ -136,19 +134,127 @@ public class AttemdanceController {
 	}
 	
 	//사원 근태 목록 조회
-		@ResponseBody
-		@GetMapping("/empAttList")
-		public ArrayList<EmpAttemdance> empAttList(@RequestParam(value="currentPage",defaultValue = "1")int currentPage, Model model){
-			int listCount = attService.empAttListCount();
-			int pageLimit = 5;
-			int boardLimit = 15;
+	@ResponseBody
+	@GetMapping("/empAttList")
+	public ArrayList<EmpAttemdance> empAttList(@RequestParam(value="currentPage",defaultValue = "1")int currentPage){
+		int listCount = attService.empAttListCount();
+		int pageLimit = 5;
+		int boardLimit = 15;
 			
-			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 			
-			ArrayList<EmpAttemdance> list = attService.empAttList(pi);
+		ArrayList<EmpAttemdance> list = attService.empAttList(pi);
 			
-			return list;
-		} 
+		return list;
+	}
+	
+	//사원근태 선택옵션 조회
+	@ResponseBody
+	@GetMapping("/attOptList")
+	public ArrayList<Attemdance> empOptList(){
+		
+		ArrayList<Attemdance> list = attService.empOptList();
+		
+		return list;
+	}
+	
+	//사원 리스트
+	@ResponseBody
+	@GetMapping("/empList")
+	public ArrayList<Employee> empList(@RequestParam(value="currentPage",defaultValue = "1")int currentPage){
+		
+		int listCount = attService.empAttListCount();
+		int pageLimit = 5;
+		int boardLimit = 15;
+			
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+			
+		ArrayList<Employee> list = attService.empList(pi);
+			
+		return list;
+	}
+	
+	//사원 근태 등록
+	@PostMapping("/empAttInsert")
+	public String empAttInsert(EmpAttemdance empAtt, HttpSession session) {
+		
+		
+		int result = attService.empAttInsert(empAtt);
+		
+		if(result >0) {
+			session.setAttribute("alertMsg","등록 성공");
+		}else {
+			session.setAttribute("alertMsg","등록 실패");
+		}
+		
+		
+		return "redirect:/att/empAttListPage";
+	}
+	
+	//사원 근태 삭제
+	@ResponseBody
+	@PostMapping("/empAttDelete")
+	public String empAttDelete(EmpAttemdance empAtt) {
+		
+		int result = attService.empAttDelete(empAtt);
+		
+		String str = "";
+		
+		if(result >0) {
+			str = "NNNNY";
+		}else {
+			str = "NNNNN";
+		}
+		
+		return str;
+	}
+	
+	//사원 근태 확인
+	@ResponseBody
+	@PostMapping("/empAttUpdate")
+	public String empAttUpdate(EmpAttemdance empAtt) {
+		
+		int result1 = attService.empAttCount(empAtt);
+		
+		String str = "";
+		
+		if(result1 > 0) {
+			int result = attService.empAttUpdate(empAtt);
+			
+			if(result >0) {
+				str = "NNNNY";
+			}else {
+				str = "NNNNN";
+			}
+		}else {
+			str = "NNNNN";
+		}
+		
+		return str;
+	}
+	
+	@ResponseBody
+	@PostMapping("/empAttUpdate2")
+	public String empAttUpdate2(EmpAttemdance empAtt) {
+		
+		int result1 = attService.empAttCount2(empAtt);
+		
+		String str = "";
+		
+		if(result1 >0) {
+			int result = attService.empAttUpdate2(empAtt);
+			
+			if(result >0) {
+				str = "NNNNY";
+			}else {
+				str = "NNNNN";
+			}
+		}else {
+			str = "NNNNN";
+		}
+		
+		return str;
+	}
 	
 	
 }

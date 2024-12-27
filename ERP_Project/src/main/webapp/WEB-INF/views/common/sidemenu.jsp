@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <link href="/erp/css/common/menu.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
