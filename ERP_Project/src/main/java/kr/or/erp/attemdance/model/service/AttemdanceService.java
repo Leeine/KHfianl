@@ -45,6 +45,7 @@ public interface AttemdanceService {
 	int empAttUpdate2(EmpAttemdance empAtt);
 	
 	//출퇴근 리스트 개수
+	int comListCount();
 	//출퇴근 리스트 목록 조회
 	
 	//출근 기록

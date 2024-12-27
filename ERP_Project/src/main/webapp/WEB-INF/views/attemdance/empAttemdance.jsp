@@ -50,6 +50,7 @@
 		
 		
 		<div id="main-content-block">
+			<h3>사원 근태</h3>
 				<table id="empAttList" class="table table-hover" align="center">
 		        	<thead>
 		            	<tr>
@@ -211,14 +212,14 @@
 							 
 						
 						if(att.empAttState == 'Y'){
-							str += "<button class='btn btn-secondary attUpdate'>중지</button>";
+							str += "<button class='btn btn-secondary btn-sm attUpdate'>중지</button>";
 						}else if(att.empAttState == 'N'){
-							str += "<button class='btn btn-secondary attUpdate2'>사용</button>";
+							str += "<button class='btn btn-secondary btn-sm attUpdate2'>사용</button>";
 						}else{
-							str += "<button class='btn btn-secondary attUpdate3'>확인</button>";
+							str += "<button class='btn btn-secondary btn-sm attUpdate3'>확인</button>";
 						}
 						
-						str += "<button  class='btn btn-danger attDelete'>삭제</button>"
+						str += "<button  class='btn btn-danger btn-sm attDelete'>삭제</button>"
 							 + "</td>"
 							 + "</tr>";
 					}

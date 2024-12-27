@@ -34,8 +34,8 @@ public class EmployeeController {
 	
 	//로그인
 	@PostMapping("/login")
-	public ModelAndView login(String inputId, 
-						String inputPwd, 
+	public ModelAndView login(@RequestParam(value="inputId", defaultValue = "0")String inputId, 
+						@RequestParam(value="inputPwd", defaultValue = "")String inputPwd, 
 						@RequestParam(value="saveId", defaultValue ="off")String saveId,
 						HttpSession session,
 						ModelAndView mv,
@@ -73,7 +73,7 @@ public class EmployeeController {
 				if(bcryptPasswordEncoder.matches(inputPwd, loginUser.getEmpPwd())) {
 					session.setAttribute("loginUser", loginUser);
 					
-					mv.setViewName("common/main");
+					mv.setViewName("redirect:/");
 
 				}else {
 					mv.setViewName("common/loginPage");

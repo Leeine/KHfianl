@@ -43,9 +43,10 @@ public class AttemdanceController {
 	@ResponseBody
 	@GetMapping("/attList")
 	public ArrayList<Attemdance> attList(@RequestParam(value="currentPage",defaultValue = "1")int currentPage, Model model){
+		
 		int listCount = attService.listCount();
 		int pageLimit = 5;
-		int boardLimit = 15;
+		int boardLimit = 10;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
@@ -139,7 +140,7 @@ public class AttemdanceController {
 	public ArrayList<EmpAttemdance> empAttList(@RequestParam(value="currentPage",defaultValue = "1")int currentPage){
 		int listCount = attService.empAttListCount();
 		int pageLimit = 5;
-		int boardLimit = 15;
+		int boardLimit = 10;
 			
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 			
@@ -165,7 +166,7 @@ public class AttemdanceController {
 		
 		int listCount = attService.empAttListCount();
 		int pageLimit = 5;
-		int boardLimit = 15;
+		int boardLimit = 10;
 			
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 			
@@ -256,5 +257,23 @@ public class AttemdanceController {
 		return str;
 	}
 	
+	//출퇴근------------------------
+	
+	//페이지 이동
+	@GetMapping("/comPage")
+	public String comPage() {
+		
+		return "/attemdance/commute";
+	}
+	
+	//목록 조회
+	@ResponseBody
+	@GetMapping("/comList")
+	public String comList() {
+		
+		int comListCount = attService.comListCount();
+		
+		return "";
+	}
 	
 }

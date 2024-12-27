@@ -135,6 +135,13 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 		return attDao.empAttUpdate2(sqlSession, empAtt);
 	}
 
+	//출퇴근-----------------------
+	@Override
+	public int comListCount() {
+		
+		return 0;
+	}
+
 	
 
 }

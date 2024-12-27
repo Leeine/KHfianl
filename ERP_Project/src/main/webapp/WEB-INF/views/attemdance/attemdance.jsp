@@ -50,6 +50,7 @@
 		
 		
 		<div id="main-content-block">
+			<h3>근태</h3>
 				<table id="attList" class="table table-hover" align="center">
 		        	<thead>
 		            	<tr>
@@ -61,14 +62,6 @@
 		            	</tr>
 			       	</thead>
 			    	<tbody>
-			    	<!-- 
-		            	<tr>
-						    <td>${list[0].attCode }</td>
-						    <td>${list[0].attTypeName }</td>
-						    <td>${list[0].attName }</td>
-						    <td>${list[0].attState }</td>
-					    </tr>
-			    	 -->
 		        	</tbody>
 				</table>
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insrtAttForm">항목추가</button>
@@ -150,12 +143,12 @@
 							 + "<td>";
 							 
 						if(att.attState == 'Y'){
-							str += "<button class='btn btn-secondary attUpdate'>중지</button>";
+							str += "<button class='btn btn-secondary btn-sm attUpdate'>중지</button>";
 						}else{
-							str += "<button class='btn btn-secondary attUpdate2'>사용</button>";
+							str += "<button class='btn btn-secondary btn-sm attUpdate2'>사용</button>";
 						}
 						
-						str += "<button  class='btn btn-danger attDelete'>삭제</button>"
+						str += "<button  class='btn btn-danger btn-sm attDelete'>삭제</button>"
 							 + "</td>"
 							 + "</tr>";
 					}

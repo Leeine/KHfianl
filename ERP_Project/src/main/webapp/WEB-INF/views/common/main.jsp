@@ -4,20 +4,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
-<link href="/erp/css/item/item.css" rel="stylesheet">
-<script src="/erp/js/common/main.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<link href="/erp/css/summernote/summernote-lite.css" rel="stylesheet">
+<script src="/erp/js/summernote/summernote-lite.js"></script>
+<script src="/erp/js/summernote/lang/summernote-ko-KR.js"></script>
+
+<script src="/erp/js/common/menu.js"></script>
+<script src="/erp/js/common/modal.js"></script>
+<link href="/erp/css/common/modal.css" rel="stylesheet">
+<link href="/erp/css/item/customer.css" rel="stylesheet">
+<script src="/erp/js/item/customer.js"></script>
 <title>Insert title here</title>
 <style>
-	body {
-    	background-color: rgb(225, 235, 255);
-    }
     #main-content-header{
     	margin : 30px;
+		padding : 1px 15px;
     	width : 93%;
     	height : 100px;
-    	border-radius : 20px;
+    	border-radius : 10px;
 		background-color: white;
     }
 	#main-content{
@@ -27,13 +34,14 @@
 		margin : 30px;
 		padding : 1px 15px;
 		background-color: white;
-		border-radius: 20px;
+		border-radius: 10px;
 		width : 93%;
 		height : 80vh;
+		overflow: hidden;
 	}
 </style>
 </head>
-<body>
+<body style="background-color: rgb(225, 235, 255)">
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
 	<div id="main-content">
@@ -53,5 +61,24 @@
 		</div>
 	</div>
 	
+    
+    <script>
+    	$(function(){
+			var dept = ("${loginUser.deptCode}").substring(0,1);
+			if(dept != "D"){
+				$(".admin").hide();
+			}
+		});
+        $(".side-menu").click(function(){
+            $($(this).parent()).siblings().find(".sub-menu").slideUp();
+            $(this).siblings(".sub-menu").slideToggle();
+        });
+        $("#sidebar").mouseleave(function(){
+            $(".sub-menu").slideUp();
+        })
+        $(".sign-out").click(function(){
+        	location.href ="${contextPath}/employee/logout";
+        })
+    </script>
 </body>
 </html>

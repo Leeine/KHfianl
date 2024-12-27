@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="itemMapper">
+	<select id="customerListCount" resultType="_int">
+		SELECT COUNT(*) COUNT
+		FROM CUSTOMER
+		ORDER BY CUSTOMER_NO
+	</select>
+	<select id="customerList" resultType="Customer">
+		SELECT *
+		FROM CUSTOMER
+		ORDER BY CUSTOMER_NO
+	</select>
+	<select id="searchCustomerListCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) COUNT
+		FROM CUSTOMER
+		WHERE CUSTOMER_NO LIKE '%'||#{keyword}||'%'
+		OR CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
+		OR CUSTOMER_TEL LIKE '%'||#{keyword}||'%'
+		OR CUSTOMER_ADDRESS LIKE '%'||#{keyword}||'%'
+	</select>
+	<select id="searchCustomerList" parameterType="string" resultType="Customer">
+		SELECT *
+		FROM CUSTOMER
+		WHERE CUSTOMER_NO LIKE '%'||#{keyword}||'%'
+		OR CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
+		OR CUSTOMER_TEL LIKE '%'||#{keyword}||'%'
+		OR CUSTOMER_ADDRESS LIKE '%'||#{keyword}||'%'
+	</select>
+	
+	<insert id="customerInsert" parameterType="Customer">
+		INSERT INTO CUSTOMER
+		VALUES(SEQ_CUSTOMER_NO.NEXTVAL,#{customerName},#{customerTel},#{customerAddress})
+	</insert>
+	
+	
+</mapper>
