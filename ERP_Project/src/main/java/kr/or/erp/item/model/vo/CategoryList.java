@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Category {
-	private int itemCode;
+public class CategoryList {
 	private int itemCategoryNo;
+	private String itemCategoryName;
 }	

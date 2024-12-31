@@ -11,7 +11,7 @@ function item_stock_list(){
 			var result = data.result;
 			if(result.length == 0){
 				var tr = $("<tr>");
-				tr.append($("<td colspan='4'>").text("조회된 거래처가 없습니다."));
+				tr.append($("<td colspan='5'>").text("조회된 제품이 없습니다."));
 				$("#item-stock-table>tbody").html(tr);
 			}else{
 				var tbody = $("<tbody>");
@@ -54,16 +54,17 @@ function item_stock_search(){
 			var result = data.result;
 			if(result.length == 0){
 				var tr = $("<tr>");
-				tr.append($("<td colspan='4'>").text("조회된 거래처가 없습니다."));
+				tr.append($("<td colspan='5'>").text("조회된 제품이 없습니다."));
 				$("#item-stock-table>tbody").html(tr);
 			}else{
 				var tbody = $("<tbody>");
 				for(var c of result){
 					var tr = $("<tr>");
-					tr.append($("<td>").append(c.customerNo));
-					tr.append($("<td>").append(c.customerName));
-					tr.append($("<td>").append(c.customerTel));
-					tr.append($("<td>").append(c.customerAddress));
+					tr.append($("<td>").append(c.itemCode));
+					tr.append($("<td>").append(c.itemName));
+					tr.append($("<td>").append(c.itemPrice));
+					tr.append($("<td>").append(c.itemCount)); 
+					tr.append($("<td>").append(c.itemCategoryName));
 					tbody.append(tr);
 				}
 				$("#item-stock-table>tbody").remove();
@@ -82,18 +83,23 @@ function item_stock_search(){
 
 //제품 정보 수정
 function item_stock_info(){
-	var no = $(".modal-stockNo").val();
+	var code = $(".modal-itemCode").val();
 	var name = $(".modal-input1").val();
-	var tel = $(".modal-input2").val();
-	var address = $(".modal-input3").val();
+	var price = $(".modal-input2").val();
+	var clist = [];
+	$(".item-category-checkbox:checked").each(function(){
+		var cNo = $(this).parents("tr").children().eq(1).text();
+		clist.push(cNo);
+	});
+	var category = clist.join(", ");
 	$.ajax({
 		url : "/erp/item/stock/update",
 		method : 'GET',
 		data : { 
-
-
-
-
+			itemCode : code,
+			itemName : name,
+			itemPrice : price,
+			itemCategoryName : category
 		},
 		success : function(result){
 			if(result=="NNNNY"){
@@ -113,13 +119,69 @@ function item_stock_info(){
 	});
 };
 
-//모달 내부 dom 변경
-function item_stock_modal_info(list){	//제품 정보 수정
+//제품 정보 불러오기
+function item_detail(itemCode){
+	$.ajax({
+		url : "/erp/item/stock/detail",
+		method : "GET",
+		data : {
+			itemCode : itemCode
+		},
+		success : function(data){
+			var item = data.item;
+			var category = data.category;
+			$(".modal-itemCode").val(item.itemCode);
+			$(".modal-input1").val(item.itemName);
+			$(".modal-input2").val(item.itemPrice);
+			$(".modal-input3").val(item.itemCategoryName);arguments
+			
+			//해당되는 카테고리에 체크
+			for(var c of category){
+				$(".item-category-checkbox").each(function(){
+					var cNo = $(this).parents("tr").children().eq(1).text();
+					if(c.itemCategoryNo == cNo){
+						$(this).prop("checked", true);
+					}
+				});
+			}	
+		},
+		error : function(error){
+            console.error('AJAX 요청 실패:', error);
+		}
+	})
+}
+
+//카테고리 리스트
+function item_category_list(itemCode){
+	$.ajax({
+		url : "/erp/item/stock/categorylist",
+		method : "GET",
+		success : function(data){
+			var tbody = $("<tbody>");
+			for(var c of data){
+				var tr = $("<tr>");
+				tr.append($("<td>").append($("<input>").attr("type","checkbox").addClass("item-category-checkbox")));
+				tr.append($("<td>").append(c.itemCategoryNo));
+				tr.append($("<td>").append(c.itemCategoryName));
+				tbody.append(tr);
+			}
+			$("#item-catagory-select-body>tbody").remove();
+			$("#item-catagory-select-body").append(tbody);
+		},
+		error : function(error){
+            console.error('AJAX 요청 실패:', error);
+		},
+		complete : function(){
+			item_detail(itemCode);
+		}
+	})
+}
+
+
+
+//제품 정보
+function item_stock_modal_info(list){	
 	modalShow();
 	$(".modal h3").text("제품 정보 수정");
-	
-	$(".modal-itemNo").val(list[0]);
-	$(".modal-input1").val(list[1]);
-	$(".modal-input2").val(list[2]);
-	$(".modal-input3").val(list[3]);
+	item_category_list(list[0]);
 }
