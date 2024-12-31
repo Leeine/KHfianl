@@ -54,16 +54,88 @@
 		       ITEM_COUNT,
 		       LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS "ITEM_CATEGORY_NAME"
 		FROM ITEM I
-		LEFT JOIN ITEM_CATEGORY C ON I.ITEM_CODE = C.ITEM_CODE
-		LEFT JOIN ITEM_CATEGORY_LIST CL ON C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO
+		LEFT JOIN ITEM_CATEGORY C ON (I.ITEM_CODE = C.ITEM_CODE)
+		LEFT JOIN ITEM_CATEGORY_LIST CL ON (C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
 		GROUP BY I.ITEM_CODE, ITEM_NAME, ITEM_PRICE, ITEM_COUNT
 		ORDER BY I.ITEM_CODE
 	</select>
 	
+	<select id="itemCategoryList" resultType="CategoryList">
+		SELECT *
+		FROM ITEM_CATEGORY_LIST
+	</select>
 	
+	<select id="itemDetail" parameterType="Item" resultType="Item">
+		SELECT I.ITEM_CODE AS "ITEM_CODE",
+		       ITEM_NAME,
+		       ITEM_PRICE,
+		       ITEM_COUNT,
+		       LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS "ITEM_CATEGORY_NAME"
+		FROM ITEM I
+		LEFT JOIN ITEM_CATEGORY C ON (I.ITEM_CODE = C.ITEM_CODE)
+		LEFT JOIN ITEM_CATEGORY_LIST CL ON (C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
+		WHERE I.ITEM_CODE = #{itemCode}
+		GROUP BY I.ITEM_CODE, ITEM_NAME, ITEM_PRICE, ITEM_COUNT
+	</select>
+	<select id="itemCategory" parameterType="Item" resultType="CategoryList">
+		SELECT ITEM_CATEGORY_NO
+		    , ITEM_CATEGORY_NAME
+		FROM ITEM_CATEGORY_LIST
+		JOIN ITEM_CATEGORY USING(ITEM_CATEGORY_NO)
+		WHERE ITEM_CODE = #{itemCode}
+	</select>
+	<delete id="itemCategoryReset" parameterType="Item">
+	    DELETE FROM ITEM_CATEGORY
+	    WHERE ITEM_CODE = #{itemCode}
+	</delete>
+	<insert id="itemCategoryUpdate" parameterType="java.util.List">
+	    INSERT ALL
+	    <foreach collection="list" item="category">
+	        INTO ITEM_CATEGORY (ITEM_CODE, ITEM_CATEGORY_NO)
+	        VALUES (#{category.itemCode}, #{category.itemCategoryNo})
+	    </foreach>
+	    SELECT * FROM DUAL
+	</insert>
+	<update id="itemUpdate" parameterType="Item">
+		UPDATE ITEM
+		SET ITEM_NAME = #{itemName}
+			, ITEM_PRICE = #{itemPrice}
+		WHERE ITEM_CODE = #{itemCode}
+	</update>
 	
-	
-	
-	
-	
+	<select id="itemSearchListCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+		    SELECT I.ITEM_CODE AS ITEM_CODE,
+		           I.ITEM_NAME AS ITEM_NAME,
+		           I.ITEM_PRICE AS ITEM_PRICE,
+		           I.ITEM_COUNT AS ITEM_COUNT,
+		           LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') 
+		               WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS ITEM_CATEGORY_NAME
+		    FROM ITEM I
+		    LEFT JOIN ITEM_CATEGORY C ON (I.ITEM_CODE = C.ITEM_CODE)
+		    LEFT JOIN ITEM_CATEGORY_LIST CL ON (C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
+			WHERE I.ITEM_CODE LIKE '%'||#{keyword}||'%'
+			OR I.ITEM_NAME LIKE '%'||#{keyword}||'%'
+			OR I.ITEM_PRICE LIKE '%'||#{keyword}||'%'
+			OR CL.ITEM_CATEGORY_NAME LIKE '%'||#{keyword}||'%'
+		    GROUP BY I.ITEM_CODE, I.ITEM_NAME, I.ITEM_PRICE, I.ITEM_COUNT
+		)
+	</select>
+	<select id="itemSearchList" parameterType="string" resultType="Item">
+		SELECT I.ITEM_CODE AS "ITEM_CODE",
+		       I.ITEM_NAME AS ITEM_NAME,
+	           I.ITEM_PRICE AS ITEM_PRICE,
+	           I.ITEM_COUNT AS ITEM_COUNT,
+		       LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS "ITEM_CATEGORY_NAME"
+		FROM ITEM I
+		LEFT JOIN ITEM_CATEGORY C ON (I.ITEM_CODE = C.ITEM_CODE)
+		LEFT JOIN ITEM_CATEGORY_LIST CL ON (C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
+		WHERE I.ITEM_CODE LIKE '%'||#{keyword}||'%'
+		OR I.ITEM_NAME LIKE '%'||#{keyword}||'%'
+		OR I.ITEM_PRICE LIKE '%'||#{keyword}||'%'
+		OR CL.ITEM_CATEGORY_NAME LIKE '%'||#{keyword}||'%'
+		GROUP BY I.ITEM_CODE, ITEM_NAME, ITEM_PRICE, ITEM_COUNT
+		ORDER BY I.ITEM_CODE
+	</select>
 </mapper>

@@ -53,6 +53,7 @@
 					}
 				});
 				
+				//tr선택시
 				$("#item-stock-table").on("click","td",function(){
 					let list = [];
 					$(this).parent().find("td").each(function(){
@@ -61,11 +62,21 @@
 					item_stock_modal_info(list);
 				})
 				
+			$("#item-catagory-select-body").on("change","input", function(){
+				let clist = [];
+				$(".item-category-checkbox:checked").each(function(){
+					var cName = $(this).parents("tr").children().eq(2).text();
+					clist.push(cName);
+				});
+				$(".modal-input3").val(clist.join(", "));
+				
+			});
 				//모달 숨기기
 				$(".modalHide").click(function() {
 					modalHide();
 				})
 			});
+			
 		</script>
 		<table id="item-stock-table">
 			<colgroup>
@@ -93,7 +104,8 @@
 					<img src="${contextPath}/icon/x.png" class="modalHide">
 				</div>
 				<h3>모달창</h3>
-				<input type="hidden" class="modal-itemNo">
+				<input type="hidden" class="modal-itemCode">
+				
 				<table>
 					<tbody>
 						<tr>
@@ -106,11 +118,33 @@
 						</tr>
 						<tr>
 							<th>카테고리</th>
-							<td><input type="text" class="modal-input3"></td>
+							<td><input type="text" class="modal-input3" readonly></td>
 						</tr>
 					</tbody>
 				</table>
-				<button onclick="item_stock_add();">입력</button><br>
+				<br>
+				<div id=item-category-area>
+					<table id=item-catagory-select-head>
+						<thead>
+							<tr>
+								<th>카테고리</th>
+							</tr>
+						</thead>
+					</table>
+					<div id="category-scroll-wrap">
+						<table id=item-catagory-select-body>
+							<colgroup>
+								<col style="width: 5%">
+								<col style="width: 10%">
+								<col style="width: 85%">
+							</colgroup>
+						</table>
+					</div>
+				</div>
+				
+				
+				<button class="modal-submit-btn" onclick="item_stock_info();">입력</button>
+				
 			</div>
 		</div>
 	</div>
