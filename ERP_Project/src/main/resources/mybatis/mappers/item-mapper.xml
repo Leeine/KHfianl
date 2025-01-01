@@ -138,4 +138,122 @@
 		GROUP BY I.ITEM_CODE, ITEM_NAME, ITEM_PRICE, ITEM_COUNT
 		ORDER BY I.ITEM_CODE
 	</select>
+	
+	
+	
+	<select id="orderListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM ITEM_ORDER
+	</select>
+	<select id="orderList" resultType="OrderView">
+		SELECT ORDER_NO
+			, CUSTOMER_NAME
+			, ITEM_NAME
+			, ORDER_COUNT
+			, ORDER_PRICE
+			, ORDER_DATE
+			, EMP_NAME
+		FROM ITEM_ORDER
+		JOIN CUSTOMER USING(CUSTOMER_NO)
+		JOIN ITEM USING(ITEM_CODE)
+		JOIN EMPLOYEE USING(EMP_NO)
+		ORDER BY ORDER_DATE DESC
+	</select>
+	<select id="orderSearchListCount" parameterType="OrderSearch" resultType="_int">
+		SELECT COUNT(*)
+		FROM ITEM_ORDER
+		JOIN CUSTOMER USING(CUSTOMER_NO)
+		JOIN ITEM USING(ITEM_CODE)
+		JOIN EMPLOYEE USING(EMP_NO)
+		<where>
+			<choose>
+				<when test="mode == 'ALL'">
+					ORDER_NO LIKE '%'||#{keyword}||'%'
+					OR CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
+					OR ITEM_NAME LIKE '%'||#{keyword}||'%'
+					OR ORDER_DATE LIKE '%'||#{keyword}||'%'
+					OR EMP_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'NO'">
+					ORDER_NO = #{keyword}
+				</when>
+				<when test="mode == 'CUSTOMER'">
+					CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'ITEM'">
+					ITEM_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'DATE'">
+					ORDER_DATE LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'EMP'">
+					EMP_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+	<select id="orderSearchList" parameterType="OrderSearch" resultType="OrderView">
+		SELECT ORDER_NO
+			, CUSTOMER_NAME
+			, ITEM_NAME
+			, ORDER_COUNT
+			, ORDER_PRICE
+			, ORDER_DATE
+			, EMP_NAME
+		FROM ITEM_ORDER
+		JOIN CUSTOMER USING(CUSTOMER_NO)
+		JOIN ITEM USING(ITEM_CODE)
+		JOIN EMPLOYEE USING(EMP_NO)
+		<where>
+			<choose>
+				<when test="mode == 'ALL'">
+					ORDER_NO LIKE '%'||#{keyword}||'%'
+					OR CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
+					OR ITEM_NAME LIKE '%'||#{keyword}||'%'
+					OR ORDER_DATE LIKE '%'||#{keyword}||'%'
+					OR EMP_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'NO'">
+					ORDER_NO = #{keyword}
+				</when>
+				<when test="mode == 'CUSTOMER'">
+					CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'ITEM'">
+					ITEM_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'DATE'">
+					ORDER_DATE LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'EMP'">
+					EMP_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</where>
+		ORDER BY ORDER_DATE DESC
+	</select>
+	
+	<select id="orderCustomerList" parameterType="string" resultType="Customer">
+		SELECT CUSTOMER_NO
+			, CUStOMER_NAME
+		FROM CUSTOMER
+		WHERE CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
+	</select>
+	<select id="orderItemList" parameterType="string" resultType="Item">
+		SELECT ITEM_CODE
+			, ITEM_NAME
+		FROM ITEM
+		WHERE ITEM_NAME LIKE '%'||#{keyword}||'%'
+	</select>
+	
+	<update id="itemCountUpdate" parameterType="Order">
+		UPDATE ITEM
+		SET ITEM_COUNT = ITEM_COUNT + #{orderCount}
+		WHERE ITEM_CODE = #{itemCode}
+	</update>
+	<insert id="orderInsert" parameterType="Order">
+		INSERT INTO ITEM_ORDER
+		VALUES(SEQ_ITEM_ORDER_NO.NEXTVAL, #{customerNo}, #{itemCode}, #{orderCount}, #{orderPrice}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), #{empNo})
+	</insert>
 </mapper>

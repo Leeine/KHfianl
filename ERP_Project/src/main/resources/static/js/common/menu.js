@@ -9,7 +9,7 @@ function itemCustomerPage(){
 		url : "/erp/item/customer",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h2>거래처 관리</h2>")
+			$("#main-content-header").html("<h1>거래처 관리</h1>")
 			$("#main-content-block").html($(data).filter("#item-customer-page")[0]);
         },
         error: function (error) {
@@ -24,7 +24,7 @@ function itemListPage(){
 		url : "/erp/item/stock",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h2>재고 현황</h2>")
+			$("#main-content-header").html("<h1>재고 현황</h1>")
 			$("#main-content-block").html($(data).filter("#item-stock-page")[0]);
         },
         error: function (error) {
@@ -33,4 +33,18 @@ function itemListPage(){
 	})
 };
 
+//발주 페이지 불러오기
+function itemOrderPage(){
+	$.ajax({
+		url : "/erp/item/order",
+        method: 'GET',
+        success: function (data) {
+			$("#main-content-header").html("<h1>발주 현황</h1>")
+			$("#main-content-block").html($(data).filter("#item-order-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
 

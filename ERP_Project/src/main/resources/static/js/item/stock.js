@@ -94,7 +94,7 @@ function item_stock_info(){
 	var category = clist.join(", ");
 	$.ajax({
 		url : "/erp/item/stock/update",
-		method : 'GET',
+		method : 'POST',
 		data : { 
 			itemCode : code,
 			itemName : name,
@@ -123,7 +123,7 @@ function item_stock_info(){
 function item_detail(itemCode){
 	$.ajax({
 		url : "/erp/item/stock/detail",
-		method : "GET",
+		method : "POST",
 		data : {
 			itemCode : itemCode
 		},
@@ -155,7 +155,7 @@ function item_detail(itemCode){
 function item_category_list(itemCode){
 	$.ajax({
 		url : "/erp/item/stock/categorylist",
-		method : "GET",
+		method : "POST",
 		success : function(data){
 			var tbody = $("<tbody>");
 			for(var c of data){

@@ -20,6 +20,8 @@
 <script src="/erp/js/item/customer.js"></script>
 <link href="/erp/css/item/stock.css" rel="stylesheet">
 <script src="/erp/js/item/stock.js"></script>
+<link href="/erp/css/item/order.css" rel="stylesheet">
+<script src="/erp/js/item/order.js"></script>
 <title>Insert title here</title>
 <style>
     #main-content-header{
