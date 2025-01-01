@@ -19,7 +19,6 @@
 			
 			<input type="text" id="item-stock-search-keyword">
 			<button id="stock-search-btn">search</button>
-			<button class="add"onclick="modalShow();">카테고리 관리</button>
 		</div>
 		<script>
 			$(function() {

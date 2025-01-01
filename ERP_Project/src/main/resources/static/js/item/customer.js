@@ -86,7 +86,7 @@ function item_customer_add(){
 	var address = $(".modal-input3").val();
 	$.ajax({
 		url : "/erp/item/customer/insert",
-		method : 'GET',
+		method : 'POST',
 		data : {
 			customerName : name,
 			customerTel : tel,
@@ -118,7 +118,7 @@ function item_customer_info(){
 	var address = $(".modal-input3").val();
 	$.ajax({
 		url : "/erp/item/customer/update",
-		method : 'GET',
+		method : 'POST',
 		data : {
 			customerNo : no,
 			customerName : name,

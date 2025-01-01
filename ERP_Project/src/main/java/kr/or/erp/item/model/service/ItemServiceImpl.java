@@ -1,7 +1,6 @@
 package kr.or.erp.item.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,9 @@ import kr.or.erp.item.model.dao.ItemDao;
 import kr.or.erp.item.model.vo.Category;
 import kr.or.erp.item.model.vo.Customer;
 import kr.or.erp.item.model.vo.Item;
+import kr.or.erp.item.model.vo.Order;
+import kr.or.erp.item.model.vo.OrderSearch;
+import kr.or.erp.item.model.vo.OrderView;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -56,7 +58,7 @@ public class ItemServiceImpl implements ItemService {
 		return itemDao.stockListCount(sqlSession);
 	}
 	@Override
-	public ArrayList<Customer> stockList(PageInfo pi) {
+	public ArrayList<Item> stockList(PageInfo pi) {
 		return itemDao.stockList(sqlSession,pi);
 	}
 	@Override
@@ -90,8 +92,43 @@ public class ItemServiceImpl implements ItemService {
 		return itemDao.itemSearchListCount(sqlSession, keyword);
 	}
 	@Override
-	public ArrayList<Customer> itemSearchList(PageInfo pi, String keyword) {
+	public ArrayList<Item> itemSearchList(PageInfo pi, String keyword) {
 		return itemDao.itemSearchList(sqlSession, pi, keyword);
+	}
+	
+	
+	
+	//---------- 발주 ----------
+	@Override
+	public int orderListCount() {
+		return itemDao.orderListCount(sqlSession);
+	}
+	@Override
+	public ArrayList<OrderView> orderList(PageInfo pi) {
+		return itemDao.orderList(sqlSession, pi);
+	}
+	@Override
+	public int orderSearchListCount(OrderSearch orderSearch) {
+		return itemDao.orderSearchListCount(sqlSession, orderSearch);
+	}
+	@Override
+	public ArrayList<OrderView> orderSearchList(PageInfo pi, OrderSearch orderSearch) {
+		return itemDao.orderSearchList(sqlSession, pi, orderSearch);
+	}
+	@Override
+	public ArrayList<Customer> orderCustomerList(String keyword) {
+		return itemDao.orderCustomerList(sqlSession, keyword);
+	}
+	@Override
+	public ArrayList<Item> orderItemList(String keyword) {
+		return itemDao.orderItemList(sqlSession, keyword);
+	}
+	@Transactional
+	@Override
+	public int orderInsert(Order order) {
+		int insert = itemDao.orderInsert(sqlSession, order);
+		int update = itemDao.itemCountUpdate(sqlSession, order);
+		return insert*update;
 	}
 	
 	
