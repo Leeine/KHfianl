@@ -11,7 +11,7 @@ function item_order_list(){
 			var result = data.result;
 			if(result.length == 0){
 				var tr = $("<tr>");
-				tr.append($("<td colspan='4'>").text("조회된 거래처가 없습니다."));
+				tr.append($("<td colspan='7'>").text("조회된 발주 목록이 없습니다."));
 				$("#item-order-table>tbody").html(tr);
 			}else{
 				var tbody = $("<tbody>");
@@ -57,7 +57,7 @@ function item_order_search(){
 			var result = data.result;
 			if(result.length == 0){
 				var tr = $("<tr>");
-				tr.append($("<td colspan='4'>").text("조회된 발주가 없습니다."));
+				tr.append($("<td colspan='7'>").text("조회된 발주 목록이 없습니다."));
 				$("#item-order-table>tbody").html(tr);
 			}else{
 				var tbody = $("<tbody>");
@@ -86,23 +86,12 @@ function item_order_search(){
 };
 
 //발주서 작성
-function item_order_add(){
-	var customer = $("#modal-input-customer").val();
-	var item = $("#modal-input-item").val();
-	var count = $("#modal-input-count").val();
-	var price = $("#modal-input-price").val();
-	var employee = $("#modal-input-employee").val();
-	
+function item_order_add(arr){
 	$.ajax({
 		url : "/erp/item/order/insert",
 		method : 'POST',
-		data : {
-			customerNo : customer,
-			itemCode : item,
-			orderCount : count,
-			orderPrice : price,
-			empNo : employee
-		},
+		contentType : "application/json",
+		data : JSON.stringify(arr),
 		success : function(result){
 			if(result=="NNNNY"){
 				$(".modal>table input").val('');
@@ -163,6 +152,30 @@ function item_order_modal_search(keyword,str){
 
 //입력 버튼
 function modal_submit(){
+	var tr = $("#item-order-submit-list>tbody>tr");
+	if(tr.length > 0){
+		const arr = [];
+		tr.each(function(){
+			var data = $(this).find(".item-order-list");
+			var order = {
+				customerNo : data.eq(0).text(),
+				itemCode : data.eq(1).text(),
+				orderCount : data.eq(2).text(),
+				orderPrice : data.eq(3).text(),
+				empNo : data.eq(4).text()
+			};
+			arr.push(order);
+		})
+		item_order_add(arr);
+	}else{
+		alert("발주 항목이 없습니다.");
+	}
+
+}
+
+//발주서 추가
+function item_order_submit_add(){
+	
 	var flag = true;
 	$(".modal-input").each(function(){
 		var category = $(this).closest("tr").find("th").text();
@@ -173,7 +186,23 @@ function modal_submit(){
 			return false;
 		}
 	})
-	if(flag){		
-		item_order_add();
+	
+	if(flag){
+		
+		var customerNo = $("#modal-input-customer").val();
+		var itemCode = $("#modal-input-item").val();
+		var count = $("#modal-input-count").val();
+		var price = $("#modal-input-price").val();
+		var employeeNo = $("#modal-input-employee").val();
+		var info = [customerNo,itemCode,count,price,employeeNo];
+		var tr = $("<tr>").append($("<td>").addClass("col-delete").text("x"));
+		
+		for (var i of info){
+			var td = $("<td>").addClass("item-order-list");
+			td.append(i)
+			tr.append(td);
+		}
+		$("#item-order-submit-list>tbody").append(tr);
+		
 	}
 }

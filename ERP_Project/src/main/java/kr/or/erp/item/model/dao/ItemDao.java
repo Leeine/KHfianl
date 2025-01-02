@@ -114,8 +114,8 @@ public class ItemDao {
 	public ArrayList<Item> orderItemList(SqlSessionTemplate sqlSession, String keyword) {
 		return (ArrayList)sqlSession.selectList("itemMapper.orderItemList",keyword);
 	}
-	public int orderInsert(SqlSessionTemplate sqlSession, Order order) {
-		return sqlSession.insert("itemMapper.orderInsert", order);
+	public int orderInsert(SqlSessionTemplate sqlSession, ArrayList<Order> olist) {
+		return sqlSession.insert("itemMapper.orderInsert", olist);
 	}
 	public int itemCountUpdate(SqlSessionTemplate sqlSession, Order order) {
 		return sqlSession.update("itemMapper.itemCountUpdate",order);

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -268,9 +269,8 @@ public class ItemController {
 	
 	@ResponseBody
 	@PostMapping(value="/order/insert", produces="text/html;charset=UTF-8")
-	public String orderInsert(Order order) {
-		int result = itemService.orderInsert(order);
-		
+	public String orderInsert(@RequestBody ArrayList<Order> olist){
+		int result = itemService.orderInsert(olist);
 		if(result>0) {
 			return "NNNNY";
 		}else{

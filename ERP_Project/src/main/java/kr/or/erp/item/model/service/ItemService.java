@@ -39,7 +39,7 @@ public interface ItemService {
 	ArrayList<OrderView> orderSearchList(PageInfo pi, OrderSearch orderSearch);
 	ArrayList<Customer> orderCustomerList(String keyword);
 	ArrayList<Item> orderItemList(String keyword);
-	int orderInsert(Order order);
+	int orderInsert(ArrayList<Order> olist);
 	
 	
 }

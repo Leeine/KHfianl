@@ -68,3 +68,26 @@ input {
 .modal-order-price{
 	color: gray;
 }
+#item-order-submit-table{
+	margin-top: 30px;
+}
+#item-order-submit-list{
+	margin-top:-2px;
+	width: 100%;
+}
+#item-order-submit-list-area{
+	width: 80%;
+	height: 135px;
+	margin: 0 auto;
+	background-color: lightgray;
+	overflow-y: scroll;
+}
+#item-order-submit-list-area{
+	-ms-overflow-style: none;
+}
+#item-order-submit-list-area::-webkit-scrollbar{
+	display:none;
+}
+.col-delete:hover{
+	cursor : pointer;
+}
