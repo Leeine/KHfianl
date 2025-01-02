@@ -75,6 +75,7 @@
 				})
 				//모달 숨기기
 				$(".modalHide").click(function() {
+					$(".modal-input").val('');
 					modalHide();
 				})
 				
@@ -107,7 +108,7 @@
 					<th>수량</th>
 					<th>금액(합계)</th>
 					<th>날짜</th>
-					<th>담당자</th>
+					<th>작성자</th>
 				</tr>
 			</thead>
 		</table>
@@ -161,12 +162,13 @@
 							<th>담당자</th>
 							<td>
 								<input type="hidden" id="modal-input-employee" value="${loginUser.empNo}">
-								<input type="text" class="modal-input" value="${loginUser.empName}" readonly>
+								<input type="text" value="${loginUser.empName}" readonly>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				<button class="modal-submit-btn" onclick="modal_submit();">입력</button>
+				<button class="modal-submit-btn" onclick="item_order_submit_add();">품목 추가</button>
+				
 				<script>
 					$(function(){
 						let timeout;
@@ -174,6 +176,7 @@
 						$(".modal-input-text").on("input",function(){
 							var category = $(this).closest("tr").find("th").text();
 							var keyword = $(this);
+							//입력 감지시 timeout 초기화
 						    clearTimeout(timeout);
 						    
 						    timeout = setTimeout(function() {
@@ -192,6 +195,7 @@
 						    }, 200); // 200ms = 0.2초
 						})
 						
+						//focus 해제시 box 숨기기
 						$(".modal-input-text").blur(function(){	
 					    	if($(this).val()==''){
 								$(this).siblings("input[type=hidden]").val('');
@@ -211,6 +215,58 @@
 						})
 					})
 				</script>
+				
+				
+				
+				
+				
+				<table id="item-order-submit-table">
+					<colgroup>
+						<col style="width: 10%">
+						<col style="width: 15%">
+						<col style="width: 15%">
+						<col style="width: 20%">
+						<col style="width: 20%">
+						<col style="width: 20%">
+					</colgroup>
+					<thead>
+						<tr>
+							<th colspan="6">발주 목록</th>
+						</tr>
+						<tr>
+							<th>삭제</th>
+							<th>거래처</th>
+							<th>품목</th>
+							<th>수량</th>
+							<th>금액</th>
+							<th>작성자</th>
+						</tr>
+					</thead>
+				</table>
+				<div id="item-order-submit-list-area">
+					<table id="item-order-submit-list">
+						<colgroup>
+							<col style="width: 10%">
+							<col style="width: 15%">
+							<col style="width: 15%">
+							<col style="width: 20%">
+							<col style="width: 20%">
+							<col style="width: 20%">
+						</colgroup>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+				<button class="modal-submit-btn" onclick="modal_submit();">발주</button>
+				
+				<script>
+					$(function(){
+						$("#item-order-submit-list").on("click", ".col-delete", function(){
+							$(this).closest("tr").remove();
+						})
+					})
+				</script>
+				
 			</div>
 		</div>
 	</div>

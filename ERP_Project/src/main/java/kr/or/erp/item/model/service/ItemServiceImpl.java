@@ -2,6 +2,8 @@ package kr.or.erp.item.model.service;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.transaction.Transaction;
+import org.apache.ibatis.transaction.TransactionException;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -123,11 +125,19 @@ public class ItemServiceImpl implements ItemService {
 	public ArrayList<Item> orderItemList(String keyword) {
 		return itemDao.orderItemList(sqlSession, keyword);
 	}
-	@Transactional
+	@Transactional(rollbackFor= {TransactionException.class})
 	@Override
-	public int orderInsert(Order order) {
-		int insert = itemDao.orderInsert(sqlSession, order);
-		int update = itemDao.itemCountUpdate(sqlSession, order);
+	public int orderInsert(ArrayList<Order> olist){
+		//발주 기록 추가
+		int insert = itemDao.orderInsert(sqlSession, olist);
+		int update = 1;
+		for(Order order : olist) {
+			//재고 수량 업데이트
+			update *= itemDao.itemCountUpdate(sqlSession, order);
+		}
+		if(update==0) {	//update 반환값 0일 때 오류 발생시켜 롤백시키기
+			throw new TransactionException();
+		}
 		return insert*update;
 	}
 	

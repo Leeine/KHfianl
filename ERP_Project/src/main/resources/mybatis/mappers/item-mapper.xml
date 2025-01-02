@@ -11,168 +11,210 @@
 	<select id="customerList" resultType="Customer">
 		SELECT *
 		FROM CUSTOMER
-		ORDER BY CUSTOMER_NO
+		ORDER
+		BY CUSTOMER_NO
 	</select>
-	<select id="searchCustomerListCount" parameterType="string" resultType="_int">
+	<select id="searchCustomerListCount" parameterType="string"
+		resultType="_int">
 		SELECT COUNT(*) COUNT
 		FROM CUSTOMER
-		WHERE CUSTOMER_NO LIKE '%'||#{keyword}||'%'
+		WHERE CUSTOMER_NO LIKE
+		'%'||#{keyword}||'%'
 		OR CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
-		OR CUSTOMER_TEL LIKE '%'||#{keyword}||'%'
-		OR CUSTOMER_ADDRESS LIKE '%'||#{keyword}||'%'
+		OR
+		CUSTOMER_TEL LIKE '%'||#{keyword}||'%'
+		OR CUSTOMER_ADDRESS LIKE
+		'%'||#{keyword}||'%'
 	</select>
-	<select id="searchCustomerList" parameterType="string" resultType="Customer">
+	<select id="searchCustomerList" parameterType="string"
+		resultType="Customer">
 		SELECT *
 		FROM CUSTOMER
-		WHERE CUSTOMER_NO LIKE '%'||#{keyword}||'%'
+		WHERE CUSTOMER_NO LIKE
+		'%'||#{keyword}||'%'
 		OR CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
-		OR CUSTOMER_TEL LIKE '%'||#{keyword}||'%'
-		OR CUSTOMER_ADDRESS LIKE '%'||#{keyword}||'%'
+		OR
+		CUSTOMER_TEL LIKE '%'||#{keyword}||'%'
+		OR CUSTOMER_ADDRESS LIKE
+		'%'||#{keyword}||'%'
 	</select>
-	
+
 	<insert id="customerInsert" parameterType="Customer">
 		INSERT INTO CUSTOMER
 		VALUES(SEQ_CUSTOMER_NO.NEXTVAL,#{customerName},#{customerTel},#{customerAddress})
 	</insert>
 	<update id="customerUpdate" parameterType="Customer">
 		UPDATE CUSTOMER
-		SET CUSTOMER_NAME = #{customerName}
-			, CUSTOMER_TEL = #{customerTel}
-			, CUSTOMER_ADDRESS = #{customerAddress}
-		WHERE CUSTOMER_NO = #{customerNo}
+		SET
+		CUSTOMER_NAME = #{customerName}
+		, CUSTOMER_TEL = #{customerTel}
+		, CUSTOMER_ADDRESS = #{customerAddress}
+		WHERE CUSTOMER_NO =
+		#{customerNo}
 	</update>
-	
+
 	<select id="stockListCount" resultType="_int">
 		SELECT COUNT(*) COUNT
 		FROM ITEM
 		ORDER BY ITEM_NAME
 	</select>
 	<select id="stockList" resultType="Item">
-		SELECT I.ITEM_CODE AS "ITEM_CODE",
-		       ITEM_NAME,
-		       ITEM_PRICE,
-		       ITEM_COUNT,
-		       LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS "ITEM_CATEGORY_NAME"
+		SELECT I.ITEM_CODE AS
+		"ITEM_CODE",
+		ITEM_NAME,
+		ITEM_PRICE,
+		ITEM_COUNT,
+		LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS
+		"ITEM_CATEGORY_NAME"
 		FROM ITEM I
-		LEFT JOIN ITEM_CATEGORY C ON (I.ITEM_CODE = C.ITEM_CODE)
-		LEFT JOIN ITEM_CATEGORY_LIST CL ON (C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
-		GROUP BY I.ITEM_CODE, ITEM_NAME, ITEM_PRICE, ITEM_COUNT
+		LEFT JOIN ITEM_CATEGORY C ON
+		(I.ITEM_CODE = C.ITEM_CODE)
+		LEFT JOIN ITEM_CATEGORY_LIST CL ON
+		(C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
+		GROUP BY I.ITEM_CODE,
+		ITEM_NAME, ITEM_PRICE, ITEM_COUNT
 		ORDER BY I.ITEM_CODE
 	</select>
-	
+
 	<select id="itemCategoryList" resultType="CategoryList">
 		SELECT *
-		FROM ITEM_CATEGORY_LIST
+		FROM
+		ITEM_CATEGORY_LIST
 	</select>
-	
+
 	<select id="itemDetail" parameterType="Item" resultType="Item">
-		SELECT I.ITEM_CODE AS "ITEM_CODE",
-		       ITEM_NAME,
-		       ITEM_PRICE,
-		       ITEM_COUNT,
-		       LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS "ITEM_CATEGORY_NAME"
+		SELECT
+		I.ITEM_CODE AS "ITEM_CODE",
+		ITEM_NAME,
+		ITEM_PRICE,
+		ITEM_COUNT,
+		LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS
+		"ITEM_CATEGORY_NAME"
 		FROM ITEM I
-		LEFT JOIN ITEM_CATEGORY C ON (I.ITEM_CODE = C.ITEM_CODE)
-		LEFT JOIN ITEM_CATEGORY_LIST CL ON (C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
-		WHERE I.ITEM_CODE = #{itemCode}
+		LEFT JOIN ITEM_CATEGORY C ON
+		(I.ITEM_CODE = C.ITEM_CODE)
+		LEFT JOIN ITEM_CATEGORY_LIST CL ON
+		(C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
+		WHERE I.ITEM_CODE =
+		#{itemCode}
 		GROUP BY I.ITEM_CODE, ITEM_NAME, ITEM_PRICE, ITEM_COUNT
 	</select>
-	<select id="itemCategory" parameterType="Item" resultType="CategoryList">
+	<select id="itemCategory" parameterType="Item"
+		resultType="CategoryList">
 		SELECT ITEM_CATEGORY_NO
-		    , ITEM_CATEGORY_NAME
+		, ITEM_CATEGORY_NAME
 		FROM ITEM_CATEGORY_LIST
-		JOIN ITEM_CATEGORY USING(ITEM_CATEGORY_NO)
+		JOIN ITEM_CATEGORY
+		USING(ITEM_CATEGORY_NO)
 		WHERE ITEM_CODE = #{itemCode}
 	</select>
 	<delete id="itemCategoryReset" parameterType="Item">
-	    DELETE FROM ITEM_CATEGORY
-	    WHERE ITEM_CODE = #{itemCode}
+		DELETE FROM ITEM_CATEGORY
+		WHERE ITEM_CODE = #{itemCode}
 	</delete>
 	<insert id="itemCategoryUpdate" parameterType="java.util.List">
-	    INSERT ALL
-	    <foreach collection="list" item="category">
-	        INTO ITEM_CATEGORY (ITEM_CODE, ITEM_CATEGORY_NO)
-	        VALUES (#{category.itemCode}, #{category.itemCategoryNo})
-	    </foreach>
-	    SELECT * FROM DUAL
+		INSERT ALL
+		<foreach collection="list" item="category">
+			INTO ITEM_CATEGORY (ITEM_CODE, ITEM_CATEGORY_NO)
+			VALUES (#{category.itemCode}, #{category.itemCategoryNo})
+		</foreach>
+		SELECT * FROM DUAL
 	</insert>
 	<update id="itemUpdate" parameterType="Item">
 		UPDATE ITEM
-		SET ITEM_NAME = #{itemName}
-			, ITEM_PRICE = #{itemPrice}
+		SET ITEM_NAME =
+		#{itemName}
+		, ITEM_PRICE = #{itemPrice}
 		WHERE ITEM_CODE = #{itemCode}
 	</update>
-	
-	<select id="itemSearchListCount" parameterType="string" resultType="_int">
+
+	<select id="itemSearchListCount" parameterType="string"
+		resultType="_int">
 		SELECT COUNT(*)
 		FROM (
-		    SELECT I.ITEM_CODE AS ITEM_CODE,
-		           I.ITEM_NAME AS ITEM_NAME,
-		           I.ITEM_PRICE AS ITEM_PRICE,
-		           I.ITEM_COUNT AS ITEM_COUNT,
-		           LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') 
-		               WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS ITEM_CATEGORY_NAME
-		    FROM ITEM I
-		    LEFT JOIN ITEM_CATEGORY C ON (I.ITEM_CODE = C.ITEM_CODE)
-		    LEFT JOIN ITEM_CATEGORY_LIST CL ON (C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
-			WHERE I.ITEM_CODE LIKE '%'||#{keyword}||'%'
-			OR I.ITEM_NAME LIKE '%'||#{keyword}||'%'
-			OR I.ITEM_PRICE LIKE '%'||#{keyword}||'%'
-			OR CL.ITEM_CATEGORY_NAME LIKE '%'||#{keyword}||'%'
-		    GROUP BY I.ITEM_CODE, I.ITEM_NAME, I.ITEM_PRICE, I.ITEM_COUNT
-		)
-	</select>
-	<select id="itemSearchList" parameterType="string" resultType="Item">
-		SELECT I.ITEM_CODE AS "ITEM_CODE",
-		       I.ITEM_NAME AS ITEM_NAME,
-	           I.ITEM_PRICE AS ITEM_PRICE,
-	           I.ITEM_COUNT AS ITEM_COUNT,
-		       LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS "ITEM_CATEGORY_NAME"
+		SELECT I.ITEM_CODE AS ITEM_CODE,
+		I.ITEM_NAME AS ITEM_NAME,
+		I.ITEM_PRICE AS ITEM_PRICE,
+		I.ITEM_COUNT AS ITEM_COUNT,
+		LISTAGG(CL.ITEM_CATEGORY_NAME, ', ')
+		WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS ITEM_CATEGORY_NAME
 		FROM ITEM I
 		LEFT JOIN ITEM_CATEGORY C ON (I.ITEM_CODE = C.ITEM_CODE)
-		LEFT JOIN ITEM_CATEGORY_LIST CL ON (C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
+		LEFT JOIN ITEM_CATEGORY_LIST CL ON (C.ITEM_CATEGORY_NO =
+		CL.ITEM_CATEGORY_NO)
 		WHERE I.ITEM_CODE LIKE '%'||#{keyword}||'%'
 		OR I.ITEM_NAME LIKE '%'||#{keyword}||'%'
 		OR I.ITEM_PRICE LIKE '%'||#{keyword}||'%'
 		OR CL.ITEM_CATEGORY_NAME LIKE '%'||#{keyword}||'%'
-		GROUP BY I.ITEM_CODE, ITEM_NAME, ITEM_PRICE, ITEM_COUNT
+		GROUP BY I.ITEM_CODE, I.ITEM_NAME, I.ITEM_PRICE, I.ITEM_COUNT
+		)
+	</select>
+	<select id="itemSearchList" parameterType="string"
+		resultType="Item">
+		SELECT I.ITEM_CODE AS "ITEM_CODE",
+		I.ITEM_NAME AS ITEM_NAME,
+		I.ITEM_PRICE AS ITEM_PRICE,
+		I.ITEM_COUNT AS ITEM_COUNT,
+		LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS
+		"ITEM_CATEGORY_NAME"
+		FROM ITEM I
+		LEFT JOIN ITEM_CATEGORY C ON
+		(I.ITEM_CODE = C.ITEM_CODE)
+		LEFT JOIN ITEM_CATEGORY_LIST CL ON
+		(C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
+		WHERE I.ITEM_CODE LIKE
+		'%'||#{keyword}||'%'
+		OR I.ITEM_NAME LIKE '%'||#{keyword}||'%'
+		OR
+		I.ITEM_PRICE LIKE '%'||#{keyword}||'%'
+		OR CL.ITEM_CATEGORY_NAME LIKE
+		'%'||#{keyword}||'%'
+		GROUP BY I.ITEM_CODE, ITEM_NAME, ITEM_PRICE,
+		ITEM_COUNT
 		ORDER BY I.ITEM_CODE
 	</select>
-	
-	
-	
+
+
+
 	<select id="orderListCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM ITEM_ORDER
+		FROM
+		ITEM_ORDER
 	</select>
 	<select id="orderList" resultType="OrderView">
 		SELECT ORDER_NO
-			, CUSTOMER_NAME
-			, ITEM_NAME
-			, ORDER_COUNT
-			, ORDER_PRICE
-			, ORDER_DATE
-			, EMP_NAME
+		, CUSTOMER_NAME
+		, ITEM_NAME
+		, ORDER_COUNT
+		, ORDER_PRICE
+		, ORDER_DATE
+		, EMP_NAME
 		FROM ITEM_ORDER
 		JOIN CUSTOMER USING(CUSTOMER_NO)
-		JOIN ITEM USING(ITEM_CODE)
+		JOIN ITEM
+		USING(ITEM_CODE)
 		JOIN EMPLOYEE USING(EMP_NO)
 		ORDER BY ORDER_DATE DESC
 	</select>
-	<select id="orderSearchListCount" parameterType="OrderSearch" resultType="_int">
+	<select id="orderSearchListCount" parameterType="OrderSearch"
+		resultType="_int">
 		SELECT COUNT(*)
 		FROM ITEM_ORDER
 		JOIN CUSTOMER USING(CUSTOMER_NO)
-		JOIN ITEM USING(ITEM_CODE)
+		JOIN
+		ITEM USING(ITEM_CODE)
 		JOIN EMPLOYEE USING(EMP_NO)
 		<where>
 			<choose>
 				<when test="mode == 'ALL'">
 					ORDER_NO LIKE '%'||#{keyword}||'%'
-					OR CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
+					OR CUSTOMER_NAME
+					LIKE '%'||#{keyword}||'%'
 					OR ITEM_NAME LIKE '%'||#{keyword}||'%'
-					OR ORDER_DATE LIKE '%'||#{keyword}||'%'
-					OR EMP_NAME LIKE '%'||#{keyword}||'%'
+					OR
+					ORDER_DATE LIKE '%'||#{keyword}||'%'
+					OR EMP_NAME LIKE
+					'%'||#{keyword}||'%'
 				</when>
 				<when test="mode == 'NO'">
 					ORDER_NO = #{keyword}
@@ -192,27 +234,32 @@
 			</choose>
 		</where>
 	</select>
-	
-	<select id="orderSearchList" parameterType="OrderSearch" resultType="OrderView">
+
+	<select id="orderSearchList" parameterType="OrderSearch"
+		resultType="OrderView">
 		SELECT ORDER_NO
-			, CUSTOMER_NAME
-			, ITEM_NAME
-			, ORDER_COUNT
-			, ORDER_PRICE
-			, ORDER_DATE
-			, EMP_NAME
+		, CUSTOMER_NAME
+		, ITEM_NAME
+		, ORDER_COUNT
+		, ORDER_PRICE
+		, ORDER_DATE
+		, EMP_NAME
 		FROM ITEM_ORDER
 		JOIN CUSTOMER USING(CUSTOMER_NO)
-		JOIN ITEM USING(ITEM_CODE)
+		JOIN ITEM
+		USING(ITEM_CODE)
 		JOIN EMPLOYEE USING(EMP_NO)
 		<where>
 			<choose>
 				<when test="mode == 'ALL'">
 					ORDER_NO LIKE '%'||#{keyword}||'%'
-					OR CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
+					OR CUSTOMER_NAME
+					LIKE '%'||#{keyword}||'%'
 					OR ITEM_NAME LIKE '%'||#{keyword}||'%'
-					OR ORDER_DATE LIKE '%'||#{keyword}||'%'
-					OR EMP_NAME LIKE '%'||#{keyword}||'%'
+					OR
+					ORDER_DATE LIKE '%'||#{keyword}||'%'
+					OR EMP_NAME LIKE
+					'%'||#{keyword}||'%'
 				</when>
 				<when test="mode == 'NO'">
 					ORDER_NO = #{keyword}
@@ -233,27 +280,49 @@
 		</where>
 		ORDER BY ORDER_DATE DESC
 	</select>
-	
-	<select id="orderCustomerList" parameterType="string" resultType="Customer">
+
+	<select id="orderCustomerList" parameterType="string"
+		resultType="Customer">
 		SELECT CUSTOMER_NO
-			, CUStOMER_NAME
+		, CUStOMER_NAME
 		FROM CUSTOMER
-		WHERE CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
+		WHERE CUSTOMER_NAME LIKE
+		'%'||#{keyword}||'%'
 	</select>
-	<select id="orderItemList" parameterType="string" resultType="Item">
+	<select id="orderItemList" parameterType="string"
+		resultType="Item">
 		SELECT ITEM_CODE
-			, ITEM_NAME
+		, ITEM_NAME
 		FROM ITEM
 		WHERE ITEM_NAME LIKE '%'||#{keyword}||'%'
 	</select>
-	
-	<update id="itemCountUpdate" parameterType="Order">
-		UPDATE ITEM
-		SET ITEM_COUNT = ITEM_COUNT + #{orderCount}
-		WHERE ITEM_CODE = #{itemCode}
+
+	<update id="itemCountUpdate" parameterType="Order"> 
+		UPDATE ITEM 
+		SET ITEM_COUNT = ITEM_COUNT + #{orderCount} 
+		WHERE ITEM_CODE = #{itemCode} 
 	</update>
-	<insert id="orderInsert" parameterType="Order">
-		INSERT INTO ITEM_ORDER
-		VALUES(SEQ_ITEM_ORDER_NO.NEXTVAL, #{customerNo}, #{itemCode}, #{orderCount}, #{orderPrice}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), #{empNo})
+
+	<insert id="orderInsert" parameterType="java.util.List">
+		INSERT INTO ITEM_ORDER (ORDER_NO, 
+								CUSTOMER_NO, 
+								ITEM_CODE,
+								ORDER_COUNT, 
+								ORDER_PRICE, 
+								ORDER_DATE, 
+								EMP_NO ) 
+		SELECT SEQ_ITEM_ORDER_NO.NEXTVAL, 
+				T.* 
+		FROM (
+		<foreach collection="list" item="order" index="index" separator="UNION ALL"> 
+			SELECT #{order.customerNo} AS customerNo,
+					#{order.itemCode} AS itemCode, 
+					#{order.orderCount} AS orderCount,
+					#{order.orderPrice} AS orderPrice,
+					TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') AS orderDate,
+					#{order.empNo} AS empNo 
+			FROM DUAL
+		</foreach>
+		) T
 	</insert>
 </mapper>
