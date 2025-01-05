@@ -54,7 +54,7 @@ function itemSellPage(){
 		url : "/erp/item/sell",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>발주 현황</h1>")
+			$("#main-content-header").html("<h1>판매 현황</h1>")
 			$("#main-content-block").html($(data).filter("#item-sell-page")[0]);
         },
         error: function (error) {
@@ -69,7 +69,7 @@ function itemReleasePage(){
 		url : "/erp/item/release",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>발주 현황</h1>")
+			$("#main-content-header").html("<h1>출하 현황</h1>")
 			$("#main-content-block").html($(data).filter("#item-release-page")[0]);
         },
         error: function (error) {

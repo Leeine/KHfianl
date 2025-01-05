@@ -2,7 +2,6 @@ package kr.or.erp.item.model.service;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.transaction.Transaction;
 import org.apache.ibatis.transaction.TransactionException;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,9 @@ import kr.or.erp.item.model.vo.Category;
 import kr.or.erp.item.model.vo.Customer;
 import kr.or.erp.item.model.vo.Item;
 import kr.or.erp.item.model.vo.Order;
-import kr.or.erp.item.model.vo.OrderSearch;
-import kr.or.erp.item.model.vo.OrderView;
+import kr.or.erp.item.model.vo.Release;
+import kr.or.erp.item.model.vo.Search;
+import kr.or.erp.item.model.vo.Sell;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -106,16 +106,16 @@ public class ItemServiceImpl implements ItemService {
 		return itemDao.orderListCount(sqlSession);
 	}
 	@Override
-	public ArrayList<OrderView> orderList(PageInfo pi) {
+	public ArrayList<Order> orderList(PageInfo pi) {
 		return itemDao.orderList(sqlSession, pi);
 	}
 	@Override
-	public int orderSearchListCount(OrderSearch orderSearch) {
-		return itemDao.orderSearchListCount(sqlSession, orderSearch);
+	public int orderSearchListCount(Search search) {
+		return itemDao.orderSearchListCount(sqlSession, search);
 	}
 	@Override
-	public ArrayList<OrderView> orderSearchList(PageInfo pi, OrderSearch orderSearch) {
-		return itemDao.orderSearchList(sqlSession, pi, orderSearch);
+	public ArrayList<Order> orderSearchList(PageInfo pi, Search search) {
+		return itemDao.orderSearchList(sqlSession, pi, search);
 	}
 	@Override
 	public ArrayList<Customer> orderCustomerList(String keyword) {
@@ -133,13 +133,78 @@ public class ItemServiceImpl implements ItemService {
 		int update = 1;
 		for(Order order : olist) {
 			//재고 수량 업데이트
-			update *= itemDao.itemCountUpdate(sqlSession, order);
+			update *= itemDao.itemCountOrderUpdate(sqlSession, order);
 		}
 		if(update==0) {	//update 반환값 0일 때 오류 발생시켜 롤백시키기
 			throw new TransactionException();
 		}
 		return insert*update;
 	}
+	
+	
+	
+
+	//---------- 판매 ----------
+	@Override
+	public int sellListCount() {
+		return itemDao.sellListCount(sqlSession);
+	}
+	@Override
+	public ArrayList<Sell> sellList(PageInfo pi) {
+		return itemDao.sellList(sqlSession, pi);
+	}
+	@Override
+	public int sellSearchListCount(Search search) {
+		return itemDao.sellSearchListCount(sqlSession, search);
+	}
+	@Override
+	public ArrayList<Sell> sellSearchList(PageInfo pi, Search search) {
+		return itemDao.sellSearchList(sqlSession,pi,search);
+	}
+	@Override
+	public int sellInsert(ArrayList<Sell> slist) {
+		return itemDao.sellInsert(sqlSession, slist);
+	}
+	@Transactional(rollbackFor= {TransactionException.class})
+	@Override
+	public int sellRelease(Sell sell) {
+		int stockCount = itemDao.itemStockCount(sqlSession,sell);
+		int countUpdate = 0;
+		int statusUpdate = 0;
+		int insertRelease = 0;
+		if(stockCount >= sell.getSellCount()) {
+			countUpdate = itemDao.itemCountSellUpdate(sqlSession, sell);
+			statusUpdate = itemDao.sellReleaseStatusUpdate(sqlSession,sell);
+			insertRelease = itemDao.sellInsertRelease(sqlSession,sell);
+			if(countUpdate*statusUpdate*insertRelease == 0) {
+				throw new TransactionException();
+			}
+		}
+		
+		return countUpdate*statusUpdate*insertRelease;
+	}
+
+	
+	
+
+	//---------- 출하 ----------
+	@Override
+	public int releaseListCount() {
+		return itemDao.releaseListCount(sqlSession);
+	}
+	@Override
+	public ArrayList<Release> releaseList(PageInfo pi) {
+		return itemDao.releaseList(sqlSession, pi);
+	}
+	@Override
+	public int releaseSearchListCount(Search search) {
+		return itemDao.releaseSearchListCount(sqlSession, search);
+	}
+	@Override
+	public ArrayList<Release> releaseSearchList(PageInfo pi, Search search) {
+		return itemDao.releaseSearchList(sqlSession, pi, search);
+	}
+	
 	
 	
 	

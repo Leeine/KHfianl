@@ -11,8 +11,9 @@ import kr.or.erp.item.model.vo.Category;
 import kr.or.erp.item.model.vo.Customer;
 import kr.or.erp.item.model.vo.Item;
 import kr.or.erp.item.model.vo.Order;
-import kr.or.erp.item.model.vo.OrderSearch;
-import kr.or.erp.item.model.vo.OrderView;
+import kr.or.erp.item.model.vo.Release;
+import kr.or.erp.item.model.vo.Search;
+import kr.or.erp.item.model.vo.Sell;
 
 @Repository
 public class ItemDao {
@@ -90,20 +91,20 @@ public class ItemDao {
 	public int orderListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("itemMapper.orderListCount");
 	}
-	public ArrayList<OrderView> orderList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Order> orderList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage()-1)*limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return (ArrayList)sqlSession.selectList("itemMapper.orderList",null,rowBounds);
 	}
-	public int orderSearchListCount(SqlSessionTemplate sqlSession, OrderSearch orderSearch) {
-		return sqlSession.selectOne("itemMapper.orderSearchListCount", orderSearch);
+	public int orderSearchListCount(SqlSessionTemplate sqlSession, Search search) {
+		return sqlSession.selectOne("itemMapper.orderSearchListCount", search);
 	}
-	public ArrayList<OrderView> orderSearchList(SqlSessionTemplate sqlSession, PageInfo pi, OrderSearch orderSearch) {
+	public ArrayList<Order> orderSearchList(SqlSessionTemplate sqlSession, PageInfo pi, Search search) {
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage()-1)*limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		return (ArrayList)sqlSession.selectList("itemMapper.orderSearchList",orderSearch,rowBounds);
+		return (ArrayList)sqlSession.selectList("itemMapper.orderSearchList",search,rowBounds);
 	}
 	public int orderCustomerListCount(SqlSessionTemplate sqlSession, String keyword) {
 		return sqlSession.selectOne("itemMapper.orderCustomerListCount",keyword);
@@ -117,12 +118,67 @@ public class ItemDao {
 	public int orderInsert(SqlSessionTemplate sqlSession, ArrayList<Order> olist) {
 		return sqlSession.insert("itemMapper.orderInsert", olist);
 	}
-	public int itemCountUpdate(SqlSessionTemplate sqlSession, Order order) {
-		return sqlSession.update("itemMapper.itemCountUpdate",order);
+	public int itemCountOrderUpdate(SqlSessionTemplate sqlSession, Order order) {
+		return sqlSession.update("itemMapper.itemCountOrderUpdate",order);
 	}
 	
 	
 	
+	//---------- 판매 ----------
+	public int sellListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("itemMapper.sellListCount");
+	}
+	public ArrayList<Sell> sellList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("itemMapper.sellList",null,rowBounds);
+	}
+	public int sellSearchListCount(SqlSessionTemplate sqlSession, Search search) {
+		return sqlSession.selectOne("itemMapper.sellSearchListCount",search);
+	}
+	public ArrayList<Sell> sellSearchList(SqlSessionTemplate sqlSession, PageInfo pi, Search search) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("itemMapper.sellSearchList",search,rowBounds);
+	}
+	public int sellInsert(SqlSessionTemplate sqlSession, ArrayList<Sell> slist) {
+		return sqlSession.insert("itemMapper.sellInsert",slist);
+	}
+	public int itemCountSellUpdate(SqlSessionTemplate sqlSession, Sell sell) {
+		return sqlSession.update("itemMapper.itemCountSellUpdate",sell);
+	}
+	public int itemStockCount(SqlSessionTemplate sqlSession, Sell sell) {
+		return sqlSession.selectOne("itemMapper.itemStockCount",sell);
+	}
+	public int sellReleaseStatusUpdate(SqlSessionTemplate sqlSession, Sell sell) {
+		return sqlSession.update("itemMapper.sellReleaseStatusUpdate",sell);
+	}
+	public int sellInsertRelease(SqlSessionTemplate sqlSession, Sell sell) {
+		return sqlSession.insert("itemMapper.sellInsertRelease",sell);
+	}
+
 	
+	
+	//---------- 출하 ----------
+	public int releaseListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("itemMapper.releaseListCount");
+	}
+	public ArrayList<Release> releaseList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("itemMapper.releaseList",null,rowBounds);
+	}
+	public int releaseSearchListCount(SqlSessionTemplate sqlSession, Search search) {
+		return sqlSession.selectOne("itemMapper.releaseSearchListCount",search);
+	}
+	public ArrayList<Release> releaseSearchList(SqlSessionTemplate sqlSession, PageInfo pi, Search search) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("itemMapper.releaseSearchList",search,rowBounds);
+	}
 	
 }

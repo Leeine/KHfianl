@@ -52,6 +52,7 @@
 					}
 				});
 				
+				//목록에서 선택시 수정 모달창
 				$("#item-customer-table").on("click","td",function(){
 					let list = [];
 					$(this).parent().find("td").each(function(){
@@ -81,6 +82,11 @@
 					<th>주소</th>
 				</tr>
 			</thead>
+			<tbody>
+				<tr>
+					<td colspan="4">등록된 거래처가 없습니다.</td>
+				</tr>
+			</tbody>
 		</table>
 		
 

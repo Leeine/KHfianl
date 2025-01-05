@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderSearch {
-	private String mode;
-	private String keyword;
+public class Release {
+	private int releaseNo;
+	private String itemName;
+	private int releaseCount;
+	private String releaseDate;
 }

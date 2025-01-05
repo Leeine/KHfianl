@@ -21,13 +21,13 @@
 				<option value="ALL">전체</option>
 				<option value="NO">발주번호</option>
 				<option value="CUSTOMER">거래처</option>
-				<option value="ITEM">제품명</option>
+				<option value="ITEM">품목</option>
 				<option value="DATE">날짜</option>
-				<option value="EMP">담당자</option>
+				<option value="EMP">작성자</option>
 			</select>
 			<input type="text" id="item-order-search-keyword">
 			<button id="order-search-btn">search</button>
-			<button class="add" onclick="modalShow();">발주서 작성</button>
+			<button class="add" onclick="item_order_modal();">발주서 작성</button>
 		</div>
 		<script>
 			$(function() {
@@ -63,6 +63,8 @@
 						item_order_list();
 					}
 				});
+				
+				//검색창 폼 변경
 				$("#item-order-search-select").change(function () {
 					var val = $(this).val();
 					var input = $("#item-order-search-keyword");
@@ -111,6 +113,11 @@
 					<th>작성자</th>
 				</tr>
 			</thead>
+			<tbody>
+				<tr>
+					<td colspan="7">등록된 발주 기록이 없습니다.</td>
+				</tr>
+			</tbody>
 		</table>
 		
 
@@ -236,7 +243,7 @@
 						<tr>
 							<th>삭제</th>
 							<th>거래처</th>
-							<th>품목</th>
+							<th>제품 코드</th>
 							<th>수량</th>
 							<th>금액</th>
 							<th>작성자</th>
@@ -257,7 +264,7 @@
 						</tbody>
 					</table>
 				</div>
-				<button class="modal-submit-btn" onclick="modal_submit();">발주</button>
+				<button class="modal-submit-btn" onclick="modal_order_submit();">발주</button>
 				
 				<script>
 					$(function(){
