@@ -1,4 +1,4 @@
-#item-customer-page>div {
+#item-release-page>div {
 	margin: 10px 0;
 }
 
@@ -6,45 +6,42 @@ table {
 	border-collapse: collapse;
 }
 
-#item-customer-table {
+#item-release-table {
 	margin: 0 auto;
 	width: 100%;
 	min-width: 1200px;
 }
 
-#item-customer-table th,
-#item-customer-table td {
+#item-release-table th,
+#item-release-table td {
 
 	border: 2px solid black;
 	text-align: center;
 }
-#item-customer-table thead{
+#item-release-table thead{
     background-color: rgb(225, 235, 255);
 }
-#item-customer-table tr:hover {
+#item-release-table tr:hover {
 	background-color: rgb(192, 192, 192);
 }
-#item-customer-table>thead>tr:hover {
+#item-release-table>thead>tr:hover {
     background-color: rgba(0, 0, 0, 0);
 }
-#item-customer-pagingbar>input {
+#item-release-pagingbar>input {
 	width: 30px;
 }
-#item-customer-search-keyword{
+#item-release-search-select{
 	margin-left: 20px;
 }
-#item-customer-input-area{
+#item-release-search-keyword{
+	margin-left: 5px;
+}
+#item-release-input-area{
 	margin: 0 auto;
 	width: 100%;
 	min-width: 1200px;
 }
-.add {
-	float: right;
-}
-.modal-submit-btn{
-	width: 80%;
-	margin-top: 10px;
-}
+
 input {
 	outline: none;
 }

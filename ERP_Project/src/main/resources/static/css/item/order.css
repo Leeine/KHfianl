@@ -2,12 +2,11 @@
 	margin: 10px 0;
 }
 
-table {
-	border-collapse: collapse;
-}
 
 #item-order-table {
-	width: 1200px;
+	margin: 0 auto;
+	width: 100%;
+	min-width: 1200px;
 }
 
 #item-order-table th,
@@ -30,7 +29,9 @@ table {
 	margin-left: 5px;
 }
 #item-order-input-area{
-	width: 1200px;
+	margin: 0 auto;
+	width: 100%;
+	min-width: 1200px;
 }
 .add {
 	float: right;
@@ -82,9 +83,12 @@ input {
 	background-color: lightgray;
 	overflow-y: scroll;
 }
+
+/*스크롤 바 레이아웃만 없애고 스크롤 기능은 유지*/
 #item-order-submit-list-area{
 	-ms-overflow-style: none;
 }
+
 #item-order-submit-list-area::-webkit-scrollbar{
 	display:none;
 }

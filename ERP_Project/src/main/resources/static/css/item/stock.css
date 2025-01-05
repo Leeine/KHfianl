@@ -7,7 +7,9 @@ table {
 }
 
 #item-stock-table {
-	width: 1200px;
+	margin: 0 auto;
+	width: 100%;
+	min-width: 1200px;
 }
 
 #item-stock-table th,
@@ -38,7 +40,9 @@ table {
 }
 
 #item-stock-input-area {
-	width: 1200px;
+	margin: 0 auto;
+	width: 100%;
+	min-width: 1200px;
 }
 
 .add {

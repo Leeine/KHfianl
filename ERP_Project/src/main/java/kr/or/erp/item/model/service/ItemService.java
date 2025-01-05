@@ -7,8 +7,9 @@ import kr.or.erp.item.model.vo.Category;
 import kr.or.erp.item.model.vo.Customer;
 import kr.or.erp.item.model.vo.Item;
 import kr.or.erp.item.model.vo.Order;
-import kr.or.erp.item.model.vo.OrderSearch;
-import kr.or.erp.item.model.vo.OrderView;
+import kr.or.erp.item.model.vo.Release;
+import kr.or.erp.item.model.vo.Search;
+import kr.or.erp.item.model.vo.Sell;
 
 public interface ItemService {
 	
@@ -34,12 +35,28 @@ public interface ItemService {
 	
 	//---------- 발주 ----------
 	int orderListCount();
-	ArrayList<OrderView> orderList(PageInfo pi);
-	int orderSearchListCount(OrderSearch orderSearch);
-	ArrayList<OrderView> orderSearchList(PageInfo pi, OrderSearch orderSearch);
+	ArrayList<Order> orderList(PageInfo pi);
+	int orderSearchListCount(Search search);
+	ArrayList<Order> orderSearchList(PageInfo pi, Search search);
 	ArrayList<Customer> orderCustomerList(String keyword);
 	ArrayList<Item> orderItemList(String keyword);
 	int orderInsert(ArrayList<Order> olist);
+	
+	
+	//---------- 판매 ----------
+	int sellListCount();
+	ArrayList<Sell> sellList(PageInfo pi);
+	int sellSearchListCount(Search search);
+	ArrayList<Sell> sellSearchList(PageInfo pi, Search search);
+	int sellInsert(ArrayList<Sell> slist);
+	int sellRelease(Sell sell);
+
+	
+	//---------- 출하 ----------
+	int releaseListCount();
+	ArrayList<Release> releaseList(PageInfo pi);
+	int releaseSearchListCount(Search search);
+	ArrayList<Release> releaseSearchList(PageInfo pi, Search search);
 	
 	
 }

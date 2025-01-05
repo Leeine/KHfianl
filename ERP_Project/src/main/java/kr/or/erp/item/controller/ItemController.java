@@ -19,8 +19,9 @@ import kr.or.erp.item.model.vo.Category;
 import kr.or.erp.item.model.vo.Customer;
 import kr.or.erp.item.model.vo.Item;
 import kr.or.erp.item.model.vo.Order;
-import kr.or.erp.item.model.vo.OrderSearch;
-import kr.or.erp.item.model.vo.OrderView;
+import kr.or.erp.item.model.vo.Release;
+import kr.or.erp.item.model.vo.Search;
+import kr.or.erp.item.model.vo.Sell;
 
 
 @Controller
@@ -100,6 +101,7 @@ public class ItemController {
 		}
 	}
 	
+	
 	//===============================================================================================================================
 	
 	
@@ -123,7 +125,7 @@ public class ItemController {
 
 		int searchCount = itemService.stockListCount();
 		int pageLimit = 1;	
-		int boardLimit = 20;
+		int boardLimit = 25;
 		PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
 
 		ArrayList<Item> searchList = itemService.stockList(pi);
@@ -200,7 +202,10 @@ public class ItemController {
 	}
 
 	
+	
 	//===============================================================================================================================
+	
+	
 	
 	//발주 페이지 이동
 	@GetMapping("/order")
@@ -220,10 +225,10 @@ public class ItemController {
 
 		int searchCount = itemService.orderListCount();
 		int pageLimit = 1;	
-		int boardLimit = 20;
+		int boardLimit = 25;
 		PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
 
-		ArrayList<OrderView> searchList = itemService.orderList(pi);
+		ArrayList<Order> searchList = itemService.orderList(pi);
 
 		resultMap.put("pi", pi);
 		resultMap.put("result", searchList);
@@ -232,16 +237,16 @@ public class ItemController {
 	//발주 검색
 	@ResponseBody
 	@GetMapping(value="/order/search", produces = "application/json;charset=UTF-8")
-	public HashMap<String,Object> orderSearchList(OrderSearch orderSearch,
+	public HashMap<String,Object> orderSearchList(Search search,
 			@RequestParam(value="currentPage", defaultValue ="1") String currentPage){
 		HashMap<String,Object> resultMap = new HashMap<>();
 
-		int searchCount = itemService.orderSearchListCount(orderSearch);
+		int searchCount = itemService.orderSearchListCount(search);
 		int pageLimit = 1;	
 		int boardLimit = 25;
 		PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
 
-		ArrayList<OrderView> searchList = itemService.orderSearchList(pi,orderSearch);
+		ArrayList<Order> searchList = itemService.orderSearchList(pi,search);
 
 		resultMap.put("pi", pi);
 		resultMap.put("result", searchList);
@@ -266,7 +271,7 @@ public class ItemController {
 
 		return searchList;
 	}
-	
+	//발주 입력
 	@ResponseBody
 	@PostMapping(value="/order/insert", produces="text/html;charset=UTF-8")
 	public String orderInsert(@RequestBody ArrayList<Order> olist){
@@ -277,4 +282,134 @@ public class ItemController {
 			return "NNNNN";
 		}
 	}
+	
+	
+	
+	
+	//===============================================================================================================================
+	
+	
+
+	//판매 페이지 이동
+	@GetMapping("/sell")
+	public String sell() {
+		return "item/sell";
+	}
+	
+	//판매 목록 조회
+	@ResponseBody
+	@GetMapping(value="/sell/list", produces = "application/json;charset=UTF-8")
+	public HashMap<String,Object> sellList(
+			@RequestParam(value="currentPage", defaultValue ="1")
+			String currentPage){
+		
+		HashMap<String,Object> resultMap = new HashMap<>();
+		
+
+		int searchCount = itemService.sellListCount();
+		int pageLimit = 1;	
+		int boardLimit = 25;
+		PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
+
+		ArrayList<Sell> searchList = itemService.sellList(pi);
+
+		resultMap.put("pi", pi);
+		resultMap.put("result", searchList);
+		return resultMap;
+	}
+
+	//판매 목록 검색
+	@ResponseBody
+	@GetMapping(value="/sell/search", produces = "application/json;charset=UTF-8")
+	public HashMap<String,Object> sellSearchList(Search search,
+			@RequestParam(value="currentPage", defaultValue ="1") String currentPage){
+		HashMap<String,Object> resultMap = new HashMap<>();
+
+		int searchCount = itemService.sellSearchListCount(search);
+		int pageLimit = 1;	
+		int boardLimit = 25;
+		PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
+
+		ArrayList<Sell> searchList = itemService.sellSearchList(pi,search);
+
+		resultMap.put("pi", pi);
+		resultMap.put("result", searchList);
+		return resultMap;
+	}
+	
+	//판매 기록 입력
+	@ResponseBody
+	@PostMapping(value="/sell/insert", produces="text/html;charset=UTF-8")
+	public String sellInsert(@RequestBody ArrayList<Sell> slist){
+		int result = itemService.sellInsert(slist);
+		if(result>0) {
+			return "NNNNY";
+		}else{
+			return "NNNNN";
+		}
+	}
+	//출하 입력
+	@ResponseBody
+	@PostMapping(value="/sell/release", produces="text/html;charset=UTF-8")
+	public String sellRelease(Sell sell){
+		int result = itemService.sellRelease(sell);
+		if(result>0) {
+			return "NNNNY";
+		}else{
+			return "NNNNN";
+		}
+	}
+	
+	
+	
+	//===============================================================================================================================
+	
+	
+
+		//출하 페이지 이동
+		@GetMapping("/release")
+		public String release() {
+			return "item/release";
+		}
+		
+		//판매 목록 조회
+		@ResponseBody
+		@GetMapping(value="/release/list", produces = "application/json;charset=UTF-8")
+		public HashMap<String,Object> releaseList(
+				@RequestParam(value="currentPage", defaultValue ="1")
+				String currentPage){
+			
+			HashMap<String,Object> resultMap = new HashMap<>();
+			
+
+			int searchCount = itemService.releaseListCount();
+			int pageLimit = 1;	
+			int boardLimit = 25;
+			PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
+
+			ArrayList<Release> searchList = itemService.releaseList(pi);
+
+			resultMap.put("pi", pi);
+			resultMap.put("result", searchList);
+			return resultMap;
+		}
+
+		//판매 목록 검색
+		@ResponseBody
+		@GetMapping(value="/release/search", produces = "application/json;charset=UTF-8")
+		public HashMap<String,Object> releaseSearchList(Search search,
+				@RequestParam(value="currentPage", defaultValue ="1") String currentPage){
+			HashMap<String,Object> resultMap = new HashMap<>();
+
+			int searchCount = itemService.releaseSearchListCount(search);
+			int pageLimit = 1;	
+			int boardLimit = 25;
+			PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
+
+			ArrayList<Release> searchList = itemService.releaseSearchList(pi,search);
+
+			resultMap.put("pi", pi);
+			resultMap.put("result", searchList);
+			return resultMap;
+		}
 }

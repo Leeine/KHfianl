@@ -15,15 +15,15 @@ function item_order_list(){
 				$("#item-order-table>tbody").html(tr);
 			}else{
 				var tbody = $("<tbody>");
-				for(var c of result){
+				for(var o of result){
 					var tr = $("<tr>");
-					tr.append($("<td>").append(c.orderNo));
-					tr.append($("<td>").append(c.customerName));
-					tr.append($("<td>").append(c.itemName));
-					tr.append($("<td>").append(c.orderCount));
-					tr.append($("<td>").append(c.orderPrice));
-					tr.append($("<td>").append(c.orderDate));
-					tr.append($("<td>").append(c.empName));
+					tr.append($("<td>").append(o.orderNo));
+					tr.append($("<td>").append(o.customerName));
+					tr.append($("<td>").append(o.itemName));
+					tr.append($("<td>").append(o.orderCount));
+					tr.append($("<td>").append(o.orderPrice));
+					tr.append($("<td>").append(o.orderDate));
+					tr.append($("<td>").append(o.empName));
 					tbody.append(tr);
 				}
 				$("#item-order-table>tbody").remove();
@@ -61,15 +61,15 @@ function item_order_search(){
 				$("#item-order-table>tbody").html(tr);
 			}else{
 				var tbody = $("<tbody>");
-				for(var c of result){
+				for(var o of result){
 					var tr = $("<tr>");
-					tr.append($("<td>").append(c.orderNo));
-					tr.append($("<td>").append(c.customerName));
-					tr.append($("<td>").append(c.itemName));
-					tr.append($("<td>").append(c.orderCount));
-					tr.append($("<td>").append(c.orderPrice));
-					tr.append($("<td>").append(c.orderDate));
-					tr.append($("<td>").append(c.empName));
+					tr.append($("<td>").append(o.orderNo));
+					tr.append($("<td>").append(o.customerName));
+					tr.append($("<td>").append(o.itemName));
+					tr.append($("<td>").append(o.orderCount));
+					tr.append($("<td>").append(o.orderPrice));
+					tr.append($("<td>").append(o.orderDate));
+					tr.append($("<td>").append(o.empName));
 					tbody.append(tr);
 				}
 				$("#item-order-table>tbody").remove();
@@ -127,6 +127,15 @@ function item_order_modal_search(keyword,str){
 				$("#modal-input-"+str).val('');
 			}else{
 				var box = $("<div>").addClass("suggestion_box");
+				if(data.length == 1){
+					if(str == "customer"){
+						$("#modal-input-item").val(data[0].customerNo);
+					}else{
+						$("#modal-input-item").val(data[0].itemCode);
+					}
+				}else{
+					$("#modal-input-item").val('');
+				}
 				for(var d of data){
 					var div = $("<div>").addClass("suggested_items");
 					if(str == "customer"){
@@ -151,7 +160,7 @@ function item_order_modal_search(keyword,str){
 }
 
 //입력 버튼
-function modal_submit(){
+function modal_order_submit(){
 	var tr = $("#item-order-submit-list>tbody>tr");
 	if(tr.length > 0){
 		const arr = [];
@@ -204,5 +213,11 @@ function item_order_submit_add(){
 		}
 		$("#item-order-submit-list>tbody").append(tr);
 		
+		$(".modal-input").val('');
 	}
+}
+function item_order_modal(){
+	$(".modal-input").val('');
+	$("#item-order-submit-list>tbody").html('');
+	modalShow();
 }

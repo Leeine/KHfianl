@@ -94,6 +94,11 @@
 					<th>카테고리</th>
 				</tr>
 			</thead>
+			<tbody>
+				<tr>
+					<td colspan="5">등록된 품목이 없습니다.</td>
+				</tr>
+			</tbody>
 		</table>
 
 		<!-- 모달 -->

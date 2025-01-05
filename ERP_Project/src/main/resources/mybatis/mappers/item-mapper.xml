@@ -3,6 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="itemMapper">
+	
+	
+	<!-- ========= 거래처 ========= -->
+	
 	<select id="customerListCount" resultType="_int">
 		SELECT COUNT(*) COUNT
 		FROM CUSTOMER
@@ -21,8 +25,7 @@
 		WHERE CUSTOMER_NO LIKE
 		'%'||#{keyword}||'%'
 		OR CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
-		OR
-		CUSTOMER_TEL LIKE '%'||#{keyword}||'%'
+		OR CUSTOMER_TEL LIKE '%'||#{keyword}||'%'
 		OR CUSTOMER_ADDRESS LIKE
 		'%'||#{keyword}||'%'
 	</select>
@@ -52,6 +55,11 @@
 		WHERE CUSTOMER_NO =
 		#{customerNo}
 	</update>
+
+
+
+
+	<!-- ========= 재고 ========= -->
 
 	<select id="stockListCount" resultType="_int">
 		SELECT COUNT(*) COUNT
@@ -128,8 +136,7 @@
 		WHERE ITEM_CODE = #{itemCode}
 	</update>
 
-	<select id="itemSearchListCount" parameterType="string"
-		resultType="_int">
+	<select id="itemSearchListCount" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		FROM (
 		SELECT I.ITEM_CODE AS ITEM_CODE,
@@ -149,8 +156,7 @@
 		GROUP BY I.ITEM_CODE, I.ITEM_NAME, I.ITEM_PRICE, I.ITEM_COUNT
 		)
 	</select>
-	<select id="itemSearchList" parameterType="string"
-		resultType="Item">
+	<select id="itemSearchList" parameterType="string" resultType="Item">
 		SELECT I.ITEM_CODE AS "ITEM_CODE",
 		I.ITEM_NAME AS ITEM_NAME,
 		I.ITEM_PRICE AS ITEM_PRICE,
@@ -176,12 +182,15 @@
 
 
 
+
+	<!-- ========= 발주 ========= -->
+
 	<select id="orderListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM
 		ITEM_ORDER
 	</select>
-	<select id="orderList" resultType="OrderView">
+	<select id="orderList" resultType="Order">
 		SELECT ORDER_NO
 		, CUSTOMER_NAME
 		, ITEM_NAME
@@ -196,8 +205,7 @@
 		JOIN EMPLOYEE USING(EMP_NO)
 		ORDER BY ORDER_DATE DESC
 	</select>
-	<select id="orderSearchListCount" parameterType="OrderSearch"
-		resultType="_int">
+	<select id="orderSearchListCount" parameterType="Search" resultType="_int">
 		SELECT COUNT(*)
 		FROM ITEM_ORDER
 		JOIN CUSTOMER USING(CUSTOMER_NO)
@@ -235,8 +243,7 @@
 		</where>
 	</select>
 
-	<select id="orderSearchList" parameterType="OrderSearch"
-		resultType="OrderView">
+	<select id="orderSearchList" parameterType="Search" resultType="Order">
 		SELECT ORDER_NO
 		, CUSTOMER_NAME
 		, ITEM_NAME
@@ -297,7 +304,7 @@
 		WHERE ITEM_NAME LIKE '%'||#{keyword}||'%'
 	</select>
 
-	<update id="itemCountUpdate" parameterType="Order"> 
+	<update id="itemCountOrderUpdate" parameterType="Order"> 
 		UPDATE ITEM 
 		SET ITEM_COUNT = ITEM_COUNT + #{orderCount} 
 		WHERE ITEM_CODE = #{itemCode} 
@@ -312,7 +319,7 @@
 								ORDER_DATE, 
 								EMP_NO ) 
 		SELECT SEQ_ITEM_ORDER_NO.NEXTVAL, 
-				T.* 
+				A.* 
 		FROM (
 		<foreach collection="list" item="order" index="index" separator="UNION ALL"> 
 			SELECT #{order.customerNo} AS customerNo,
@@ -323,6 +330,155 @@
 					#{order.empNo} AS empNo 
 			FROM DUAL
 		</foreach>
-		) T
+		) A
 	</insert>
+	
+	
+	
+	
+	<!-- ========= 판매 ========= -->
+	<select id="sellListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM SELL
+	</select>
+	<select id="sellList" resultType="Sell">
+		SELECT S.SELL_NO
+			, I.ITEM_CODE
+			, I.ITEM_NAME
+			, S.SELL_COUNT
+			, S.SELL_PRICE
+			, S.SELL_DATE
+			, S.RELEASE_STATUS
+		FROM SELL S
+		JOIN ITEM I ON(I.ITEM_CODE = S.ITEM_CODE)
+		ORDER BY SELL_DATE DESC
+	</select>
+	
+	<select id="sellSearchListCount" parameterType="Search" resultType="_int">
+		SELECT COUNT(*)
+		FROM SELL
+		JOIN ITEM USING(ITEM_CODE)
+		<where>
+			<choose>
+				<when test="mode == 'ITEM'">
+					ITEM_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'DATE'">
+					SELL_DATE LIKE '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+	<select id="sellSearchList" parameterType="Search" resultType="Sell">
+		SELECT S.SELL_NO
+			, I.ITEM_CODE
+			, I.ITEM_NAME
+			, S.SELL_COUNT
+			, S.SELL_PRICE
+			, S.SELL_DATE
+			, S.RELEASE_STATUS
+		FROM SELL S
+		JOIN ITEM I ON(I.ITEM_CODE = S.ITEM_CODE)
+		<where>
+			<choose>
+				<when test="mode == 'ITEM'">
+					ITEM_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'DATE'">
+					SELL_DATE LIKE '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</where>
+		ORDER BY SELL_DATE DESC
+	</select>
+	<insert id="sellInsert" parameterType="java.util.List">
+		INSERT INTO SELL (SELL_NO
+						, ITEM_CODE
+						, SELL_COUNT
+						, SELL_PRICE)
+		SELECT SEQ_ITEM_SELL_NO.NEXTVAL, 
+				A.* 
+		FROM (
+		<foreach collection="list" item="sell" index="index" separator="UNION ALL"> 
+			SELECT #{sell.itemCode} AS itemCode, 
+					#{sell.sellCount} AS sellCount,
+					#{sell.sellPrice} AS sellPrice
+			FROM DUAL
+		</foreach>
+		) A
+	</insert>
+	
+	<select id="itemStockCount" parameterType="Sell" resultType="_int">
+		SELECT ITEM_COUNT
+		FROM ITEM
+		WHERE ITEM_CODE = #{itemCode}
+	</select>
+	<update id="itemCountSellUpdate" parameterType="Sell"> 
+		UPDATE ITEM
+		SET ITEM_COUNT = ITEM_COUNT - #{sellCount}
+		WHERE ITEM_CODE = #{itemCode}
+	</update>
+	<update id="sellReleaseStatusUpdate" parameterType="Sell">
+		UPDATE SELL
+		SET RELEASE_STATUS = 'Y'
+		WHERE SELL_NO = #{sellNo}
+	</update>
+	<insert id="sellInsertRelease" parameterType="Sell">
+		INSERT INTO ITEM_RELEASE
+		VALUES(SEQ_ITEM_RELEASE_NO.NEXTVAL,#{sellCount},DEFAULT,#{itemCode})
+	</insert>
+	
+	
+	
+	<!-- ========= 출하 ========= -->
+	<select id="releaseListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM SELL
+	</select>
+	<select id="releaseList" resultType="Release">
+		SELECT RELEASE_NO 
+			, ITEM_NAME
+			, RELEASE_COUNT
+			, RELEASE_DATE
+		FROM ITEM_RELEASE
+		JOIN ITEM USING(ITEM_CODE)
+		ORDER BY RELEASE_DATE DESC
+	</select>
+	
+	<select id="releaseSearchListCount" parameterType="Search" resultType="_int">
+		SELECT COUNT(*)
+		FROM ITEM_RELEASE
+		JOIN ITEM USING(ITEM_CODE)
+		<where>
+			<choose>
+				<when test="mode == 'ITEM'">
+					ITEM_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'DATE'">
+					RELEASE_DATE LIKE '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+	<select id="releaseSearchList" parameterType="Search" resultType="Release">
+		SELECT RELEASE_NO 
+			, ITEM_NAME
+			, RELEASE_COUNT
+			, RELEASE_DATE
+		FROM ITEM_RELEASE
+		JOIN ITEM USING(ITEM_CODE)
+		<where>
+			<choose>
+				<when test="mode == 'ITEM'">
+					ITEM_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'DATE'">
+					RELEASE_DATE LIKE '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</where>
+		ORDER BY RELEASE_DATE DESC
+	</select>
 </mapper>

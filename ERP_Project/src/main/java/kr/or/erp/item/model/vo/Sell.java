@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderView {
-	private int orderNo;
-	private String customerName;
+public class Sell {
+	private int sellNo;
+	private int itemCode;
 	private String itemName;
-	private int orderCount;
-	private int orderPrice;
-	private String orderDate;
-	private String empName;
+	private int sellCount;
+	private int sellPrice;
+	private String sellDate;
+	private String releaseStatus;
 }
