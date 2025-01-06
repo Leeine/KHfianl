@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/erp/css/item/item.css" rel="stylesheet">
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}" />

@@ -26,4 +26,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.enrollPwd(sqlSession, e);
 	}
 
+	@Override
+	public Employee info(Employee e) {
+		return employeeDao.info(sqlSession, e);
+	}
+
 }

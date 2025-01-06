@@ -91,11 +91,8 @@
             <li class="menu-item">
                 <div class="side-menu">
                     <img src="${contextPath}/icon/mypage.png" class="icon">
-                    <span class="side-menu-text">마이페이지</span>
+                    <span class="side-menu-text mypage-menu"><a onclick="employeeMypage();">내정보</a></span>
                 </div>
-                <ul class="sub-menu">
-                    <li><a href="">서브메뉴4</a></li>
-                </ul>
             </li>
             
             <li class="menu-item admin">

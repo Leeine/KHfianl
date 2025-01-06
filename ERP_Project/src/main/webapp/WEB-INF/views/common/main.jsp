@@ -26,6 +26,10 @@
 <script src="/erp/js/item/sell.js"></script>
 <link href="/erp/css/item/release.css" rel="stylesheet">
 <script src="/erp/js/item/release.js"></script>
+
+
+<link href="/erp/css/employee/mypage.css" rel="stylesheet">
+<script src="/erp/js/employee/mypage.js"></script>
 <title>Insert title here</title>
 <style>
     #main-content-header{

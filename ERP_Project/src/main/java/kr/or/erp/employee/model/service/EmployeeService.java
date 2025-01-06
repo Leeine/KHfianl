@@ -9,4 +9,6 @@ public interface EmployeeService {
 
 	int enrollPwd(Employee e);
 
+	Employee info(Employee e);
+
 }

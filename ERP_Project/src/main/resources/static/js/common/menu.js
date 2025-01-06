@@ -79,4 +79,19 @@ function itemReleasePage(){
 };
 
 
+//------------마이페이지-------------
+function employeeMypage(){
+	$.ajax({
+		url : "/erp/employee/mypage",
+        method: 'GET',
+        success: function (data) {
+			$("#main-content-header").html("<h1>내 정보</h1>")
+			$("#main-content-block").html($(data).filter("#employee-mypage-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
+
 

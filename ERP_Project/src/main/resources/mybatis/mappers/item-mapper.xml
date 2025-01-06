@@ -15,31 +15,25 @@
 	<select id="customerList" resultType="Customer">
 		SELECT *
 		FROM CUSTOMER
-		ORDER
-		BY CUSTOMER_NO
+		ORDER BY CUSTOMER_NO
 	</select>
 	<select id="searchCustomerListCount" parameterType="string"
 		resultType="_int">
 		SELECT COUNT(*) COUNT
 		FROM CUSTOMER
-		WHERE CUSTOMER_NO LIKE
-		'%'||#{keyword}||'%'
+		WHERE CUSTOMER_NO LIKE '%'||#{keyword}||'%'
 		OR CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
 		OR CUSTOMER_TEL LIKE '%'||#{keyword}||'%'
-		OR CUSTOMER_ADDRESS LIKE
-		'%'||#{keyword}||'%'
+		OR CUSTOMER_ADDRESS LIKE '%'||#{keyword}||'%'
 	</select>
 	<select id="searchCustomerList" parameterType="string"
 		resultType="Customer">
 		SELECT *
 		FROM CUSTOMER
-		WHERE CUSTOMER_NO LIKE
-		'%'||#{keyword}||'%'
+		WHERE CUSTOMER_NO LIKE '%'||#{keyword}||'%'
 		OR CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
-		OR
-		CUSTOMER_TEL LIKE '%'||#{keyword}||'%'
-		OR CUSTOMER_ADDRESS LIKE
-		'%'||#{keyword}||'%'
+		OR CUSTOMER_TEL LIKE '%'||#{keyword}||'%'
+		OR CUSTOMER_ADDRESS LIKE '%'||#{keyword}||'%'
 	</select>
 
 	<insert id="customerInsert" parameterType="Customer">
@@ -48,12 +42,10 @@
 	</insert>
 	<update id="customerUpdate" parameterType="Customer">
 		UPDATE CUSTOMER
-		SET
-		CUSTOMER_NAME = #{customerName}
-		, CUSTOMER_TEL = #{customerTel}
-		, CUSTOMER_ADDRESS = #{customerAddress}
-		WHERE CUSTOMER_NO =
-		#{customerNo}
+		SET CUSTOMER_NAME = #{customerName},
+			CUSTOMER_TEL = #{customerTel},
+			CUSTOMER_ADDRESS = #{customerAddress}
+		WHERE CUSTOMER_NO = #{customerNo}
 	</update>
 
 
@@ -67,53 +59,40 @@
 		ORDER BY ITEM_NAME
 	</select>
 	<select id="stockList" resultType="Item">
-		SELECT I.ITEM_CODE AS
-		"ITEM_CODE",
-		ITEM_NAME,
-		ITEM_PRICE,
-		ITEM_COUNT,
-		LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS
-		"ITEM_CATEGORY_NAME"
+		SELECT I.ITEM_CODE AS "ITEM_CODE",
+				ITEM_NAME,
+				ITEM_PRICE,
+				ITEM_COUNT,
+				LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS "ITEM_CATEGORY_NAME"
 		FROM ITEM I
-		LEFT JOIN ITEM_CATEGORY C ON
-		(I.ITEM_CODE = C.ITEM_CODE)
-		LEFT JOIN ITEM_CATEGORY_LIST CL ON
-		(C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
-		GROUP BY I.ITEM_CODE,
-		ITEM_NAME, ITEM_PRICE, ITEM_COUNT
+		LEFT JOIN ITEM_CATEGORY C ON (I.ITEM_CODE = C.ITEM_CODE)
+		LEFT JOIN ITEM_CATEGORY_LIST CL ON (C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
+		GROUP BY I.ITEM_CODE, ITEM_NAME, ITEM_PRICE, ITEM_COUNT
 		ORDER BY I.ITEM_CODE
 	</select>
 
 	<select id="itemCategoryList" resultType="CategoryList">
 		SELECT *
-		FROM
-		ITEM_CATEGORY_LIST
+		FROM ITEM_CATEGORY_LIST
 	</select>
 
 	<select id="itemDetail" parameterType="Item" resultType="Item">
-		SELECT
-		I.ITEM_CODE AS "ITEM_CODE",
-		ITEM_NAME,
-		ITEM_PRICE,
-		ITEM_COUNT,
-		LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS
-		"ITEM_CATEGORY_NAME"
+		SELECT I.ITEM_CODE AS "ITEM_CODE",
+			ITEM_NAME,
+			ITEM_PRICE,
+			ITEM_COUNT,
+			LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS "ITEM_CATEGORY_NAME"
 		FROM ITEM I
-		LEFT JOIN ITEM_CATEGORY C ON
-		(I.ITEM_CODE = C.ITEM_CODE)
-		LEFT JOIN ITEM_CATEGORY_LIST CL ON
-		(C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
-		WHERE I.ITEM_CODE =
-		#{itemCode}
+		LEFT JOIN ITEM_CATEGORY C ON (I.ITEM_CODE = C.ITEM_CODE)
+		LEFT JOIN ITEM_CATEGORY_LIST CL ON (C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
+		WHERE I.ITEM_CODE = #{itemCode}
 		GROUP BY I.ITEM_CODE, ITEM_NAME, ITEM_PRICE, ITEM_COUNT
 	</select>
-	<select id="itemCategory" parameterType="Item"
-		resultType="CategoryList">
+	<select id="itemCategory" parameterType="Item" resultType="CategoryList">
 		SELECT ITEM_CATEGORY_NO
-		, ITEM_CATEGORY_NAME
+			, ITEM_CATEGORY_NAME
 		FROM ITEM_CATEGORY_LIST
-		JOIN ITEM_CATEGORY
-		USING(ITEM_CATEGORY_NO)
+		JOIN ITEM_CATEGORY USING(ITEM_CATEGORY_NO)
 		WHERE ITEM_CODE = #{itemCode}
 	</select>
 	<delete id="itemCategoryReset" parameterType="Item">
@@ -130,53 +109,43 @@
 	</insert>
 	<update id="itemUpdate" parameterType="Item">
 		UPDATE ITEM
-		SET ITEM_NAME =
-		#{itemName}
-		, ITEM_PRICE = #{itemPrice}
+		SET ITEM_NAME = #{itemName},
+			ITEM_PRICE = #{itemPrice}
 		WHERE ITEM_CODE = #{itemCode}
 	</update>
 
 	<select id="itemSearchListCount" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		FROM (
-		SELECT I.ITEM_CODE AS ITEM_CODE,
-		I.ITEM_NAME AS ITEM_NAME,
-		I.ITEM_PRICE AS ITEM_PRICE,
-		I.ITEM_COUNT AS ITEM_COUNT,
-		LISTAGG(CL.ITEM_CATEGORY_NAME, ', ')
-		WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS ITEM_CATEGORY_NAME
-		FROM ITEM I
-		LEFT JOIN ITEM_CATEGORY C ON (I.ITEM_CODE = C.ITEM_CODE)
-		LEFT JOIN ITEM_CATEGORY_LIST CL ON (C.ITEM_CATEGORY_NO =
-		CL.ITEM_CATEGORY_NO)
-		WHERE I.ITEM_CODE LIKE '%'||#{keyword}||'%'
-		OR I.ITEM_NAME LIKE '%'||#{keyword}||'%'
-		OR I.ITEM_PRICE LIKE '%'||#{keyword}||'%'
-		OR CL.ITEM_CATEGORY_NAME LIKE '%'||#{keyword}||'%'
-		GROUP BY I.ITEM_CODE, I.ITEM_NAME, I.ITEM_PRICE, I.ITEM_COUNT
+			SELECT I.ITEM_CODE AS ITEM_CODE,
+					I.ITEM_NAME AS ITEM_NAME,
+					I.ITEM_PRICE AS ITEM_PRICE,
+					I.ITEM_COUNT AS ITEM_COUNT,
+					LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS ITEM_CATEGORY_NAME
+			FROM ITEM I
+			LEFT JOIN ITEM_CATEGORY C ON (I.ITEM_CODE = C.ITEM_CODE)
+			LEFT JOIN ITEM_CATEGORY_LIST CL ON (C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
+			WHERE I.ITEM_CODE LIKE '%'||#{keyword}||'%'
+			OR I.ITEM_NAME LIKE '%'||#{keyword}||'%'
+			OR I.ITEM_PRICE LIKE '%'||#{keyword}||'%'
+			OR CL.ITEM_CATEGORY_NAME LIKE '%'||#{keyword}||'%'
+			GROUP BY I.ITEM_CODE, I.ITEM_NAME, I.ITEM_PRICE, I.ITEM_COUNT
 		)
 	</select>
 	<select id="itemSearchList" parameterType="string" resultType="Item">
 		SELECT I.ITEM_CODE AS "ITEM_CODE",
-		I.ITEM_NAME AS ITEM_NAME,
-		I.ITEM_PRICE AS ITEM_PRICE,
-		I.ITEM_COUNT AS ITEM_COUNT,
-		LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS
-		"ITEM_CATEGORY_NAME"
+				I.ITEM_NAME AS ITEM_NAME,
+				I.ITEM_PRICE AS ITEM_PRICE,
+				I.ITEM_COUNT AS ITEM_COUNT,
+				LISTAGG(CL.ITEM_CATEGORY_NAME, ', ') WITHIN GROUP (ORDER BY CL.ITEM_CATEGORY_NAME) AS "ITEM_CATEGORY_NAME"
 		FROM ITEM I
-		LEFT JOIN ITEM_CATEGORY C ON
-		(I.ITEM_CODE = C.ITEM_CODE)
-		LEFT JOIN ITEM_CATEGORY_LIST CL ON
-		(C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
-		WHERE I.ITEM_CODE LIKE
-		'%'||#{keyword}||'%'
+		LEFT JOIN ITEM_CATEGORY C ON (I.ITEM_CODE = C.ITEM_CODE)
+		LEFT JOIN ITEM_CATEGORY_LIST CL ON (C.ITEM_CATEGORY_NO = CL.ITEM_CATEGORY_NO)
+		WHERE I.ITEM_CODE LIKE '%'||#{keyword}||'%'
 		OR I.ITEM_NAME LIKE '%'||#{keyword}||'%'
-		OR
-		I.ITEM_PRICE LIKE '%'||#{keyword}||'%'
-		OR CL.ITEM_CATEGORY_NAME LIKE
-		'%'||#{keyword}||'%'
-		GROUP BY I.ITEM_CODE, ITEM_NAME, ITEM_PRICE,
-		ITEM_COUNT
+		OR I.ITEM_PRICE LIKE '%'||#{keyword}||'%'
+		OR CL.ITEM_CATEGORY_NAME LIKE '%'||#{keyword}||'%'
+		GROUP BY I.ITEM_CODE, ITEM_NAME, ITEM_PRICE, ITEM_COUNT
 		ORDER BY I.ITEM_CODE
 	</select>
 
@@ -187,21 +156,19 @@
 
 	<select id="orderListCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM
-		ITEM_ORDER
+		FROM ITEM_ORDER
 	</select>
 	<select id="orderList" resultType="Order">
 		SELECT ORDER_NO
-		, CUSTOMER_NAME
-		, ITEM_NAME
-		, ORDER_COUNT
-		, ORDER_PRICE
-		, ORDER_DATE
-		, EMP_NAME
+			, CUSTOMER_NAME
+			, ITEM_NAME
+			, ORDER_COUNT
+			, ORDER_PRICE
+			, ORDER_DATE
+			, EMP_NAME
 		FROM ITEM_ORDER
 		JOIN CUSTOMER USING(CUSTOMER_NO)
-		JOIN ITEM
-		USING(ITEM_CODE)
+		JOIN ITEM USING(ITEM_CODE)
 		JOIN EMPLOYEE USING(EMP_NO)
 		ORDER BY ORDER_DATE DESC
 	</select>
@@ -209,20 +176,16 @@
 		SELECT COUNT(*)
 		FROM ITEM_ORDER
 		JOIN CUSTOMER USING(CUSTOMER_NO)
-		JOIN
-		ITEM USING(ITEM_CODE)
+		JOIN ITEM USING(ITEM_CODE)
 		JOIN EMPLOYEE USING(EMP_NO)
 		<where>
 			<choose>
 				<when test="mode == 'ALL'">
 					ORDER_NO LIKE '%'||#{keyword}||'%'
-					OR CUSTOMER_NAME
-					LIKE '%'||#{keyword}||'%'
+					OR CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
 					OR ITEM_NAME LIKE '%'||#{keyword}||'%'
-					OR
-					ORDER_DATE LIKE '%'||#{keyword}||'%'
-					OR EMP_NAME LIKE
-					'%'||#{keyword}||'%'
+					OR ORDER_DATE LIKE '%'||#{keyword}||'%'
+					OR EMP_NAME LIKE '%'||#{keyword}||'%'
 				</when>
 				<when test="mode == 'NO'">
 					ORDER_NO = #{keyword}
@@ -245,28 +208,24 @@
 
 	<select id="orderSearchList" parameterType="Search" resultType="Order">
 		SELECT ORDER_NO
-		, CUSTOMER_NAME
-		, ITEM_NAME
-		, ORDER_COUNT
-		, ORDER_PRICE
-		, ORDER_DATE
-		, EMP_NAME
+			, CUSTOMER_NAME
+			, ITEM_NAME
+			, ORDER_COUNT
+			, ORDER_PRICE
+			, ORDER_DATE
+			, EMP_NAME
 		FROM ITEM_ORDER
 		JOIN CUSTOMER USING(CUSTOMER_NO)
-		JOIN ITEM
-		USING(ITEM_CODE)
+		JOIN ITEM USING(ITEM_CODE)
 		JOIN EMPLOYEE USING(EMP_NO)
 		<where>
 			<choose>
 				<when test="mode == 'ALL'">
 					ORDER_NO LIKE '%'||#{keyword}||'%'
-					OR CUSTOMER_NAME
-					LIKE '%'||#{keyword}||'%'
+					OR CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
 					OR ITEM_NAME LIKE '%'||#{keyword}||'%'
-					OR
-					ORDER_DATE LIKE '%'||#{keyword}||'%'
-					OR EMP_NAME LIKE
-					'%'||#{keyword}||'%'
+					OR ORDER_DATE LIKE '%'||#{keyword}||'%'
+					OR EMP_NAME LIKE '%'||#{keyword}||'%'
 				</when>
 				<when test="mode == 'NO'">
 					ORDER_NO = #{keyword}
@@ -288,18 +247,16 @@
 		ORDER BY ORDER_DATE DESC
 	</select>
 
-	<select id="orderCustomerList" parameterType="string"
-		resultType="Customer">
+	<select id="orderCustomerList" parameterType="string" resultType="Customer">
 		SELECT CUSTOMER_NO
-		, CUStOMER_NAME
+			, CUSTOMER_NAME
 		FROM CUSTOMER
-		WHERE CUSTOMER_NAME LIKE
-		'%'||#{keyword}||'%'
+		WHERE CUSTOMER_NAME LIKE '%'||#{keyword}||'%'
 	</select>
 	<select id="orderItemList" parameterType="string"
 		resultType="Item">
 		SELECT ITEM_CODE
-		, ITEM_NAME
+			, ITEM_NAME
 		FROM ITEM
 		WHERE ITEM_NAME LIKE '%'||#{keyword}||'%'
 	</select>
