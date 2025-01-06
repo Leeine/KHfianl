@@ -8,8 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:set var="contextPath"
-		value="${pageContext.servletContext.contextPath}" />
+	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}" />
 	<div id="item-stock-page">
 		<div id=item-stock-input-area>
 			<span id="item-stock-pagingbar"> 

@@ -13,7 +13,9 @@ public class Employee {
 	private int empNo;//	EMP_NO	NUMBER
 	private String empPwd;//	EMP_PASSWORD	VARCHAR2(20 BYTE)
 	private String empRank;//	EMP_RANK	VARCHAR2(2 BYTE)
+	private String rankName;
 	private String deptCode;//	DEPT_CODE	VARCHAR2(3 BYTE)
+	private String deptName;
 	private String empName;//	EMP_NAME	VARCHAR2(100 BYTE)
 	private int age;//	AGE	NUMBER
 	private String phone;//	PHONE	VARCHAR2(13 BYTE)

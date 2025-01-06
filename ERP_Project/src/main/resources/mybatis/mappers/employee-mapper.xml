@@ -29,4 +29,22 @@
 		SET EMP_PWD = #{empPwd}
 		WHERE EMP_NO = #{empNo}
 	</update>
+	
+	<select id="info" parameterType="Employee" resultType="Employee">
+		SELECT EMP_NO
+			, EMP_NAME
+			, DEPT_NAME
+			, RANK_NAME
+			, AGE
+			, PHONE
+			, EMAIL
+			, ADDRESS
+			, BIRTHDAY
+			, VACATION
+			, JOIN_DATE
+		FROM EMPLOYEE
+		JOIN DEPARTMENT USING(DEPT_CODE)
+		JOIN EMPLOYEE_RANK USING(EMP_RANK)
+		WHERE EMP_NO = #{empNo}
+	</select>
 </mapper>
