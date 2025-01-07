@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Item {
-	private int itemCode;
-	private String itemName;
-	private int itemPrice;
-	private int itemCount;
-	private String itemCategoryName;
+public class Search {
+	private String mode;
+	private String keyword;
 }

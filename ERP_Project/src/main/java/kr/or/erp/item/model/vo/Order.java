@@ -9,10 +9,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Item {
+public class Order {
+	private int orderNo;
+	private int customerNo;
+	private String customerName;
 	private int itemCode;
 	private String itemName;
-	private int itemPrice;
-	private int itemCount;
-	private String itemCategoryName;
+	private int orderCount;
+	private int orderPrice;
+	private String orderDate;
+	private int empNo;
+	private String empName;
 }

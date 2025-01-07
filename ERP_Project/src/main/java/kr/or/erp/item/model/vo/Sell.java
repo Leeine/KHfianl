@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Item {
+public class Sell {
+	private int sellNo;
 	private int itemCode;
 	private String itemName;
-	private int itemPrice;
-	private int itemCount;
-	private String itemCategoryName;
+	private int sellCount;
+	private int sellPrice;
+	private String sellDate;
+	private String releaseStatus;
 }

@@ -17,4 +17,8 @@ public class EmployeeDao {
 
 		return sqlSession.update("employeeMapper.enrollPwd",e);
 	}
+
+	public Employee info(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.selectOne("employeeMapper.info",e);
+	}
 }

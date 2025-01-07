@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.Cookie;
@@ -110,5 +111,18 @@ public class EmployeeController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("loginUser");
 		return "redirect:/";
+	}
+	
+	//마이페이지 이동
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "employee/mypage";
+	}
+	
+	@ResponseBody
+	@GetMapping("/mypage/info")
+	public Employee info(Employee e) {
+		Employee empInfo = employeeService.info(e);
+		return empInfo;
 	}
 }

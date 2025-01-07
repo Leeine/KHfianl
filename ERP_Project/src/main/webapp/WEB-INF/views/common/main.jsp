@@ -25,6 +25,16 @@
 <script src="/erp/js/item/customer.js"></script>
 <link href="/erp/css/item/stock.css" rel="stylesheet">
 <script src="/erp/js/item/stock.js"></script>
+<link href="/erp/css/item/order.css" rel="stylesheet">
+<script src="/erp/js/item/order.js"></script>
+<link href="/erp/css/item/sell.css" rel="stylesheet">
+<script src="/erp/js/item/sell.js"></script>
+<link href="/erp/css/item/release.css" rel="stylesheet">
+<script src="/erp/js/item/release.js"></script>
+
+
+<link href="/erp/css/employee/mypage.css" rel="stylesheet">
+<script src="/erp/js/employee/mypage.js"></script>
 <title>Insert title here</title>
 <style>
     #main-content-header{
