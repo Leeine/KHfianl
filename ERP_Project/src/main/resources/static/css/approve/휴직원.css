@@ -1,0 +1,61 @@
+body {
+    font-family: '맑은 고딕', Arial, sans-serif;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #F9F9F9;
+}
+.container {
+    width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #000;
+    padding: 40px; /* 상하좌우 여백 추가 */
+    height: auto;
+}
+h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 40px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 60px; /* 테이블 아래 여백 */
+}
+table, th, td {
+    border: 1px solid black;
+}
+th, td {
+    padding: 20px; /* 셀 안의 여백을 늘림 */
+    height: 15px; /* 셀의 기본 높이 설정 */
+    text-align: left;
+    vertical-align: middle;
+}
+#sub-container{
+    display: inline-block;
+    margin-right: 100px;
+}
+.main-container{
+    text-align: center;
+    margin-left: 60px;
+}
+.footer {
+    text-align: center;
+    margin-top: 60px; /* 아래 여백 늘리기 */
+    font-size: 14px;
+}
+.signature {
+    margin-top: 100px; /* 서명란 위의 여백 늘리기 */
+    text-align: center;
+    font-size: 18px;
+    line-height: 2; /* 줄 간격 조절 */
+}
+.name{
+    
+}
+
+
+
+
+
+

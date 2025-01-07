@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+}
+h1 {
+    text-align: center;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid black;
+}
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+.header-row th {
+    text-align: left;
+    font-weight: bold;
+    width:80px;
+}
+.content {
+    height: 25px;
+}
+th{
+    background-color: rgb(225, 226, 212);
+}
+td{
+    height: 20px;
+}
+.menu th {
+    height: 15px;
+}
+

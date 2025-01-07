@@ -9,20 +9,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <link href="/erp/css/summernote/summernote-lite.css" rel="stylesheet">
+<link href="/erp/css/approve/휴직원.css" rel="stylesheet">
+<link href="/erp/css/approve/차량운행.css" rel="stylesheet">
+<link href="/erp/css/approve/사직서.css" rel="stylesheet">
+<link href="/erp/css/approve/출장 보고서.css" rel="stylesheet">
+<link href="/erp/css/approve/비품신청서.css" rel="stylesheet">
 <script src="/erp/js/summernote/summernote-lite.js"></script>
 <script src="/erp/js/summernote/lang/summernote-ko-KR.js"></script>
 
 <script src="/erp/js/common/menu.js"></script>
 <script src="/erp/js/common/modal.js"></script>
 <link href="/erp/css/common/modal.css" rel="stylesheet">
+
 <link href="/erp/css/item/customer.css" rel="stylesheet">
 <script src="/erp/js/item/customer.js"></script>
+<link href="/erp/css/item/stock.css" rel="stylesheet">
+<script src="/erp/js/item/stock.js"></script>
 <title>Insert title here</title>
 <style>
     #main-content-header{
-    	margin : 30px;
+    	margin : 30px auto;
 		padding : 1px 15px;
-    	width : 93%;
+    	width : 95%;
     	height : 100px;
     	border-radius : 10px;
 		background-color: white;
@@ -31,13 +39,13 @@
 		margin-left : 60px;
 	}
 	#main-content-block{
-		margin : 30px;
+		margin : 0 auto;
 		padding : 1px 15px;
 		background-color: white;
 		border-radius: 10px;
-		width : 93%;
+		width : 95%;
 		height : 80vh;
-		overflow: hidden;
+		overflow: auto;
 	}
 </style>
 </head>

@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+th, td {
+    border: 1px solid #000;
+    text-align: center;
+    padding: 10px;
+}
+th {
+    background-color: #f2f2f2;
+}
+.w {
+    text-align: left;
+    height: 40px;
+}
+td {
+    height: 40px;
+}
+.ic {
+    min-width: 100px;
+}
+.ic-s {
+    min-width: 50px;
+}

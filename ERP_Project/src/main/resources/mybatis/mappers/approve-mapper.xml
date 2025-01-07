@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="approveMapper">
+
+   <resultMap type="Employee" id="employeeResultSet">
+		<result column="DO_NO" property="doNo"/>
+		<result column="DO_LIST" property="doList"/>
+		<result column="DO_CONTENT" property="doContent"/>
+	</resultMap>
+
+	 <select id="selectDocumentList" resultType="Document">
+        SELECT 
+            DO_NO AS doNo,
+            DO_LIST AS doList,
+            DO_CONTENT AS doContent
+        FROM 
+            APPROVE_DOCUMENT
+    </select>
+	
+</mapper>
