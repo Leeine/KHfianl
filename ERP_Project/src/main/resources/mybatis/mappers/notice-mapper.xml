@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noticeMapper">
+	<select id="noticeListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM NOTICE
+	</select>
+	<select id="noticeList" resultType="Notice">
+		SELECT NOTICE_NO
+			, EMP_NAME
+			, NOTICE_TITLE
+			, NOTICE_COUNT
+			, CREATE_DATE
+		FROM NOTICE
+		JOIN EMPLOYEE ON (EMP_NO = NOTICE_WRITER)
+	</select>
+	<select id="noticeDetail" parameterType="Notice" resultType="Notice">
+		SELECT NOTICE_NO
+			, EMP_NAME
+			, NOTICE_TITLE
+			, NOTICE_CONTENT
+			, NOTICE_COUNT
+			, CREATE_DATE
+		FROM NOTICE
+		JOIN EMPLOYEE ON (EMP_NO = NOTICE_WRITER)
+		WHERE NOTICE_NO = #{noticeNo}
+	</select>
+	
+	
+	
+	
+</mapper>

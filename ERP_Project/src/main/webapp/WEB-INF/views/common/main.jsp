@@ -30,6 +30,10 @@
 
 <link href="/erp/css/employee/mypage.css" rel="stylesheet">
 <script src="/erp/js/employee/mypage.js"></script>
+
+<link href="/erp/css/notice/list.css" rel="stylesheet">
+<script src="/erp/js/notice/list.js"></script>
+
 <title>Insert title here</title>
 <style>
     #main-content-header{
@@ -71,6 +75,7 @@
 		
 		<div id="main-content-block">
 			<h3>메인 페이지 구역</h3>
+			<button onclick="noticePage();">공지</button>
 		</div>
 	</div>
 	

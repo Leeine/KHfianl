@@ -94,4 +94,18 @@ function employeeMypage(){
 	})
 };
 
+//-------------- 공지 -----------------
+function noticePage(){
+	$.ajax({
+		url : "/erp/notice/page",
+        method: 'GET',
+        success: function (data) {
+			$("#main-content-header").html("<h1>공지</h1>")
+			$("#main-content-block").html($(data).filter("#notice-list-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
 

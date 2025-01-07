@@ -1,0 +1,55 @@
+#notice-list-page>div {
+	margin: 10px 0;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+#notice-list-table {
+	margin: 0 auto;
+	width: 100%;
+	min-width: 1200px;
+}
+
+#notice-list-table th,
+#notice-list-table td {
+	height: 55px;
+	border: 2px solid black;
+	text-align: center;
+}
+#notice-list-table thead{
+    background-color: rgb(225, 235, 255);
+}
+#notice-list-table tr:hover {
+	background-color: rgb(192, 192, 192);
+}
+#notice-list-table>thead>tr:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+#notice-list-pagingbar>input {
+	width: 30px;
+}
+#notice-list-search-keyword{
+	margin-left: 20px;
+}
+#notice-list-input-area{
+	margin: 0 auto;
+	width: 100%;
+	min-width: 1200px;
+}
+.add {
+	float: right;
+}
+.modal-submit-btn{
+	width: 80%;
+	margin-top: 10px;
+}
+input {
+	outline: none;
+}
+#modal-noticeContent{
+	height: 350px;
+}
+.modal_data{
+}
