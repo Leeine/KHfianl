@@ -47,10 +47,6 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.index(sqlSession);
 	}
 
-	@Override
-	public int insert(Notice n) {
-		return noticeDao.insert(sqlSession,n);
-	}
 
 	@Override
 	public int noticeSearchListCount(Search search) {
@@ -60,6 +56,21 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public ArrayList<Notice> noticeSearchList(PageInfo pi, Search search) {
 		return noticeDao.noticeSearchList(sqlSession,pi,search);
+	}
+
+	@Override
+	public int insert(Notice n) {
+		return noticeDao.insert(sqlSession,n);
+	}
+
+	@Override
+	public int delete(Notice n) {
+		return noticeDao.delete(sqlSession,n);
+	}
+
+	@Override
+	public int update(Notice n) {
+		return noticeDao.update(sqlSession,n);
 	}
 
 }

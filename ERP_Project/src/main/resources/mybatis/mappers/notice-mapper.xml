@@ -26,6 +26,7 @@
 	
 	<select id="noticeDetail" parameterType="Notice" resultType="Notice">
 		SELECT NOTICE_NO
+			, NOTICE_WRITER
 			, EMP_NAME
 			, NOTICE_TITLE
 			, NOTICE_CONTENT
@@ -46,10 +47,8 @@
 			ORDER BY CREATE_DATE DESC) A
 		WHERE ROWNUM BETWEEN 1 AND 10
 	</select>
-	<insert id="insert" parameterType="Notice">
-		INSERT INTO NOTICE
-		VALUES(SEQ_NOTICE_NO.NEXTVAL,#{noticeWriter},#{noticeTitle},#{noticeContent},0,DEFAULT)
-	</insert>
+	
+	
 	
 	<select id="noticeSearchListCount" parameterType="Search" resultType="_int">
 		SELECT COUNT(*)
@@ -93,4 +92,24 @@
 		</where>
 		ORDER BY CREATE_DATE DESC
 	</select>
+	
+	<insert id="insert" parameterType="Notice">
+		INSERT INTO NOTICE
+		VALUES(SEQ_NOTICE_NO.NEXTVAL,#{noticeWriter},#{noticeTitle},#{noticeContent},0,DEFAULT)
+	</insert>
+	
+	<delete id="delete" parameterType="Notice">
+		DELETE NOTICE
+		WHERE NOTICE_NO = #{noticeNo}
+	</delete>
+	
+	
+	<update id="update" parameterType="Notice">
+		UPDATE NOTICE
+		SET NOTICE_TITLE = #{noticeTitle},
+			NOTICE_CONTENT = #{noticeContent}
+		WHERE NOTICE_NO = #{noticeNo}
+	</update>
+	
+	
 </mapper>

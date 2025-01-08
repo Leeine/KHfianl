@@ -66,3 +66,7 @@
 	cursor: pointer;
 	text-decoration: underline;
 }
+
+#main-content-block select{
+	height: 21px;	
+}

@@ -89,6 +89,40 @@ public class NoticeController {
 			return "NNNNN";
 		}
 	}
+
+	//공지 삭제
+	@ResponseBody
+	@PostMapping(value="/delete", produces = "text/html;charset=UTF-8")
+	public String delete(Notice n) {
+		int result = noticeService.delete(n);
+
+		if(result>0) {
+			return "NNNNY";
+		}else{
+			return "NNNNN";
+		}
+	}
+	
+
+	//공지 수정
+	@ResponseBody
+	@PostMapping(value="/update", produces = "text/html;charset=UTF-8")
+	public String update(Notice n) {
+		int result = noticeService.update(n);
+
+		if(result>0) {
+			return "NNNNY";
+		}else{
+			return "NNNNN";
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

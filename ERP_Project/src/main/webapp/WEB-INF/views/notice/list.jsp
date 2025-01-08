@@ -170,7 +170,10 @@
 					</tbody>
 				</table>
 				<div id="modal-btn-area">
-					<button onclick="notice_insert('${loginUser.empNo}');">작성</button>
+					<button id="notice-edit-btn" onclick="notice_edit();">수정</button>
+					<button id="notice-delete-btn" onclick="notice_delete();">삭제</button>
+					<button id="notice-update-btn" onclick="notice_update();">등록</button>
+					<button id="notice-insert-btn" onclick="notice_insert('${loginUser.empNo}');">작성</button>
 				</div>
 				<script>
 			      $(function(){
@@ -207,6 +210,14 @@
 			      		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 			      	});
 			      })
+			    </script>
+			    <script>
+			    	$(function(){
+			    		var user = "${loginUser.empName}";
+			    		if(user != "admin"){
+			    			$("#modal-btn-area").hide();
+			    		}
+			    	})
 			    </script>
 			</div>
 		</div>
