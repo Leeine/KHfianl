@@ -1,6 +1,6 @@
 package kr.or.erp.attemdance.model.template;
 
-import kr.or.erp.attemdance.model.vo.PageInfo;
+import kr.or.erp.common.model.vo.PageInfo;
 
 public class Pagination {
 	

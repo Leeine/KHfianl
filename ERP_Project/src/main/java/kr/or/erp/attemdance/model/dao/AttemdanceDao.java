@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import kr.or.erp.attemdance.model.vo.Attemdance;
 import kr.or.erp.attemdance.model.vo.CommuteOn;
 import kr.or.erp.attemdance.model.vo.EmpAttemdance;
-import kr.or.erp.attemdance.model.vo.PageInfo;
+import kr.or.erp.common.model.vo.PageInfo;
 import kr.or.erp.employee.model.vo.Employee;
 
 @Repository
@@ -26,7 +26,7 @@ public class AttemdanceDao {
 
 	public ArrayList<Attemdance> selectAttList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		
-		int limit = pi.getListLimit();
+		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage()-1)*limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
@@ -66,7 +66,7 @@ public class AttemdanceDao {
 	//사원 근태 리스트 조회
 	public ArrayList<EmpAttemdance> empAttList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		
-		int limit = pi.getListLimit();
+		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage()-1)*limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
@@ -76,7 +76,7 @@ public class AttemdanceDao {
 	//사원 근태 날짜 지정 조회
 	public ArrayList<EmpAttemdance> selectAttDate(SqlSessionTemplate sqlSession,HashMap<String, String> hashMap,  PageInfo pi) {
 		
-		int limit = pi.getListLimit();
+		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage()-1)*limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
@@ -92,7 +92,7 @@ public class AttemdanceDao {
 	//사원 리스트
 	public ArrayList<Employee> empList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		
-		int limit = pi.getListLimit();
+		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage()-1)*limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
@@ -148,7 +148,7 @@ public class AttemdanceDao {
 
 	public ArrayList<CommuteOn> comOnList(SqlSessionTemplate sqlSession, String daysc, PageInfo pi) {
 		
-		int limit = pi.getListLimit();
+		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage()-1)*limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
@@ -157,7 +157,7 @@ public class AttemdanceDao {
 
 	public ArrayList comSearchList(SqlSessionTemplate sqlSession, HashMap<String, String> hashMap, PageInfo pi) {
 		
-		int limit = pi.getListLimit();
+		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage()-1)*limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		

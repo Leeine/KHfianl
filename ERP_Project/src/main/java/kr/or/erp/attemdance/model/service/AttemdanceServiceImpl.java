@@ -12,7 +12,7 @@ import kr.or.erp.attemdance.model.dao.AttemdanceDao;
 import kr.or.erp.attemdance.model.vo.Attemdance;
 import kr.or.erp.attemdance.model.vo.CommuteOn;
 import kr.or.erp.attemdance.model.vo.EmpAttemdance;
-import kr.or.erp.attemdance.model.vo.PageInfo;
+import kr.or.erp.common.model.vo.PageInfo;
 import kr.or.erp.employee.model.vo.Employee;
 
 @Service
