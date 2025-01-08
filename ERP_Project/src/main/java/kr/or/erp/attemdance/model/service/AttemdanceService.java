@@ -33,8 +33,6 @@ public interface AttemdanceService {
 	ArrayList<EmpAttemdance> empAttList(PageInfo pi);
 	//사원 근태 날짜 지정 조회
 	ArrayList<EmpAttemdance> selectAttDate(HashMap<String, String> hashMap, PageInfo pi);
-	//사원 근태 조회
-//	EmpAttemdance selectEmpAtt(int empNo);
 	//사원 근태 등록
 	int empAttInsert(EmpAttemdance empAtt);
 	//근태 선택 옵션

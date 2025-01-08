@@ -84,12 +84,6 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 		return attDao.selectAttDate(sqlSession, hashMap, pi);
 	}
 
-	//사원 근태 조회
-//	@Override
-//	public EmpAttemdance selectEmpAtt(int empNo) {
-//		return null;
-//	}
-
 	//사원 근태 등록
 	@Override
 	public int empAttInsert(EmpAttemdance empAtt) {

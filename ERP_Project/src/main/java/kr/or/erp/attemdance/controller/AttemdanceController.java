@@ -137,7 +137,7 @@ public class AttemdanceController {
 		return "/attemdance/empAttemdance";
 	}
 	
-	//gbrktn
+	//개인 휴가 개수
 	@ResponseBody
 	@GetMapping("/userEmpCount")
 	public int userEmpCount(int empNo) {

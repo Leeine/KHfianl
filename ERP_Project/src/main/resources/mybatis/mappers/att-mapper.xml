@@ -268,21 +268,7 @@
 			, EMP_NAME
 	</select>
 	
-	<!-- 유저 일주일 출근 
-	<select id="empWeek" resultType="commuteOn">
-		SELECT DISTINCT
-		    TO_CHAR(COM_START, 'YYYY-MM-DD AM HH:MI:SS') COM_START_CHAR,
-		    (SELECT MAX(TO_CHAR(COM_END, 'YYYY-MM-DD AM HH:MI:SS'))
-		     FROM COMMUTE_OFF COF
-		     WHERE COF.EMP_NO = COO.EMP_NO
-		     AND TO_CHAR(COF.COM_END, 'YYYY-MM-DD') = TO_CHAR(COM_START, 'YYYY-MM-DD')
-		    ) AS COM_END_CHAR
-		FROM COMMUTE_ON COO
-		WHERE EMP_NO = #{empNo}
-		  AND COM_START BETWEEN TRUNC(SYSDATE, 'IW') AND TRUNC(SYSDATE, 'IW') + 6
-		ORDER BY COM_START_CHAR
-	</select>-->
-	
+	<!-- 유저 일주일 출근 -->
 	<select id="empWeek" resultType="commuteOn">
 		WITH WEEK_DATES AS (
 		    SELECT TRUNC(SYSDATE, 'IW') + LEVEL - 1 AS WEEK_DATE
