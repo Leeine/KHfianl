@@ -17,11 +17,15 @@ public interface NoticeService {
 	//메인페이지에 공지 목록 띄우기
 	ArrayList<Notice> index();
 
-	int insert(Notice n);
-
 	int noticeSearchListCount(Search search);
 
 	ArrayList<Notice> noticeSearchList(PageInfo pi, Search search);
+
+	int insert(Notice n);
+
+	int delete(Notice n);
+
+	int update(Notice n);
 
 
 }
