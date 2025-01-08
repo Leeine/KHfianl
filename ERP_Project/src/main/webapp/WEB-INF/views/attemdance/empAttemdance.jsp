@@ -144,10 +144,6 @@
 					            		<th>근태수</th>
 					            		<td><input type="number" min="0.5" name="empAttCount"></td>
 					            	</tr>
-					            	<tr>
-					            		<th></th>
-					            		<td></td>
-					            	</tr>
 					            	
 						    	</table>
 		                    </div>
