@@ -30,8 +30,12 @@ table {
 #notice-list-pagingbar>input {
 	width: 30px;
 }
-#notice-list-search-keyword{
+
+#notice-list-search-select{
 	margin-left: 20px;
+}
+#notice-list-keyword{
+	margin-left: 5px;
 }
 #notice-list-input-area{
 	margin: 0 auto;

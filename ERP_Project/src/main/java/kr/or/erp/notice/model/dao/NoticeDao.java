@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
 
 import kr.or.erp.common.model.vo.PageInfo;
+import kr.or.erp.item.model.vo.Search;
 import kr.or.erp.notice.model.vo.Notice;
 
 @Component
@@ -37,6 +38,17 @@ public class NoticeDao {
 
 	public int insert(SqlSessionTemplate sqlSession, Notice n) {
 		return sqlSession.insert("noticeMapper.insert",n);
+	}
+
+	public int noticeSearchListCount(SqlSessionTemplate sqlSession, Search search) {
+		return sqlSession.selectOne("noticeMapper.noticeSearchListCount",search);
+	}
+
+	public ArrayList<Notice> noticeSearchList(SqlSessionTemplate sqlSession, PageInfo pi, Search search) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("noticeMapper.noticeSearchList",search,rowBounds);
 	}
 
 }

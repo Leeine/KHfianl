@@ -51,5 +51,46 @@
 		VALUES(SEQ_NOTICE_NO.NEXTVAL,#{noticeWriter},#{noticeTitle},#{noticeContent},0,DEFAULT)
 	</insert>
 	
+	<select id="noticeSearchListCount" parameterType="Search" resultType="_int">
+		SELECT COUNT(*)
+		FROM NOTICE
+		JOIN EMPLOYEE ON(NOTICE_WRITER = EMP_NO)
+		<where>
+			<choose>
+				<when test="mode == 'TITLE'">
+					NOTICE_TITLE LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'WRITER'">
+					EMP_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'DATE'">
+					CREATE_DATE LIKE '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
 	
+	<select id="noticeSearchList" parameterType="Search" resultType="Notice">
+		SELECT NOTICE_NO
+			, EMP_NAME
+			, NOTICE_TITLE
+			, NOTICE_COUNT
+			, CREATE_DATE
+		FROM NOTICE
+		JOIN EMPLOYEE ON(NOTICE_WRITER = EMP_NO)
+		<where>
+			<choose>
+				<when test="mode == 'TITLE'">
+					NOTICE_TITLE LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'WRITER'">
+					EMP_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'DATE'">
+					CREATE_DATE LIKE '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</where>
+		ORDER BY CREATE_DATE DESC
+	</select>
 </mapper>

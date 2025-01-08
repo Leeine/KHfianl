@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.erp.common.model.vo.PageInfo;
+import kr.or.erp.item.model.vo.Search;
 import kr.or.erp.notice.model.dao.NoticeDao;
 import kr.or.erp.notice.model.vo.Notice;
 
@@ -49,6 +50,16 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public int insert(Notice n) {
 		return noticeDao.insert(sqlSession,n);
+	}
+
+	@Override
+	public int noticeSearchListCount(Search search) {
+		return noticeDao.noticeSearchListCount(sqlSession,search);
+	}
+
+	@Override
+	public ArrayList<Notice> noticeSearchList(PageInfo pi, Search search) {
+		return noticeDao.noticeSearchList(sqlSession,pi,search);
 	}
 
 }

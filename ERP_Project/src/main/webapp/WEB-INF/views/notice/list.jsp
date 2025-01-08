@@ -34,7 +34,7 @@
 				//search 버튼 클릭시
 				$("#notice-search-btn").click(function() {
 					$('#notice-currentPage').val('1');
-					item_notice_search();
+					notice_search();
 				});
 
 				//currentPage 번호 입력시
@@ -43,6 +43,7 @@
 					if (num == '') {
 						$(this).val('1');
 					}
+					num = $('#notice-currentPage').val();
 					var maxPage = $('#notice-maxPage').text();
 					var startPage = $("#notice-startPage").val();
 
@@ -79,7 +80,11 @@
 				//모달 숨기기
 				$(".modalHide").click(function() {
 					clear();
-					notice_list();
+					if($("#notice-list-search-keyword").val()==''){
+						notice_list();
+					}else{						
+						notice_search();
+					}
 					modalHide();
 				})
 			});
