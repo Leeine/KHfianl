@@ -13,11 +13,13 @@
 	
 	<div id="sidebar">
         <div id="user-info-menu">
-            ${loginUser.empName} 님
+            ${loginUser.empName} 님 <br>
+        	
         </div>
 
 
         <ul>
+        	
 
 
             <li class="menu-item">
@@ -103,11 +105,19 @@
             </li>
         </ul>
 
-
+        <div class="home">
+            <img src="${contextPath}/icon/home.png" class="icon">
+            <span class="side-menu-text">메인으로</span>
+        </div>
         <div class="sign-out">
             <img src="${contextPath}/icon/signout.png" class="icon">
             <span class="side-menu-text">Sign out</span>
         </div>
+        <script>
+        	$(".home").click(function(){
+        		location.href="${contextPath}/menu/home";
+        	});
+        </script>
     </div>
     
     
