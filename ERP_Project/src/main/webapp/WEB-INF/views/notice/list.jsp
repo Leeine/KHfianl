@@ -22,7 +22,7 @@
 			
 			<input type="text" id="notice-list-search-keyword">
 			<button id="notice-search-btn">search</button>
-			<button class="add" onclick="item_customer_modal_add();">공지작성</button>
+			<button class="add notice-write" onclick="notice_insert_modal();">공지작성</button>
 		</div>
 		
 		
@@ -78,6 +78,8 @@
 				
 				//모달 숨기기
 				$(".modalHide").click(function() {
+					clear();
+					notice_list();
 					modalHide();
 				})
 			});
@@ -108,50 +110,99 @@
 			</tbody>
 		</table>
 		
-		<!-- 공지 내용 보기 -->
+		<!-- 공지 내용 보기 / 입력 모달 -->
 		<div class="modal-overlay">
 			<div class="modal">
 				<div class="modal-header">
 					<img src="${contextPath}/icon/x.png" class="modalHide">
 				</div>
 				<h3>NOTICE</h3>
-				<input type="hidden" class="modal-customerNo">
 				<table>
+					<colgroup>
+						<col style="width: 10%">
+						<col style="width: 10%">
+						<col style="width: 20%">
+						<col style="width: 20%">
+						<col style="width: 20%">
+						<col style="width: 20%">
+					</colgroup>
 					<tbody>
 						<tr>
 							<th>번호</th>
 							<td>
-								<input type="text" id="modal-noticeNo" class="modal_data">
+								<input type="text" id="modal-noticeNo" class="modal_data" >
 							</td>
 							<th>조회수</th>
 							<td>
-								<input type="text" id="modal-noticeCount" class="modal_data">
+								<input type="text" id="modal-noticeCount" class="modal_data" >
 							</td>
 							<th>작성자</th>
 							<td>
-								<input type="text" id="modal-noticeWriter" class="modal_data">
+								<input type="text" id="modal-noticeWriter" class="modal_data" >
 							</td>
 						</tr>
 						<tr>
 							<th colspan="2">작성일</th>
 							<td colspan="4">
-								<input type="text" id="modal-createDate" class="modal_data">
+								<input type="text" id="modal-createDate" class="modal_data" >
 							</td>
 						</tr>
 						<tr>
 							<th colspan="2">제목</th>
 							<td colspan="4">
-								<input type="text" id="modal-noticeTitle" class="modal_data">
+								<input type="text" id="modal-noticeTitle" class="modal_data modal_insert" >
 							</td>
 						</tr>
 						<tr>
 							<th colspan="2">내용</th>
 							<td colspan="4">
-								<input type="text" id="modal-noticeContent" class="modal_data">
+								<span id="note">
+									<textarea id="summernote" class="modal_insert"></textarea>
+								</span>
+								<div id="modal-noticeContent" class="modal_data"></div>
 							</td>
 						</tr>
 					</tbody>
 				</table>
+				<div id="modal-btn-area">
+					<button onclick="notice_insert('${loginUser.empNo}');">작성</button>
+				</div>
+				<script>
+			      $(function(){
+			          $('#summernote').summernote({
+			              placeholder: '내용을 입력해주세요',
+			              tabsize: 2,
+			              width: 800,
+			              height: 550,
+			              maxHeight: 550,
+			              minHeight: 550,
+			              focus: true,
+			              lang: 'ko-KR', 
+			              toolbar: [
+			      		    // 글꼴 설정
+			      		    ['fontname', ['fontname']],
+			      		    // 글자 크기 설정
+			      		    ['fontsize', ['fontsize']],
+			      		    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+			      		    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			      		    // 글자색
+			      		    ['color', ['forecolor','color']],
+			      		    // 표만들기
+			      		    ['table', ['table']],
+			      		    // 글머리 기호, 번호매기기, 문단정렬
+			      		    ['para', ['ul', 'ol', 'paragraph']],
+			      		    // 줄간격
+			      		    ['height', ['height']],
+			      		    // 코드보기
+			      		    ['view', ['codeview']]
+			      		  ],
+			      		  // 추가한 글꼴
+			      		fontNames: ['맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체','Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
+			      		 // 추가한 폰트사이즈
+			      		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+			      	});
+			      })
+			    </script>
 			</div>
 		</div>
 	</div>

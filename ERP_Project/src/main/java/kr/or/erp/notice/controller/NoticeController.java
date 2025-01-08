@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,5 +54,31 @@ public class NoticeController {
 	public Notice detail(Notice n){
 		Notice detail = noticeService.noticeDetail(n); 
 		return detail;
+	}
+	
+	@ResponseBody
+	@PostMapping(value="/insert", produces = "text/html;charset=UTF-8")
+	public String insert(Notice n) {
+		int result = noticeService.insert(n);
+
+		if(result>0) {
+			return "NNNNY";
+		}else{
+			return "NNNNN";
+		}
+	}
+	
+	
+	
+	//index 페이지 공지 리스트
+	
+	@GetMapping("/index")
+	public String index() {
+		return "common/indexNotice";
+	}
+	@ResponseBody
+	@GetMapping(value="/index/list", produces = "application/json;charset=UTF-8")
+	public ArrayList<Notice> indexlist(){
+		return noticeService.index();
 	}
 }

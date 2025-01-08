@@ -2,9 +2,11 @@ package kr.or.erp.notice.model.service;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.transaction.TransactionException;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.erp.common.model.vo.PageInfo;
 import kr.or.erp.notice.model.dao.NoticeDao;
@@ -28,9 +30,25 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.noticeList(sqlSession, pi);
 	}
 
+	@Transactional(rollbackFor = {TransactionException.class})
 	@Override
 	public Notice noticeDetail(Notice n) {
-		return noticeDao.noticeDetail(sqlSession,n);
+		int increaseCount = noticeDao.increaseCount(sqlSession,n);
+		if(increaseCount == 0) {
+			throw new TransactionException();
+		}
+		Notice detail = noticeDao.noticeDetail(sqlSession,n);
+		return detail;
+	}
+
+	@Override
+	public ArrayList<Notice> index() {
+		return noticeDao.index(sqlSession);
+	}
+
+	@Override
+	public int insert(Notice n) {
+		return noticeDao.insert(sqlSession,n);
 	}
 
 }

@@ -97,6 +97,16 @@ li {
 	width: 100%;
 	margin-bottom: 25px;
 }
+.home {
+	font-size: 18px;
+	color: white;
+	margin: 20px 10px;
+}
+
+.home:hover {
+	cursor: pointer;
+	font-weight: bold;
+}
 
 .sign-out {
 	font-size: 18px;
@@ -110,7 +120,7 @@ li {
 }
 
 #sidebar>ul {
-	height: calc(100vh - 200px);
+	height: calc(100vh - 280px);
 }
 
 .icon {

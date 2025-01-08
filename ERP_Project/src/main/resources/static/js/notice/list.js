@@ -38,9 +38,19 @@ function notice_list(){
 }
 
 //detail
-
 function notice_modal_detail(noticeNo){
-	$(".modal_data").val('');
+	clear();
+	$(".modal").css({
+		"width" : "1200px",
+		"height" : "800px"
+	});
+	$(".modal tbody").find("tr").eq(0).show();
+	$(".modal tbody").find("tr").eq(1).show();
+	$("#modal-noticeContent").show();
+	$("#note").hide();
+	$(".modal_data").each(function(){
+		$(this).attr("readonly","true");
+	});
 	$.ajax({
 		url : "/erp/notice/detail",
         method: 'GET',
@@ -50,7 +60,7 @@ function notice_modal_detail(noticeNo){
         success : function(data) {
 			$("#modal-noticeNo").val(data.noticeNo);
 			$("#modal-noticeTitle").val(data.noticeTitle);
-			$("#modal-noticeContent").val(data.noticeContent);
+			$("#modal-noticeContent").html(data.noticeContent);
 			$("#modal-noticeWriter").val(data.empName);
 			$("#modal-noticeCount").val(data.noticeCount);
 			$("#modal-createDate").val(data.createDate);
@@ -61,4 +71,54 @@ function notice_modal_detail(noticeNo){
         }
 	})
 	modalShow();
+}
+//
+function clear(){
+	$(".modal_data").val('');
+	$("#modal-noticeContent").html('');
+	$("#summernote").val('');
+}
+
+
+//공지 입력
+function notice_insert_modal(){
+	$(".modal").css({
+		"width" : "1200px",
+		"height" : "800px"
+	});
+	$(".modal_data").each(function(){
+		$(this).removeAttr("readonly");
+	});
+	$("#modal-noticeContent").hide();
+	$("#note").show();
+	modalShow();
+	$(".modal tbody").find("tr").eq(0).hide();
+	$(".modal tbody").find("tr").eq(1).hide();
+}
+
+function notice_insert(writer){
+	$.ajax({
+		url : "/erp/notice/insert",
+		method : "POST",
+		data : {
+			noticeWriter : writer,
+			noticeTitle : $("#modal-noticeTitle").val(),
+			noticeContent : $("#summernote").val()
+		},
+		success : function (result){
+			if(result =="NNNNY"){
+				alert("작성 완료");
+			}else{
+				alert("작성 실패");
+			}
+		},
+		error : function (error){
+			console.log("AJAX 통신 실패" , error);
+		},
+		complete : function(){
+			clear();
+			notice_list();
+			modalHide();
+		}
+	})
 }
