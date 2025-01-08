@@ -1,0 +1,43 @@
+#item-release-page>div {
+	margin: 10px 0;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+#item-release-table {
+	margin: 0 auto;
+	width: 100%;
+	min-width: 1200px;
+}
+
+#item-release-table th,
+#item-release-table td {
+
+	border: 2px solid black;
+	text-align: center;
+}
+#item-release-table thead{
+    background-color: rgb(225, 235, 255);
+}
+
+#item-release-pagingbar>input {
+	width: 30px;
+}
+#item-release-search-select{
+	margin-left: 20px;
+}
+#item-release-search-keyword{
+	margin-left: 5px;
+}
+#item-release-input-area{
+	margin: 0 auto;
+	width: 100%;
+	min-width: 1200px;
+}
+
+input {
+	outline: none;
+}
+

@@ -7,7 +7,9 @@ table {
 }
 
 #item-customer-table {
+	margin: 0 auto;
 	width: 100%;
+	min-width: 1200px;
 }
 
 #item-customer-table th,
@@ -16,23 +18,33 @@ table {
 	border: 2px solid black;
 	text-align: center;
 }
-
+#item-customer-table thead{
+    background-color: rgb(225, 235, 255);
+}
 #item-customer-table tr:hover {
 	background-color: rgb(192, 192, 192);
+}
+#item-customer-table>thead>tr:hover {
+    background-color: rgba(0, 0, 0, 0);
 }
 #item-customer-pagingbar>input {
 	width: 30px;
 }
-#customer-maxPage{
-	color: gray;
-}
 #item-customer-search-keyword{
 	margin-left: 20px;
+}
+#item-customer-input-area{
+	margin: 0 auto;
+	width: 100%;
+	min-width: 1200px;
 }
 .add {
 	float: right;
 }
-
+.modal-submit-btn{
+	width: 80%;
+	margin-top: 10px;
+}
 input {
 	outline: none;
 }
