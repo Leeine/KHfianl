@@ -19,11 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpSession;
 import kr.or.erp.attemdance.model.service.AttemdanceService;
-import kr.or.erp.attemdance.model.template.Pagination;
 import kr.or.erp.attemdance.model.vo.Attemdance;
 import kr.or.erp.attemdance.model.vo.CommuteOn;
 import kr.or.erp.attemdance.model.vo.EmpAttemdance;
 import kr.or.erp.common.model.vo.PageInfo;
+import kr.or.erp.common.template.Pagination;
 import kr.or.erp.employee.model.vo.Employee;
 import lombok.extern.slf4j.Slf4j;
 
