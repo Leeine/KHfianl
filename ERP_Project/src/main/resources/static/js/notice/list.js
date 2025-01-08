@@ -86,6 +86,10 @@ function notice_modal_detail(noticeNo){
 		"width" : "1200px",
 		"height" : "800px"
 	});
+	$("#notice-edit-btn").show();
+	$("#notice-delete-btn").show();
+	$("#notice-update-btn").hide();
+	$("#notice-insert-btn").hide();
 	$(".modal tbody").find("tr").eq(0).show();
 	$(".modal tbody").find("tr").eq(1).show();
 	$("#modal-noticeContent").show();
@@ -134,6 +138,10 @@ function notice_insert_modal(){
 	});
 	$("#modal-noticeContent").hide();
 	$("#note").show();
+	$("#notice-edit-btn").hide();
+	$("#notice-delete-btn").hide();
+	$("#notice-update-btn").hide();
+	$("#notice-insert-btn").show();
 	modalShow();
 	$(".modal tbody").find("tr").eq(0).hide();
 	$(".modal tbody").find("tr").eq(1).hide();
@@ -154,6 +162,80 @@ function notice_insert(writer){
 				alert("작성 완료");
 			}else{
 				alert("작성 실패");
+			}
+		},
+		error : function (error){
+			console.log("AJAX 통신 실패" , error);
+		},
+		complete : function(){
+			clear();
+			notice_list();
+			modalHide();
+		}
+	})
+}
+
+function notice_edit(){
+	$(".modal_data").each(function(){
+		$(this).removeAttr("readonly");
+	});
+	$(".modal_data").each(function(){
+		$(this).removeAttr("readonly");
+	});
+	$("#summernote").summernote("code", $("#modal-noticeContent").html());
+	$("#modal-noticeContent").hide();
+	$("#note").show();
+	$("#notice-edit-btn").hide();
+	$("#notice-delete-btn").hide();
+	$("#notice-insert-btn").hide();
+	$("#notice-update-btn").show();
+	$(".modal tbody").find("tr").eq(0).hide();
+	$(".modal tbody").find("tr").eq(1).hide();
+	
+	
+}
+
+//공지 수정
+function notice_update(){
+	$.ajax({
+		url : "/erp/notice/update",
+		method : "POST",
+		data : {
+			noticeNo : $("#modal-noticeNo").val(),
+			noticeTitle : $("#modal-noticeTitle").val(),
+			noticeContent : $("#summernote").val()
+		},
+		success : function (result){
+			if(result =="NNNNY"){
+				alert("수정 완료");
+			}else{
+				alert("수정 실패");
+			}
+		},
+		error : function (error){
+			console.log("AJAX 통신 실패" , error);
+		},
+		complete : function(){
+			clear();
+			notice_list();
+			modalHide();
+		}
+	})
+}
+
+//공지 삭제
+function notice_delete(){
+	$.ajax({
+		url : "/erp/notice/delete",
+		method : "POST",
+		data : {
+			noticeNo : $("#modal-noticeNo").val()
+		},
+		success : function (result){
+			if(result =="NNNNY"){
+				alert("삭제 완료");
+			}else{
+				alert("삭제 실패");
 			}
 		},
 		error : function (error){

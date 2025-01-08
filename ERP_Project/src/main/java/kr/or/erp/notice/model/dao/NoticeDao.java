@@ -51,4 +51,12 @@ public class NoticeDao {
 		return (ArrayList)sqlSession.selectList("noticeMapper.noticeSearchList",search,rowBounds);
 	}
 
+	public int delete(SqlSessionTemplate sqlSession, Notice n) {
+		return sqlSession.delete("noticeMapper.delete",n);
+	}
+
+	public int update(SqlSessionTemplate sqlSession, Notice n) {
+		return sqlSession.update("noticeMapper.update",n);
+	}
+
 }
