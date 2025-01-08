@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="/erp/css/common/menu.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
@@ -71,7 +72,9 @@
                     <span class="side-menu-text">근태 관리</span>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="">서브메뉴4</a></li>
+                    <li><a href="/erp/att/attListPage">근태 관리</a></li>
+                    <li><a href="">사원 근태 관리</a></li>
+                    <li><a href="">출퇴근 관리</a></li>
                 </ul>
             </li>
 
