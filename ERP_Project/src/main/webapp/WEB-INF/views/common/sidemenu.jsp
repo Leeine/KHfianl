@@ -70,7 +70,9 @@
                     <span class="side-menu-text">근태 관리</span>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="">서브메뉴4</a></li>
+                    <li><a href="/erp/att/attListPage">근태 관리</a></li>
+                    <li><a href="">사원 근태 관리</a></li>
+                    <li><a href="">출퇴근 관리</a></li>
                 </ul>
             </li>
 

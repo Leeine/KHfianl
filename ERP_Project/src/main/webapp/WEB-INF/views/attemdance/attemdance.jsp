@@ -28,7 +28,14 @@
 			background-color: white;
 			border-radius: 20px;
 			width : 93%;
-			height : 80vh;
+		}
+		
+		#attListDiv {
+			margin: 15px 0px 15px 0px;
+		}
+		
+		#attList tbody tr:hover {
+		    background-color: #DDE5FF;
 		}
 	 </style>
 </head>
@@ -46,12 +53,13 @@
 		</c:if>
 		
 		<div id="main-content-header">
+			<h3>근태 관리</h3>
 		</div>
 		
 		
 		<div id="main-content-block">
-			<h3>근태</h3>
-				<table id="attList" class="table table-hover" align="center">
+			<div id="attListDiv">
+				<table id="attList" class="table table-bordered table-sm" align="center">
 		        	<thead>
 		            	<tr>
 		                	<th>근태코드</th>
@@ -65,6 +73,7 @@
 		        	</tbody>
 				</table>
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insrtAttForm">항목추가</button>
+			</div>
 		</div>
 			
 			<div class="modal fade" id="insrtAttForm">
@@ -80,7 +89,7 @@
 		                <form action="attInsert" method="post">
 		                    <!-- Modal body -->
 		                    <div class="modal-body">
-		                    	<table align="center">
+		                    	<table class="table table-bordered table-sm" align="center">
 					            	<tr>
 					                	<th>근태명칭</th>
 					                	<td><input type="text" class="form-control" id="attName" name="attName"></td>
@@ -98,10 +107,6 @@
 					            	<tr>
 					            		<th>근태수</th>
 					            		<td><input type="number" class="form-control" id="attCount" name="attCount"></td>
-					            	</tr>
-					            	<tr>
-					            		<th>적요</th>
-					            		<td><input type="text" class="form-control"></td>
 					            	</tr>
 						    	</table>
 		                    </div>
@@ -179,8 +184,6 @@
 	                    $("#attTypeCode").val("");
 	                    $("#attCount").val("");
 	                    
-	                    //$("#insrtAttForm").hide();
-	                    //$(".modal-backdrop").remove(); // 모달 배경 제거
 	                    $("#insrtAttForm").modal("hide");
 	                    
 	                    selectAttList();
@@ -198,7 +201,6 @@
 		$("#attList").on("click","tbody>tr .attUpdate",function(){
 				
 			var code = $(this).closest("tr").children().first().text();
-			//console.log(code);
 			
 			if (confirm("해당 항목의 사용을 중지하시겠습니까?")){
 				$.ajax({

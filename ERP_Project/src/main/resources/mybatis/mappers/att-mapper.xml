@@ -65,6 +65,33 @@
 		ORDER BY INPUT_DATE DESC
 	</select>
 	
+	<!-- 사원 근태 날짜 지정 조회 -->
+	<select id="selectAttDate" resultType="empAttemdance">
+		SELECT EMP_ATT_TIME
+			  ,ATT_CODE
+		      ,ATT_NAME
+		      ,EMP_NO
+		      ,EMP_NAME
+		      ,EMP_ATT_COUNT
+		      ,EMP_ATT_STATE
+		FROM EMP_ATTEMDANCE
+		JOIN ATTEMDANCE USING (ATT_CODE)
+		JOIN EMPLOYEE USING (EMP_NO)
+		WHERE
+		<choose>
+			<when test="inputDate1 != null and inputDate2 != null">
+				EMP_ATT_TIME BETWEEN #{inputDate1} AND #{inputDate2}
+			</when>
+			<when test="inputDate1 != null and inputDate2 == null">
+				EMP_ATT_TIME >= #{inputDate1}
+			</when>
+			<when test="inputDate1 == null and inputDate2 != null">
+				#{inputDate2} >= EMP_ATT_TIME
+			</when>
+		</choose>
+		ORDER BY INPUT_DATE DESC
+	</select>
+	
 	<!-- 근태옵션리스트 -->
 	<select id="empOptList" resultType="attemdance">
 		SELECT ATT_NAME
@@ -74,13 +101,39 @@
 	</select>
 	
 	<!-- 사원 리스트 -->
-	<select id="empList" resultType="employee">
+	<select id="empList" resultType="empAttemdance">
 		SELECT EMP_NO
 		      ,EMP_NAME
 		      ,DEPT_CODE
+		      ,DEPT_NAME
 		      ,VACATION
 		FROM EMPLOYEE
+		LEFT JOIN DEPARTMENT USING(DEPT_CODE)
 		WHERE VACATION BETWEEN 0 AND 50
+	</select>
+	
+	<!-- 사원 검색 -->
+	<select id="empSearch" resultType="empAttemdance">
+		SELECT EMP_NO
+		      ,EMP_NAME
+		      ,DEPT_CODE
+		      ,DEPT_NAME
+		      ,VACATION
+		FROM EMPLOYEE
+		LEFT JOIN DEPARTMENT USING(DEPT_CODE)
+		WHERE VACATION BETWEEN 0 AND 50
+		<choose>
+			<when test="condition == 'empNo'">
+				AND EMP_NO
+			</when>
+			<when test="condition == 'empName'">
+				AND EMP_NAME
+			</when>
+			<otherwise>
+				AND DEPT_NAME 
+			</otherwise>		
+		</choose>
+		LIKE '%' || #{keyword} || '%'
 	</select>
 	
 	<!-- 사원 근태 추가 -->
@@ -130,5 +183,163 @@
 		  AND EMP_NO = #{empNo}
 		  AND ATT_CODE = #{attCode}
 	</update>
+	
+	<!-- 출퇴근 -->
+	
+	<!-- 개수 -->
+	<select id="comListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM COMMUTE_ON
+	</select>
+	
+	<!-- 조회 -->
+	<select id="comOnList" resultType="commuteOn">
+		SELECT DISTINCT
+			   COM_START
+		      ,EMP_NAME
+		      ,DEPT_NAME
+		      ,TO_CHAR(COM_START, 'YYYY-MM-DD AM HH:MI:SS') COM_START_CHAR
+		      ,MAX(CASE 
+		           WHEN TO_CHAR(COM_START, 'YYYY-MM-DD') = TO_CHAR(COM_END, 'YYYY-MM-DD') 
+		           THEN TO_CHAR(COM_END, 'YYYY-MM-DD AM HH:MI:SS')
+		           ELSE NULL
+		       END) AS COM_END_CHAR
+		FROM EMPLOYEE
+		LEFT JOIN DEPARTMENT USING (DEPT_CODE)
+		JOIN COMMUTE_ON USING (EMP_NO)
+		LEFT JOIN COMMUTE_OFF USING (EMP_NO)
+		GROUP BY COM_START, EMP_NAME, DEPT_NAME, TO_CHAR(COM_START, 'YYYY-MM-DD AM HH:MI:SS')
+		ORDER BY TO_CHAR(COM_START, 'YYYY-MM-DD')
+		<if test="daysc == 'desc'">
+			DESC
+		</if>
+	</select>
+	
+	<!-- 검색 조회 -->
+	<select id="comSearchList" resultType="commuteOn">
+		SELECT DISTINCT
+			   COM_START
+		      ,EMP_NAME
+		      ,DEPT_NAME
+		      ,TO_CHAR(COM_START, 'YYYY-MM-DD AM HH:MI:SS') COM_START_CHAR
+		      ,MAX(CASE 
+		           WHEN TO_CHAR(COM_START, 'YYYY-MM-DD') = TO_CHAR(COM_END, 'YYYY-MM-DD') 
+		           THEN TO_CHAR(COM_END, 'YYYY-MM-DD AM HH:MI:SS')
+		           ELSE NULL
+		       END) AS COM_END_CHAR
+		FROM EMPLOYEE E
+		LEFT JOIN DEPARTMENT USING (DEPT_CODE)
+		JOIN COMMUTE_ON USING (EMP_NO)
+		LEFT JOIN COMMUTE_OFF USING (EMP_NO)
+		WHERE 
+		<if test="condition != 'null'">
+		<choose>
+			<when test="condition == 'empNo'">
+				EMP_NO
+			</when>
+			<when test="condition == 'empName'">
+				E.EMP_NAME
+			</when>
+			<when test="condition == 'deptName'">
+				DEPT_NAME
+			</when>
+		</choose>
+		LIKE '%' || #{keyword} || '%'
+		</if>
+		<if test="condition != 'null' and (inputDate1 != null or inputDate2 != null)">
+			AND
+		</if>
+		<choose>
+			<when test="inputDate1 != null and inputDate2 != null">
+				TRUNC(COM_START) BETWEEN #{inputDate1} AND #{inputDate2}
+			</when>
+			<when test="inputDate1 != null and inputDate2 == null">
+				TRUNC(COM_START) >= #{inputDate1}
+			</when>
+			<when test="inputDate1 == null and inputDate2 != null">
+				#{inputDate2} >= TRUNC(COM_START)
+			</when>
+		</choose>
+		GROUP BY COM_START, EMP_NAME, DEPT_NAME, TO_CHAR(COM_START, 'YYYY-MM-DD AM HH:MI:SS')
+		ORDER BY TO_CHAR(COM_START, 'YYYY-MM-DD')
+		<if test="daysc == 'desc'">
+			DESC
+		</if>
+			, EMP_NAME
+	</select>
+	
+	<!-- 유저 일주일 출근 
+	<select id="empWeek" resultType="commuteOn">
+		SELECT DISTINCT
+		    TO_CHAR(COM_START, 'YYYY-MM-DD AM HH:MI:SS') COM_START_CHAR,
+		    (SELECT MAX(TO_CHAR(COM_END, 'YYYY-MM-DD AM HH:MI:SS'))
+		     FROM COMMUTE_OFF COF
+		     WHERE COF.EMP_NO = COO.EMP_NO
+		     AND TO_CHAR(COF.COM_END, 'YYYY-MM-DD') = TO_CHAR(COM_START, 'YYYY-MM-DD')
+		    ) AS COM_END_CHAR
+		FROM COMMUTE_ON COO
+		WHERE EMP_NO = #{empNo}
+		  AND COM_START BETWEEN TRUNC(SYSDATE, 'IW') AND TRUNC(SYSDATE, 'IW') + 6
+		ORDER BY COM_START_CHAR
+	</select>-->
+	
+	<select id="empWeek" resultType="commuteOn">
+		WITH WEEK_DATES AS (
+		    SELECT TRUNC(SYSDATE, 'IW') + LEVEL - 1 AS WEEK_DATE
+		    FROM DUAL
+		    <![CDATA[CONNECT BY LEVEL <= 7]]>
+		)
+		SELECT 
+		    TO_CHAR(WD.WEEK_DATE, 'YYYY-MM-DD') AS WEEK_DAY,
+		    MAX(TO_CHAR(COO.COM_START, 'YYYY-MM-DD AM HH:MI:SS')) AS COM_START_CHAR,
+		    MAX(TO_CHAR(COF.COM_END, 'YYYY-MM-DD AM HH:MI:SS')) AS COM_END_CHAR
+		FROM WEEK_DATES WD
+		LEFT JOIN COMMUTE_ON COO
+		    ON TRUNC(COO.COM_START) = WD.WEEK_DATE
+		    AND COO.EMP_NO = #{empNo}
+		LEFT JOIN COMMUTE_OFF COF
+		    ON COF.EMP_NO = COO.EMP_NO
+		    AND TRUNC(COF.COM_END) = WD.WEEK_DATE
+		GROUP BY WD.WEEK_DATE
+		ORDER BY WEEK_DAY
+	</select>
+	
+	<!-- 출퇴근 버튼 생성 -->
+	<select id="comInBtn" resultType="_int">
+		SELECT COUNT(*)
+		FROM COMMUTE_ON
+		WHERE EMP_NO = #{empNo}
+		AND TO_CHAR(COM_START, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+	</select>
+	<!-- 퇴근 체크 -->
+	<select id="todayComCheck" resultType="_int">
+		SELECT COUNT(*)
+		FROM COMMUTE_OFF
+		WHERE EMP_NO = #{empNo}
+		AND TO_CHAR(COM_END, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+	</select>
+	
+	<!-- 출근 기록 -->
+	<insert id="insertComOn">
+		INSERT INTO COMMUTE_ON(EMP_NO)
+		VALUES (#{empNo})
+	</insert>
+	<!-- 퇴근 기록 -->
+	<insert id="insertComOff">
+		INSERT INTO COMMUTE_OFF(EMP_NO)
+		VALUES (#{empNo})
+	</insert>
+	
+	<!--  -->
+	<select id="userEmpCount" resultType="_int">
+		SELECT
+		CASE 
+		    WHEN VACATION != NULL 
+		    THEN VACATION
+		    ELSE '0'
+		END AS VACATION
+		FROM EMPLOYEE
+		WHERE EMP_NO = #{empNo}
+	</select>
 	
 </mapper>

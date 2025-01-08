@@ -20,4 +20,8 @@ public class EmpAttemdance {
 	private double empAttCount;//    EMP_ATT_COUNT NUMBER NOT NULL,
 	private Date inputDate;//    INPUT_DATE DATE DEFAULT SYSDATE,
 	private String empAttState;//    EMP_ATT_STATE VARCHAR(1)
+	
+	private String deptCode;
+	private String deptName;
+	private double vacation;
 }

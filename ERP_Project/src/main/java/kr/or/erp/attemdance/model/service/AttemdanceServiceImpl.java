@@ -1,6 +1,8 @@
 package kr.or.erp.attemdance.model.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.erp.attemdance.model.dao.AttemdanceDao;
 import kr.or.erp.attemdance.model.vo.Attemdance;
+import kr.or.erp.attemdance.model.vo.CommuteOn;
 import kr.or.erp.attemdance.model.vo.EmpAttemdance;
 import kr.or.erp.attemdance.model.vo.PageInfo;
 import kr.or.erp.employee.model.vo.Employee;
@@ -74,13 +77,18 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 	public ArrayList<EmpAttemdance> empAttList(PageInfo pi){
 		return attDao.empAttList(sqlSession, pi);
 	}
+	
+	//사원 근태 날짜 지정 조회
+	@Override
+	public ArrayList<EmpAttemdance> selectAttDate(HashMap<String, String> hashMap, PageInfo pi){
+		return attDao.selectAttDate(sqlSession, hashMap, pi);
+	}
 
 	//사원 근태 조회
-	@Override
-	public EmpAttemdance selectEmpAtt(int empNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public EmpAttemdance selectEmpAtt(int empNo) {
+//		return null;
+//	}
 
 	//사원 근태 등록
 	@Override
@@ -101,6 +109,13 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 	public ArrayList<Employee> empList(PageInfo pi) {
 		
 		return attDao.empList(sqlSession, pi);
+	}
+	
+	//사원 검색
+	@Override
+	public ArrayList empSearch(HashMap<String, String> hashMap) {
+		
+		return attDao.empSearch(sqlSession, hashMap);
 	}
 
 	//삭제
@@ -139,8 +154,67 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 	@Override
 	public int comListCount() {
 		
-		return 0;
+		return attDao.comListCount(sqlSession);
 	}
+
+	//리스트 조회
+	@Override
+	public ArrayList comOnList(String daysc, PageInfo pi) {
+		
+		return attDao.comOnList(sqlSession, daysc, pi);
+	}
+
+	//출근 조건 검색 조회
+	@Override
+	public ArrayList comSearchList(HashMap<String, String> hashMap, PageInfo pi) {
+		
+		return attDao.comSearchList(sqlSession, hashMap, pi);
+	}
+
+	//유저 일주일 출근
+	@Override
+	public ArrayList<CommuteOn> empWeek(int empNo) {
+		
+		return (ArrayList)attDao.empWeek(sqlSession, empNo);
+	}
+
+	//출퇴근 버튼 생성
+	@Override
+	public int comInBtn(int empNo) {
+		
+		return attDao.comInBtn(sqlSession, empNo);
+	}
+	//오늘 퇴근 체크
+	@Override
+	public int todayComCheck(int empNo) {
+		
+		return attDao.todayComCheck(sqlSession, empNo);
+	}
+
+	//출퇴근 기록
+	@Override
+	public int insertCom(int empNo, String btnVal) {
+		
+		int result = 0;
+		System.out.println(btnVal);
+		
+		if(btnVal.equals("on")) {
+			result = attDao.insertComOn(sqlSession, empNo);
+		}else {
+			result = attDao.insertComOff(sqlSession, empNo);
+		}
+		
+		return result;
+	}
+
+	//
+	@Override
+	public int userEmpCount(int empNo) {
+		
+		return attDao.userEmpCount(sqlSession, empNo);
+	}
+
+
 
 	
 
