@@ -1,10 +1,16 @@
-
+//
+function pageChange(){
+	$(".modal-overlay").remove();
+	$("#index-content-block").hide();
+	$("#main-content-block").show();
+}
 
 
 //------------제품 관리-------------
 
 //거래처 등록 페이지 불러오기
 function itemCustomerPage(){
+	pageChange();
 	$.ajax({
 		url : "/erp/item/customer",
         method: 'GET',
@@ -20,6 +26,7 @@ function itemCustomerPage(){
 
 //재고 현황 페이지 불러오기
 function itemListPage(){
+	pageChange();
 	$.ajax({
 		url : "/erp/item/stock",
         method: 'GET',
@@ -50,6 +57,7 @@ function testDocument(){
 }
 //발주 페이지 불러오기
 function itemOrderPage(){
+	pageChange();
 	$.ajax({
 		url : "/erp/item/order",
         method: 'GET',
@@ -65,6 +73,7 @@ function itemOrderPage(){
 
 //판매 페이지 불러오기
 function itemSellPage(){
+	pageChange();
 	$.ajax({
 		url : "/erp/item/sell",
         method: 'GET',
@@ -80,6 +89,7 @@ function itemSellPage(){
 
 //출하 페이지 불러오기
 function itemReleasePage(){
+	pageChange();
 	$.ajax({
 		url : "/erp/item/release",
         method: 'GET',
@@ -96,6 +106,7 @@ function itemReleasePage(){
 
 //------------마이페이지-------------
 function employeeMypage(){
+	pageChange();
 	$.ajax({
 		url : "/erp/employee/mypage",
         method: 'GET',
@@ -109,6 +120,21 @@ function employeeMypage(){
 	})
 };
 
+//-------------- 공지 -----------------
+function noticePage(){
+	pageChange();
+	$.ajax({
+		url : "/erp/notice/page",
+        method: 'GET',
+        success: function (data) {
+			$("#main-content-header").html("<h1>공지</h1>")
+			$("#main-content-block").html($(data).filter("#notice-list-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
 
 
 

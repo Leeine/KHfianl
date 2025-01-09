@@ -18,8 +18,12 @@
 <script src="/erp/js/summernote/lang/summernote-ko-KR.js"></script>
 
 <script src="/erp/js/common/menu.js"></script>
+
+<link href="/erp/css/common/main.css" rel="stylesheet">
 <script src="/erp/js/common/modal.js"></script>
 <link href="/erp/css/common/modal.css" rel="stylesheet">
+<script src="/erp/js/common/indexNotice.js"></script>
+<link href="/erp/css/common/indexNotice.css" rel="stylesheet">
 
 <link href="/erp/css/item/customer.css" rel="stylesheet">
 <script src="/erp/js/item/customer.js"></script>
@@ -35,29 +39,11 @@
 
 <link href="/erp/css/employee/mypage.css" rel="stylesheet">
 <script src="/erp/js/employee/mypage.js"></script>
-<title>Insert title here</title>
-<style>
-    #main-content-header{
-    	margin : 30px auto;
-		padding : 1px 15px;
-    	width : 95%;
-    	height : 100px;
-    	border-radius : 10px;
-		background-color: white;
-    }
-	#main-content{
-		margin-left : 60px;
-	}
-	#main-content-block{
-		margin : 0 auto;
-		padding : 1px 15px;
-		background-color: white;
-		border-radius: 10px;
-		width : 95%;
-		height : 80vh;
-		overflow: auto;
-	}
-</style>
+
+<link href="/erp/css/notice/list.css" rel="stylesheet">
+<script src="/erp/js/notice/list.js"></script>
+
+<title>ERP</title>
 </head>
 <body style="background-color: rgb(225, 235, 255)">
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
@@ -69,13 +55,28 @@
 			</script>
 			<c:remove var="alertMsg"/>
 		</c:if>
-		
+		<script>
+			$(function(){
+				indexNoticePage();
+			})
+		</script>
 		<div id="main-content-header">
 		</div>
-		
+		<div id="index-content-block">
+			<div id="index-content-wrap">
+				<div id="employee-info-block">
+					<h3>사원정보</h3>
+				</div>
+				<div id="notice-list-block">
+					<h3 onclick="noticePage();">NOTICE</h3>
+					<div id="index-notice-div">
+						
+					</div>
+				</div>
+			</div>
+		</div>
 		
 		<div id="main-content-block">
-			<h3>메인 페이지 구역</h3>
 		</div>
 	</div>
 	

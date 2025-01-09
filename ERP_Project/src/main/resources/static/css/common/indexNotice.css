@@ -1,0 +1,21 @@
+#index-notice-table {
+	width: 100%;
+	border: 2px solid black;
+
+}
+
+#index-notice-table thead{
+    background-color: rgb(225, 235, 255);
+}
+#index-notice-table tr:hover {
+	background-color: rgb(192, 192, 192);
+}
+#index-notice-table>thead>tr:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+#index-notice-table th,
+#index-notice-table td {
+	text-align: center;
+	height: 40px;
+	border: 2px solid black;
+}
