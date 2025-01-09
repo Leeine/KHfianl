@@ -20,4 +20,13 @@
             APPROVE_DOCUMENT
     </select>
 	
+	 <select id="typeContent" resultType="Document" parameterType="Document">
+        SELECT 
+            DO_CONTENT
+        FROM 
+            APPROVE_DOCUMENT
+        WHERE
+            DO_NO = #{doNo}
+    </select>
+	
 </mapper>

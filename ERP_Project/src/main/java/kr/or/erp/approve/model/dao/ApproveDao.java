@@ -17,4 +17,10 @@ public class ApproveDao {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectDocumentList");
 	}
 
+	public Document typeContent(SqlSessionTemplate sqlSession, Document doc) {
+		
+		
+		return sqlSession.selectOne("approveMapper.typeContent",doc);
+	}
+
 }

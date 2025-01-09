@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.erp.approve.model.service.approveService;
 import kr.or.erp.approve.model.vo.Document;
@@ -31,6 +32,15 @@ public class appoveController {
     }
 	
     
+	@ResponseBody
+	@GetMapping(value="/type", produces = "application/json;charset=UTF-8")
+	public Document type(Document doc) {
+		System.out.println(doc);
+		Document type = approveService.typeContent(doc);
+				
+				
+		return type;
+	}
 	
 	
 }

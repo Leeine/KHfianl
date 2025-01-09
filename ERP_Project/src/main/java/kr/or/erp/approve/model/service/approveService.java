@@ -12,6 +12,9 @@ public interface approveService {
 	
 
 	ArrayList<Document> selectDocumentList();
+
+	Document typeContent(Document doc);
+	
 	
 
 	

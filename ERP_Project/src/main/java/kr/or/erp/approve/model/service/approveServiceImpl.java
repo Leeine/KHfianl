@@ -26,4 +26,11 @@ public class approveServiceImpl implements approveService{
 
 	}
 
+	@Override
+	public Document typeContent(Document doc) {
+		
+		
+		return approveDao.typeContent(sqlSession, doc);
+	}
+
 }

@@ -44,26 +44,23 @@
     </tbody>
 </table>
 
- 
 
-<c:set var="a" value="${documentList[2]}" />
+<c:set var="a" value="${documentList[1]}" />
 
 <script>
     $(document).ready(function() {
-        // 서류 번호 추출 및 모달 표시
         $("#documnetList>tbody tr").click(function() {
-            var bno = $(this).children().first().text(); // 서류 번호 추출
-            console.log("추출된 서류 번호: " + bno);
-
-            // 서류 번호를 모달 버튼에 전달
-            $(".modal").find(".modal-custom-button").attr("data-bno", bno); 
-
-            // 여기에 summernote 초기화를 추가
+            var bno = $(this).children().first().text(); 
+            $(".modal").css({"width":"1000px", "height" : "800px"})
+            do_type(bno);
+            
+           
+                         
             $("#summernote").summernote({
             	placeholder: '내용을 입력해주세요',
                 tabsize: 2,
-                width:  800,
-                height: 300,
+                width:  1000,
+                height: 700,
                 focus: true,
                 lang: 'ko-KR', 
                 toolbar: [
@@ -77,28 +74,41 @@
                 ]
             });
 
-            // 모달 표시
-            $(".modal-overlay").fadeIn();
+            $(".modal-overlay").css("display", "flex");
         });
 
-        // 모달 닫기
         $(".modalHide").click(function() {
             $(".modal-overlay").fadeOut(); // 모달 숨기기
         });
 
-        // 모달 커스텀 버튼 클릭시 서류 번호 가져오기
         $(".modal-custom-button").click(function() {
             var bno = $(this).attr("data-bno");
-            console.log("모달에서 선택된 서류 번호: " + bno);
             $(".modal-overlay").fadeOut(); // 모달 숨기기
         });
     });
 
-    function selectType1() {
+   /* function selectType1() {
         var type1 = '${a.doContent}';
         $("#summernote").summernote("code", type1);
-    }
+        console.log(type1);
+    }*/
     
+    function do_type(bno){
+    	$.ajax({
+    		url:"/erp/approve/type",
+    		data : {
+    			doNo : bno
+    		},
+    		method : "GET",
+    		success : function (result){
+    			console.log(result);
+    			$("#summernote").summernote("code", result.doContent);
+    		},
+    		error : function (error){
+    			console.log(error);
+    		}
+    	})
+    }
 </script>
 
    <!-- 모달 -->
@@ -107,9 +117,9 @@
             <div class="modal-header">
                 <img src="${contextPath}/icon/x.png" class="modalHide">
             </div>
-
+            <h2>결재 서류 작성</h2>
+           <br><br>
             <textarea id="summernote" style="resize:'none'"></textarea>
-            <button onclick="selectType1();">양식1</button>
 
             <div id="testdiv"></div>
             <button class="modal-custom-button">입력</button>
