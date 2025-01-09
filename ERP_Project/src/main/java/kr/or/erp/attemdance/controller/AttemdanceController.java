@@ -59,21 +59,19 @@ public class AttemdanceController {
 	} 
 	
 	//근태 항목 추가
-	@ResponseBody
 	@PostMapping("/attInsert")
-	public String attInsert(Attemdance att) {
+	public String attInsert(Attemdance att, HttpSession session) {
 		
 		int result = attService.attInsert(att);
 		
-		String resultStr = "";
-		
 		if(result >0) {
-			resultStr = "NNNNY";
+			session.setAttribute("alertMsg","등록 성공");
 		}else {
-			resultStr = "NNNNN";
+			session.setAttribute("alertMsg","등록 실패");
 		}
-
-		return resultStr;
+		
+		
+		return "redirect:/att/attListPage";
 	}
 	
 	//근태 항목 수정

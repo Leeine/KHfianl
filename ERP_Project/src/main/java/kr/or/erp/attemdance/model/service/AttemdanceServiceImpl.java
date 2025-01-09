@@ -190,7 +190,6 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 	public int insertCom(int empNo, String btnVal) {
 		
 		int result = 0;
-		System.out.println(btnVal);
 		
 		if(btnVal.equals("on")) {
 			result = attDao.insertComOn(sqlSession, empNo);

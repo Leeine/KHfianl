@@ -320,7 +320,7 @@
 	<select id="userEmpCount" resultType="_int">
 		SELECT
 		CASE 
-		    WHEN VACATION != NULL 
+		    WHEN VACATION IS NOT NULL 
 		    THEN VACATION
 		    ELSE '0'
 		END AS VACATION

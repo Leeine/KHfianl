@@ -1,204 +1,260 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<!-- 부트스트랩에서 제공하고 있는 스타일 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
+
+<link href="/erp/css/common/modal.css" rel="stylesheet">
 <style>
-	 	body {
-    		background-color: rgb(225, 235, 255);
-	    }
-	    #main-content-header{
-	    	margin : 30px;
-	    	width : 93%;
-	    	height : 100px;
-	    	border-radius : 20px;
-			background-color: white;
-	    }
-		#main-content{
-			margin-left : 60px;
-		}
-		#main-content-block{
-			margin : 30px;
-			padding : 1px 15px;
-			background-color: white;
-			border-radius: 20px;
-			width : 93%;
-		}
-		
-		#empAttListDiv {
-			margin: 15px 0px 15px 0px;
-		}
-		#pagingArea {
-			margin-bottom: 15px;
-		}
-		
-		#empAttList tbody tr:hover {
-		    background-color: #DDE5FF;
-		}
-		#inputDate {
-			margin-bottom: 5px;
-		}
-		
-		h4 {
-	    	display: inline-block;
-	    }
-	    #userDiv {
-	    	padding: 15px 0px 15px 0px;
-	    }
-	    p {
-	    	display: inline-block;
-	    	margin-left: 30px;
-	    }
-	 </style>
+body {
+	background-color: rgb(225, 235, 255);
+}
+
+#main-content-header {
+	margin: 30px;
+	width: 93%;
+	height: 100px;
+	border-radius: 20px;
+	background-color: white;
+}
+
+#main-content {
+	margin-left: 60px;
+}
+
+#main-content-block {
+	margin: 30px;
+	padding: 1px 15px;
+	background-color: white;
+	border-radius: 20px;
+	width: 93%;
+}
+
+#empAttListDiv {
+	margin: 15px 0px 15px 0px;
+}
+
+#pagingArea {
+	margin-bottom: 15px;
+}
+
+#empAttList tbody tr:hover {
+	background-color: #DDE5FF;
+}
+
+#inputDate {
+	margin-bottom: 5px;
+}
+
+h3 {
+	display: inline-block;
+}
+
+#userDiv {
+	padding-left: 10%;
+}
+
+p {
+	display: inline-block;
+	margin-left: 30px;
+}
+
+.insertBtn {
+	margin: 10px 0px 10px 0px;
+}
+
+#empName:hover {
+	cursor: pointer;
+}
+
+#keyword {
+	width: 150px;
+	border: solid 1px black;
+}
+
+#empList select {
+	width: 70px;
+	border: solid 1px black;
+}
+
+table{
+	width: 80%;
+	border: 2px solid #C0C9D1;
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+
+tr, td, th {
+	border: 2px solid #C0C9D1;
+	padding-left: 5px;
+}
+
+th {
+	text-align: left;
+	background-color: rgb(225, 235, 255);
+}
+
+.modal select {
+	border: 0;
+	width: 100%;
+	outline: none;
+}
+
+#inputDate{
+	margin-left: 10%;
+}
+.insertBtn{
+	align-content: 
+}
+
+.attChange:hover {
+	background-color: rgb(55, 78, 121);
+	color: white;
+}
+.attDelete:hover {
+	background-color: red;
+	color: white;
+}
+
+
+</style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
-	<%@include file="/WEB-INF/views/attemdance/modal.jsp"%>
-	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
+
+	<c:set var="contextPath"
+		value="${pageContext.servletContext.contextPath}" />
 	<div id="main-content">
+
 		<c:if test="${not empty alertMsg}">
 			<script>
 				alert("${alertMsg}");
 			</script>
-			<c:remove var="alertMsg"/>
+			<c:remove var="alertMsg" />
 		</c:if>
-		
+
 		<div id="main-content-header">
-			<h3>사원 근태 관리</h3>
+			<h2>사원 근태 관리</h2>
 		</div>
-		
-		
+
+
 		<div id="main-content-block">
 			<div id="userDiv">
-				<h4>${loginUser.empName } 님</h4>
-				<p>12</p>
+				<h3>${loginUser.empName } 님</h3>
+				<p>404</p>
 			</div>
+			
 			<div id="empAttListDiv">
 				<div id="inputDate">
 					<input type="date" id="inputDate1"> ~ <input type="date" id="inputDate2">
-					<button class='btn btn-secondary btn-sm' onclick="selectAttDate();">검색</button>
-					<button class='btn btn-secondary btn-sm' onclick="reset();">초기화</button>
+					<button onclick="selectAttDate();">검색</button>
+					<button onclick="reset();">초기화</button>
 				</div>
-			
-				<table id="empAttList" class="table table-bordered table-sm" align="center">
-		        	<thead>
-		            	<tr>
-		            		<th>근태일자</th>
-		                	<th>사원명</th>
-		                	<th>근태</th>
-		                	<th>근태수</th>
-		                	<th>사용</th>
-		                	<th></th>
-		            	</tr>
-			       	</thead>
-			    	<tbody>
-		        	</tbody>
+
+				<table id="empAttList">
+					<thead>
+						<tr>
+							<th>근태일자</th>
+							<th>사원명</th>
+							<th>근태</th>
+							<th>근태수</th>
+							<th colspan="2">사용</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
 				</table>
-				
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insrtEmpAttForm">항목추가</button>
+
+				<div align="center">
+					<button class="insertBtn" type="button" onclick="modalShow();">항목추가</button>
+				</div>
 			</div>
 		</div>
-		
-		<div class="modal fade" id="insrtEmpAttForm">
-		        <div class="modal-dialog modal-dialog-centered">
-		            <div class="modal-content">
-		
-		                <!-- Modal Header -->
-		                <div class="modal-header">
-		                    <h4 class="modal-title">근태 추가</h4>
-		                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-		                </div>
-		
-		                <form action="empAttInsert" method="post" id="empAttInsertForm">
-		                    <!-- Modal body -->
-		                    <div class="modal-body">
-		                    	<table class="table table-bordered table-sm" align="center">
-					            	<tr>
-					            		<th>근태일자</th>
-					            		<td>
-						            		<input type="date" name="empAttTime" id="empAttTime">
-					            		</td>
-					            	</tr>
-					            	<tr>
-					            		<th>사원명</th>
-					            		<td>
-					            			<input type="hidden" name="empNo" id="empNo">
-					            			<input type="text" name="empName" id="empName" readonly  data-toggle="modal" data-target="#empList">
-					            		</td>
-					            	</tr>
-					            	<tr>
-					            		<th>근태</th>
-					            		<td>
-					            			<select name="attCode" id="attCode">
-					            				<option></option>
-											</select>
-					            		</td>
-					            	</tr>
-					            	<tr>
-					            		<th>근태수</th>
-					            		<td><input type="number" min="0.5" name="empAttCount"></td>
-					            	</tr>
-					            	
-						    	</table>
-		                    </div>
-		                    <!-- Modal footer -->
-		                    <div class="modal-footer" align="center">
-		                        <button type="submit" id="empAttInsert" class="btn btn-primary">추가하기</button>
-		                    </div>
-		                </form>
-		            </div>
+
+		<div class="modal-overlay" id="insrtEmpAttForm">
+			<div class="modal">
+				<div class="modal-header">
+					<img src="${contextPath}/icon/x.png" class="modalHide"
+						onclick="modalHide();">
 				</div>
+
+				<h4 class="modal-title">근태 추가</h4>
+
+				<form action="empAttInsert" method="post" id="empAttInsertForm">
+					<div class="modal-body">
+						<table align="center">
+							<tr>
+								<th>근태일자</th>
+								<td><input type="date" name="empAttTime" id="empAttTime" required></td>
+							</tr>
+							<tr>
+								<th>사원명</th>
+								<td><input type="hidden" name="empNo" id="empNo" required>
+									<input type="text" name="empName" id="empName" onclick="modalShow2();" readonly required></td>
+							</tr>
+							<tr>
+								<th>근태</th>
+								<td><select name="attCode" id="attCode">
+										<option></option>
+								</select></td>
+							</tr>
+							<tr>
+								<th>근태수</th>
+								<td><input type="number" step="0.5" min="0.5" name="empAttCount"></td>
+							</tr>
+
+						</table>
+					</div>
+					<div class="modal-footer" align="center">
+						<button class="insertBtn" type="submit" id="empAttInsert">추가하기</button>
+					</div>
+				</form>
+			</div>
 		</div>
-		
-		<div class="modal fade" id="empList">
-		        <div class="modal-dialog modal-dialog-centered">
-		            <div class="modal-content">
-		
-		                <!-- Modal Header -->
-		                <div class="modal-header">
-		                    <h4 class="modal-title">사원 목록</h4>
-		                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-		                </div>
-		                <!-- Modal body -->
-		                <div class="modal-body">
-		                	<select class="form-select" id="condition">
-		                		<option value="empNo">사번</option>
-		                		<option value="empName">사원명</option>
-		                		<option value="department">부서</option>
-		                	</select>
-		                	<input type="text" id="keyword">
-		                	<button class='btn btn-secondary btn-sm' onclick="empSearch();">검색</button>
-		                	<button class='btn btn-secondary btn-sm' onclick="empList();">초기화</button>
-		                
-		                    <table align="center" class="table table-bordered table-sm" id="empListTable">
-		                    	<thead>
-		                    		<tr>
-						            	<th>사번</th>
-						            	<th>사원명</th>
-						            	<th>부서</th>
-						            	<th>남은 수</th>
-						            </tr>
-		                    	</thead>
-		                    	<tbody>
-		                    	
-		                    	</tbody>
-							</table>
-		            	</div>
-		            </div>
+
+		<div class="modal-overlay" id="empList">
+			<div class="modal">
+				<div class="modal-header">
+					<img src="${contextPath}/icon/x.png" class="modalHide"
+						onclick="modalHide2();">
 				</div>
+
+				<h4 class="modal-title">사원 목록</h4>
+
+				<div class="modal-body">
+					<select class="form-select" id="condition">
+						<option value="empNo">사번</option>
+						<option value="empName">사원명</option>
+						<option value="department">부서</option>
+					</select> <input type="text" id="keyword">
+					<button class="insertBtn" onclick="empSearch();">검색</button>
+					<button onclick="empList();">초기화</button>
+
+					<table align="center" id="empListTable">
+						<thead>
+							<tr>
+								<th>사번</th>
+								<th>사원명</th>
+								<th>부서</th>
+								<th>남은 수</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
-		
+
+
 	</div>
 
-	
-    
-	
+
+
+
 	<script>
 	
 		$(function(){
@@ -242,21 +298,21 @@
 							 + "<td>";
 						
 						if(att.empAttState == null){
-							str += "</td>" + "<td>";
+							str += "</td>" + "<td style='text-align: center;'>";
 						}else{
-							str += att.empAttState +"</td>" + "<td>";
+							str += att.empAttState +"</td>" + "<td style='text-align: center; width: 10%;'>";
 						}
 							 
 						
 						if(att.empAttState == 'Y'){
-							str += "<button class='btn btn-secondary btn-sm attUpdate'>중지</button>";
+							str += "<button class='attChange attUpdate'>중지</button>";
 						}else if(att.empAttState == 'N'){
-							str += "<button class='btn btn-secondary btn-sm attUpdate2'>사용</button>";
+							str += "<button class='attChange attUpdate2'>사용</button>";
 						}else{
-							str += "<button class='btn btn-secondary btn-sm attUpdate3'>확인</button>";
+							str += "<button class='attChange attUpdate3'>확인</button>";
 						}
 						
-						str += "<button  class='btn btn-danger btn-sm attDelete'>삭제</button>"
+						str += "<button  class='attDelete'>삭제</button>"
 							 + "</td>"
 							 + "</tr>";
 					}
@@ -296,7 +352,7 @@
 							 + "<td data-value='"+ att.empNo +"'>"+ att.empName +"</td>"
 							 + "<td data-value='"+ att.attCode +"'>"+ att.attName +"</td>"
 							 + "<td data-value='"+ att.empAttCount +"'>"+ att.empAttCount +"</td>"
-							 + "<td>";
+							 + "<td style='width: 150px;'>";
 						
 						if(att.empAttState == null){
 							str += "</td>" + "<td>";
@@ -305,14 +361,14 @@
 						} 
 						
 						if(att.empAttState == 'Y'){
-							str += "<button class='btn btn-secondary btn-sm attUpdate'>중지</button>";
+							str += "<button class='attChange attUpdate'>중지</button>";
 						}else if(att.empAttState == 'N'){
-							str += "<button class='btn btn-secondary btn-sm attUpdate2'>사용</button>";
+							str += "<button class='attChange attUpdate2'>사용</button>";
 						}else{
-							str += "<button class='btn btn-secondary btn-sm attUpdate3'>확인</button>";
+							str += "<button class='attChange attUpdate3'>확인</button>";
 						}
 						
-						str += "<button  class='btn btn-danger btn-sm attDelete'>삭제</button>"
+						str += "<button  class='attDelete'>삭제</button>"
 							 + "</td>"
 							 + "</tr>";
 					}
@@ -430,7 +486,7 @@
 			$("#empNo").val(empNo);
 			$("#empName").val(empName);
 			
-			$("#empList").modal("hide");
+			modalHide2();
 		});
 		
 		//근태 항목 삭제
@@ -568,8 +624,22 @@
 		    }
 		});
 		
+		//모달
+		function modalShow(){
+			$("#insrtEmpAttForm").css("display", "flex");
+		};
+		function modalHide(){
+			$(".modal-overlay").css("display", "none");
+		}
+		function modalShow2(){
+			$("#empList").css("display", "flex");
+		};
+		function modalHide2(){
+			$("#empList").css("display", "none");
+		}
+		
 	</script>
-	
-	
+
+
 </body>
 </html>
