@@ -17,7 +17,7 @@ function employee_mypage_info(){
 			div.append($("<div>").text("전화 : "+data.phone));
 			div.append($("<div>").text("연차 : "+data.vacation));
 			div.append($("<div>").text("입사일 : "+data.joinDate));
-			$("#item-mypage-page").append(div);
+			$("#employee-mypage-page").append(div);
         },
         error : function(error) {
             console.error('AJAX 요청 실패:', error);

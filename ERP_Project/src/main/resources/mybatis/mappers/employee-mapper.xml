@@ -4,24 +4,24 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="employeeMapper">
 	
-	<resultMap type="Employee" id="employeeResultSet">
-		<result column="EMP_NO" property="empNo"/>
-		<result column="EMP_PWD" property="empPwd"/>
-		<result column="EMP_RANK" property="empRank"/>
-		<result column="DEPT_CODE" property="deptCode"/>
-		<result column="EMP_NAME" property="empName"/>
-		<result column="AGE" property="age"/>
-		<result column="PHONE" property="phone"/>
-		<result column="EMAIL" property="email"/>
-		<result column="ADDRESS" property="address"/>
-		<result column="BIRTHDAY" property="birthday"/>
-		<result column="VACATION" property="vacation"/>
-		<result column="JOIN_DATE" property="joinDate"/>
-	</resultMap>
-	
-	<select id="login" parameterType="Employee" resultMap="employeeResultSet">
-		SELECT *
+	<select id="login" parameterType="Employee" resultType="Employee">
+		SELECT EMP_NO
+			, EMP_NAME
+			, EMP_PWD
+			, DEPT_CODE
+			, DEPT_NAME
+			, EMP_RANK
+			, RANK_NAME
+			, AGE
+			, PHONE
+			, EMAIL
+			, ADDRESS
+			, BIRTHDAY
+			, VACATION
+			, JOIN_DATE
 		FROM EMPLOYEE
+		JOIN DEPARTMENT USING (DEPT_CODE)
+		JOIN EMPLOYEE_RANK USING(EMP_RANK)
 		WHERE EMP_NO = #{empNo}
 	</select>
 	<update id="enrollPwd" parameterType="Employee">
@@ -47,4 +47,35 @@
 		JOIN EMPLOYEE_RANK USING(EMP_RANK)
 		WHERE EMP_NO = #{empNo}
 	</select>
+	
+	<select id="messengerEmpList" parameterType="Employee" resultType="Employee">
+		SELECT EMP_NO
+		        , EMP_NAME
+		        , DEPT_CODE
+		        , DEPT_NAME
+		        , EMP_RANK
+		        , RANK_NAME
+		FROM EMPLOYEE
+		JOIN DEPARTMENT USING(DEPT_CODE)
+		JOIN EMPLOYEE_RANK USING(EMP_RANK)
+		WHERE EMP_NO != #{empNo} 
+		AND EMP_NO != 99
+		ORDER BY DEPT_CODE, EMP_RANK, EMP_NAME
+	</select>
+	<select id="messengerEmpSearchList" parameterType="Employee" resultType="Employee">
+		SELECT EMP_NO
+		        , EMP_NAME
+		        , DEPT_CODE
+		        , DEPT_NAME
+		        , EMP_RANK
+		        , RANK_NAME
+		FROM EMPLOYEE
+		JOIN DEPARTMENT USING(DEPT_CODE)
+		JOIN EMPLOYEE_RANK USING(EMP_RANK)
+		WHERE EMP_NO != #{empNo} 
+		AND EMP_NO != 99 
+		AND EMP_NAME LIKE '%'||#{empName}||'%'
+		ORDER BY DEPT_CODE, EMP_RANK, EMP_NAME
+	</select>
+	
 </mapper>
