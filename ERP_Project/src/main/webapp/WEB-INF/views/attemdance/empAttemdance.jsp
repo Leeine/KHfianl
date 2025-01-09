@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<!-- 부트스트랩에서 제공하고 있는 스타일 -->
+    <!-- 부트스트랩에서 제공하고 있는 스타일 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
+    -->
 <style>
 	 	body {
     		background-color: rgb(225, 235, 255);
