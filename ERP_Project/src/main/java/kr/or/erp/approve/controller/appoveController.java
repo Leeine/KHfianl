@@ -44,6 +44,16 @@ public class appoveController {
 		return type;
 	}
 	
+	//결재대기 목록
+	@ResponseBody
+	@GetMapping(value="/dotype", produces = "application/json;charset=UTF-8")
+	public Approve dotype(Approve ap) {
+		
+		Approve apType = approveService.typeDocument(ap);
+		
+				
+		return apType;
+	}
 	
 	@ResponseBody
 	@PostMapping(value="/insert", produces = "text/html;charset=UTF-8")

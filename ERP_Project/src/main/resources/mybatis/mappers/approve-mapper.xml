@@ -58,6 +58,17 @@
         FROM 
            APPROVE
     </select>
+    
+    
+    <select id="typeDocument" resultType="Approve">
+        SELECT 
+            AP_CONTENT
+        FROM 
+            APPROVE
+        WHERE
+            AP_NO = #{apNo}   
+     </select>
+    
 
 
 

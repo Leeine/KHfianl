@@ -34,4 +34,9 @@ public class ApproveDao {
 		return (ArrayList)sqlSession.selectList("approveMapper.docList");
 	}
 
+	public Approve typeDocument(SqlSessionTemplate sqlSession, Approve ap) {
+		
+		return sqlSession.selectOne("approveMapper.typeDocument", ap);
+	}
+
 }
