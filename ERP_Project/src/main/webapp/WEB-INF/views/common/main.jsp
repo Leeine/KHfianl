@@ -21,6 +21,7 @@
 
 
 
+<link href="/erp/css/attemdance/attemdance.css" rel="stylesheet">
 
 <script src="/erp/js/common/menu.js"></script>
 

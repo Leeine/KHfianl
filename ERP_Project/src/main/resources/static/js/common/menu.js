@@ -123,6 +123,56 @@ function itemReleasePage(){
 	})
 };
 
+//------------근태-------------
+function attemdance(){
+	pageChange();
+	$.ajax({
+		url : "/erp/att/attListPage",
+        method: 'GET',
+        success: function (data) {
+			$("#main-content-header").html("<h1>근태</h1>")
+			$("#main-content-block").html($(data).filter("#attemdance-main-page")[0]);
+			console.log($(data).filter("#attemdance-main-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
+
+function commute(){
+	pageChange();
+	$.ajax({
+		url : "/erp/att/comPage",
+        method: 'GET',
+        success: function (data) {
+			$("#main-content-header").html("<h1>내 정보</h1>")
+			$("#main-content-block").html($(data).filter("#attemdance-commute-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
+
+function empAttemdance(){
+	pageChange();
+	$.ajax({
+		url : "/erp/att/empAttListPage",
+        method: 'GET',
+        success: function (data) {
+			$("#main-content-header").html("<h1>내 정보</h1>")
+			$("#main-content-block").html($(data).filter("#attemdance-emp-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
+
+
+
+
 
 //------------마이페이지-------------
 function employeeMypage(){

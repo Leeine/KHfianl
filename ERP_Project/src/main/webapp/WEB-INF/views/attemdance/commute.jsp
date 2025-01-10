@@ -120,6 +120,7 @@ th {
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
 	<c:set var="contextPath"
 		value="${pageContext.servletContext.contextPath}" />
+<div id="attemdance-commute-page">
 	<div id="main-content">
 		<c:if test="${not empty alertMsg}">
 			<script>
@@ -460,5 +461,6 @@ th {
 		}
 		
 	</script>
+	</div>
 </body>
 </html>

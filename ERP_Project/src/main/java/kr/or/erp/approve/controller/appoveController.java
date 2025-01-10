@@ -48,7 +48,6 @@ public class appoveController {
 	@ResponseBody
 	@PostMapping(value="/insert", produces = "text/html;charset=UTF-8")
 	public String insert(Approve a) {
-		System.out.println(a);
 		int result = approveService.insertDocument(a);
 
 		if(result>0) {

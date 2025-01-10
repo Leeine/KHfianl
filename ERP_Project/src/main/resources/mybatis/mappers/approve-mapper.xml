@@ -42,7 +42,7 @@
         AP_MASTER
     )
     VALUES (
-        SEQ_APPORVE_NO.NEXTVAL,         
+        TO_CHAR(SYSDATE, 'YYYYMMDD') ||'0'|| SEQ_APPORVE_NO.NEXTVAL,         
         #{empNo},        
         SYSDATE,        
         #{apTitle},      
