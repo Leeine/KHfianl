@@ -1,0 +1,160 @@
+*{
+	box-sizing: border-box;
+}
+#messenger-main-page{
+    overflow: hidden;
+    display: none;
+}
+#messenger-wrap{
+    position : fixed;
+    width: 400px;
+    height: 600px;
+    border: 3px solid black;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 0;
+    margin-top : calc(100vh - 610px);
+    margin-left: calc(100vw - 410px);
+    background-color: white;
+}
+#messenger-header{
+    width: 100%;
+    height: 30px;
+	background-color: rgb(55, 78, 121);
+}
+#messenger-menu{
+    border: 1px solid black;
+    width: 100%;
+    height: 30px;
+
+}
+#messenger-content-wrap{
+    width: 100%;
+    height: 560px;
+}
+#messenger-profile-area{
+    height: 100px;
+}
+#user-search-area{
+    height: 450px;
+}
+#user-search-input{
+	border-top: 2px solid navy;
+	border-bottom: 2px solid navy;
+    height: 10%;
+    width: 100%;
+    text-align: center;
+}
+#user-search-input>input{
+    margin: 9px auto;
+    width: 95%;
+    height: 25px;
+    outline: none;
+}
+#user-search-result{
+	overflow-y: auto;
+    height: 90%;
+}
+#messenger-menu-table{
+    height: 30px;
+    width: 100%;
+    text-align: center;
+}
+.my-icon{
+	width: 50px;
+}
+.user-icon{
+	width: 30px;
+	margin-left: 20px;
+}
+#messenger-profile-table{
+	width: 95%;
+	height: 80%;
+	margin: 10px auto;
+}
+#messenger-emplist-table{
+	width: 100%;
+}
+.messenger-emplist{
+	height: 70px;
+	width: 100%;
+}
+
+.messenger-emplist:hover{
+    background-color: rgb(225, 235, 255);
+}
+
+
+
+#chat-header{
+    background-color: rgb(225, 235, 255);
+    height: 30px;
+}
+#chat-header-table{
+    border-collapse: collapse;
+    height: 100%;
+}
+
+#chat-header-table td{
+    padding: 2px 5px;
+}
+.exit-icon{
+    height: 25px;
+}
+
+.exit-icon:hover{
+	cursor: pointer;
+}
+
+
+
+
+
+#chat-text-area{
+    -ms-overflow-style: none;
+    overflow-y: auto;
+    height: 385px; 
+    background-color: rgb(225, 235, 255);
+}
+#chat-text-area::-webkit-scrollbar{
+    display:none;
+}
+
+.chat{
+    margin: 8px;
+    padding: 4px 6px;
+    border-radius: 7px;
+    width: fit-content;
+    max-width: 260px;
+    min-height: 30px;
+    box-shadow: 0 0 10px 1px rgb(206, 206, 206);
+}
+.user1-chat{
+    background-color: white;
+    margin-left: auto;
+}
+.user2-chat{
+    background-color: rgb(151, 179, 253);
+}
+
+
+#chat-input{
+    border-top: 2px solid black;
+	background-color: rgb(55, 78, 121);
+}
+#chat-input-table{
+    padding-top: 5px;
+    width: 100%;
+    height: 150px;
+}
+#chat-input-textarea{
+    outline: none;
+    width: 100%;
+    height: 100%;
+}
+#chat-send-btn{
+    width: 100%;
+    height: 90%;
+    margin-bottom: 5px;
+}
+

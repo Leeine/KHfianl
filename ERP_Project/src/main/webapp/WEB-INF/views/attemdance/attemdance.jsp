@@ -5,6 +5,7 @@
 <html>
 <head>
 <title>Insert title here</title>
+<<<<<<< HEAD
 
 <link href="/erp/css/common/modal.css" rel="stylesheet">
 
@@ -77,6 +78,41 @@ th {
 	color: white;
 }
 </style>
+<!-- 
+=======
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	 <style>
+	 	body {
+    		background-color: rgb(225, 235, 255);
+	    }
+	    #main-content-header{
+	    	margin : 30px;
+	    	width : 93%;
+	    	height : 100px;
+	    	border-radius : 20px;
+			background-color: white;
+	    }
+		#main-content{
+			margin-left : 60px;
+		}
+		#main-content-block{
+			margin : 30px;
+			padding : 1px 15px;
+			background-color: white;
+			border-radius: 20px;
+			width : 93%;
+		}
+		
+		#attListDiv {
+			margin: 15px 0px 15px 0px;
+		}
+		
+		#attList tbody tr:hover {
+		    background-color: #DDE5FF;
+		}
+	 </style>
+>>>>>>> branch 'main' of https://github.com/Leeine/KHfianl.git
+ -->
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
@@ -151,12 +187,39 @@ th {
 			</div>
 		</div>
 	</div>
+<<<<<<< HEAD
 
 
 
 
 
 
+=======
+	
+    <script>
+    	$(function(){
+			var dept = ("${loginUser.deptCode}").substring(0,1);
+			if(dept != "D"){
+				$(".admin").hide();
+			}
+		});
+        $(".side-menu").click(function(){
+            $($(this).parent()).siblings().find(".sub-menu").slideUp();
+            $(this).siblings(".sub-menu").slideToggle();
+        });
+        $("#sidebar").mouseleave(function(){
+            $(".sub-menu").slideUp();
+        })
+        $(".sign-out").click(function(){
+        	location.href ="${contextPath}/employee/logout";
+        })
+    </script>
+	
+	
+    
+    
+	
+>>>>>>> branch 'main' of https://github.com/Leeine/KHfianl.git
 	<script>
 	
 		$(function(){
