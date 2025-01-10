@@ -16,7 +16,7 @@
 				<tbody>
 					<tr>
 						<td><img src="${contextPath}/icon/exit.png" class="exit-icon"></td>
-						<td><input type="hidden" id="messenger-receive-user">채팅 상대</td>
+						<td><input type="hidden" id="messenger-receive-user"></td>
 					</tr>
 				</tbody>
 			</table>

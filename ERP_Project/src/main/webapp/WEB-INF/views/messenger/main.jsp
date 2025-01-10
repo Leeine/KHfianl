@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="/erp/css/messenger/messenger.css" rel="stylesheet">
-<script src="/erp/js/messenger/list.js"></script>
+<script src="/erp/js/messenger/messenger.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -59,11 +59,12 @@
 		                        	});
 		    					});
 		    					
-		    					
+		    					//사원 클릭시
 		    					$(function(){
 		    						$("#messenger-emplist-table").on("click", ".messenger-emplist", function(){
 		    							var empNo = $(this).find(".messenger-empNo").val();
-		    							chat_room(empNo);
+		    							var empName = $(this).find(".messenger-emplist-name").text();
+		    							chat_room(empNo,empName);
 		    						})
 		    					});
 	                        </script>
