@@ -17,8 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.or.erp.employee.model.service.EmployeeService;
 import kr.or.erp.employee.model.vo.Employee;
-import kr.or.erp.item.model.vo.Customer;
-import kr.or.erp.item.model.vo.Search;
+import kr.or.erp.messenger.model.vo.Messenger;
 
 
 @Controller
@@ -150,15 +149,15 @@ public class EmployeeController {
 	//메신저 사용자 목록
 	@ResponseBody
 	@GetMapping("/messenger/list")
-	public ArrayList<Employee> messengerEmpList(Employee e) {
-		ArrayList<Employee> list = employeeService.messengerEmpList(e);
+	public ArrayList<Messenger> messengerEmpList(Employee e) {
+		ArrayList<Messenger> list = employeeService.messengerEmpList(e);
 		return list;
 	}
 	
 	@ResponseBody
 	@GetMapping("/messenger/search")
-	public ArrayList<Employee> messengerEmpSearchList(Employee e) {
-		ArrayList<Employee> list = employeeService.messengerEmpList(e);
+	public ArrayList<Messenger> messengerEmpSearchList(Employee e) {
+		ArrayList<Messenger> list = employeeService.messengerEmpList(e);
 		return list;
 	}
 
