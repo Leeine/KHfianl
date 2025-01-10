@@ -10,95 +10,17 @@
 <link href="/erp/css/common/modal.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<style>
-body {
-	background-color: rgb(225, 235, 255);
-}
-
-#main-content-header {
-	margin: 30px;
-	width: 93%;
-	height: 100px;
-	border-radius: 20px;
-	background-color: white;
-}
-
-#main-content {
-	margin-left: 60px;
-}
-
-#main-content-block {
-	margin: 30px;
-	padding: 1px 15px;
-	background-color: white;
-	border-radius: 20px;
-	width: 93%;
-}
-
-#attListDiv {
-	margin: 15px 0px 15px 0px;
-}
-
-#attList tbody tr:hover {
-	background-color: #DDE5FF;
-}
-
-.insertBtn {
-	margin: 10px 0px 10px 0px;
-}
-
-table {
-	width: 80%;
-	border: 2px solid #C0C9D1;
-	margin: 30px auto 5px auto;
-	border-collapse: collapse;
-}
-
-tr, td, th {
-	border: 2px solid #C0C9D1;
-	padding-left: 5px;
-}
-
-th {
-	text-align: left;
-	background-color: rgb(225, 235, 255);
-}
-
-.modal select {
-	border: 0;
-	width: 100%;
-	outline: none;
-}
-
-.attChange:hover {
-	background-color: rgb(55, 78, 121);
-	color: white;
-}
-.attDelete:hover {
-	background-color: red;
-	color: white;
-}
-</style>
 </head>
 <body>
+    
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
 	<c:set var="contextPath"
 		value="${pageContext.servletContext.contextPath}" />
+	<div id="attemdance-main-page">
 	<div id="main-content">
 
-		<c:if test="${not empty alertMsg}">
-			<script>
-				alert("${alertMsg}");
-			</script>
-			<c:remove var="alertMsg" />
-		</c:if>
 
-		<div id="main-content-header">
-			<h2>근태 관리</h2>
-		</div>
-
-
-		<div id="main-content-block">
+		<div id="attemdance-content-block">
 			<div id="attListDiv" align="center">
 				<table id="attList">
 					<thead>
@@ -272,10 +194,10 @@ th {
 		//근태 유형 option
 		function attOption(){
 			$.ajax({
-				url : "attOption",
+				url : "/erp/att/attOption",
 				success : function(list){
 					var str = "";
-					for(var ao of list){
+					for(var ao of list){	
 						str += "<option value='"+ ao.attTypeCode +"'>"+ ao.attTypeName +"</option>";
 					}
 					$("#attTypeCode").html(str);
@@ -299,6 +221,7 @@ th {
 		}
 		
 	</script>
+	</div>
 
 
 </body>

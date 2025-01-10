@@ -129,6 +129,7 @@ th {
 
 	<c:set var="contextPath"
 		value="${pageContext.servletContext.contextPath}" />
+<div id="attemdance-emp-page">
 	<div id="main-content">
 
 		<c:if test="${not empty alertMsg}">
@@ -668,7 +669,7 @@ th {
 		}
 		
 	</script>
-
+</div>
 
 </body>
 </html>
