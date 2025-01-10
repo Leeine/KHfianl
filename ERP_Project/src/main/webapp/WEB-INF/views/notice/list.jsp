@@ -17,7 +17,7 @@
 			<select id="notice-list-search-select">
 				<option value="TITLE">제목</option>
 				<option value="WRITER">작성자</option>
-				<option value="DATE">날짜</option>
+				<option value="DATE">작성일</option>
 			</select>
 			
 			<input type="text" id="notice-list-search-keyword">
@@ -105,7 +105,7 @@
 					<th>제목</th>
 					<th>작성자</th>
 					<th>조회수</th>
-					<th>날짜</th>
+					<th>작성일</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -216,6 +216,8 @@
 			    		var user = "${loginUser.empName}";
 			    		if(user != "admin"){
 			    			$("#modal-btn-area").hide();
+			    		}else{
+			    			$(".notice-write").show();
 			    		}
 			    	})
 			    </script>

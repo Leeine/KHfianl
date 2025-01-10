@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.erp.employee.model.dao.EmployeeDao;
 import kr.or.erp.employee.model.vo.Employee;
+import kr.or.erp.item.model.vo.Search;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -31,6 +32,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee info(Employee e) {
 		return employeeDao.info(sqlSession, e);
+	}
+	
+	
+	
+	
+	
+	//메신저용 사원리스트 불러오기
+	@Override
+	public ArrayList<Employee> messengerEmpList(Employee e) {
+		if(e.getEmpName()==null) {			
+			return employeeDao.messengerEmpList(sqlSession,e);
+		}else {
+			return employeeDao.messengerEmpSearchList(sqlSession,e);
+		}
 	}
 
 	@Override

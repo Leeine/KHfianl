@@ -130,7 +130,7 @@
 							<td><input type="number" id="modal-input-count" class="modal-input"></td>
 						</tr>
 						<tr>
-							<th>금액</th>
+							<th>단가</th>
 							<td><input type="number" id="modal-input-price" class="modal-input"></td>
 						</tr>
 					</tbody>

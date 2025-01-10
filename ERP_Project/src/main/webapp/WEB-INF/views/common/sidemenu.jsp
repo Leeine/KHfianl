@@ -10,7 +10,7 @@
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
-	
+	<%@include file="/WEB-INF/views/messenger/main.jsp"%>
 	<div id="sidebar">
         <div id="user-info-menu">
             ${loginUser.empName} 님 <br>
@@ -81,13 +81,10 @@
 
 
             <li class="menu-item">
-                <div class="side-menu">
+                <div class="side-menu sidemenu-messenger">
                     <img src="${contextPath}/icon/message.png" class="icon">
                     <span class="side-menu-text">메신저</span>
                 </div>
-                <ul class="sub-menu">
-                    <li><a href="">서브메뉴4</a></li>
-                </ul>
             </li>
 
 
@@ -119,9 +116,19 @@
         	$(".home").click(function(){
         		location.href="${contextPath}/menu/home";
         	});
+        	
+        	$(".sidemenu-messenger").click(function(){
+        		if($("#messenger-main-page").css("display") == "block"){
+        			$("#messenger-main-page").hide();
+        		}else{
+        			$("#messenger-main-page").show();
+        			messenger_emp_list('${loginUser.empNo}','${contextPath}');
+        		}
+        	});
         </script>
     </div>
     
+	
     
     
 </body>
