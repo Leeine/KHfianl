@@ -124,6 +124,8 @@ function itemReleasePage(){
 };
 
 //------------근태-------------
+
+//근태 항목 페이지 불러오기
 function attemdance(){
 	pageChange();
 	$.ajax({
@@ -140,6 +142,7 @@ function attemdance(){
 	})
 };
 
+//사원 출퇴근 페이지 불러오기
 function commute(){
 	pageChange();
 	$.ajax({
@@ -155,6 +158,7 @@ function commute(){
 	})
 };
 
+//사원 근태 페이지 불러오기
 function empAttemdance(){
 	pageChange();
 	$.ajax({

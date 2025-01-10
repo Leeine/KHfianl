@@ -5,9 +5,11 @@
 	border-radius: 20px;
 	background-color: white;
 }
+
 #main-content {
 	margin-left: 60px;
 }
+
 #main-content-block {
 	margin: 30px;
 	padding: 1px 15px;
@@ -15,33 +17,86 @@
 	border-radius: 20px;
 	width: 93%;
 }
-#attListDiv {
+
+#empAttListDiv {
 	margin: 15px 0px 15px 0px;
 }
-#attList tbody tr:hover {
+
+#pagingArea {
+	margin-bottom: 15px;
+}
+
+#empAttList tbody tr:hover {
 	background-color: #DDE5FF;
 }
+
+#inputDate {
+	margin-bottom: 5px;
+}
+
+#userDiv h3 {
+	display: inline-block;
+}
+
+#userDiv {
+	padding-left: 10%;
+}
+
+#userDiv p {
+	display: inline-block;
+	margin-left: 30px;
+}
+
 .insertBtn {
 	margin: 10px 0px 10px 0px;
 }
-.attTable {
+
+#empName:hover {
+	cursor: pointer;
+}
+
+#keyword {
+	width: 150px;
+	border: solid 1px black;
+}
+
+#empList select {
+	width: 70px;
+	border: solid 1px black;
+}
+
+.empAttTable {
 	width: 80%;
 	border: 2px solid #C0C9D1;
-	margin: 30px auto 5px auto;
+	margin: 0 auto;
 	border-collapse: collapse;
 }
-.attTable tr, .attTable td, .attTable th {
+
+.empAttTable tr, .empAttTable td, .empAttTable th {
 	border: 2px solid #C0C9D1;
 	padding-left: 5px;
 }
-.attTable th {
+
+.empAttTable th {
 	text-align: left;
 	background-color: rgb(225, 235, 255);
 }
+
+.modal select {
+	border: 0;
+	width: 100%;
+	outline: none;
+}
+
+#inputDate {
+	margin-left: 10%;
+}
+
 .attChange:hover {
 	background-color: rgb(55, 78, 121);
 	color: white;
 }
+
 .attDelete:hover {
 	background-color: red;
 	color: white;

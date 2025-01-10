@@ -20,8 +20,10 @@
 <script src="/erp/js/summernote/lang/summernote-ko-KR.js"></script>
 
 
-
 <link href="/erp/css/attemdance/attemdance.css" rel="stylesheet">
+<link href="/erp/css/attemdance/empAttemdance.css" rel="stylesheet">
+<link href="/erp/css/attemdance/commute.css" rel="stylesheet">
+
 
 <script src="/erp/js/common/menu.js"></script>
 

@@ -8,74 +8,76 @@
 <title>Insert title here</title>
 
 <link href="/erp/css/common/modal.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
 <body>
-    
+
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
 	<c:set var="contextPath"
 		value="${pageContext.servletContext.contextPath}" />
+		
 	<div id="attemdance-main-page">
-	<div id="main-content">
-
-
-		<div id="attemdance-content-block">
-			<div id="attListDiv" align="center">
-				<table id="attList">
-					<thead>
-						<tr>
-							<th>근태코드</th>
-							<th>근태명칭</th>
-							<th>근태유형</th>
-							<th colspan="2">사용</th>
-							<!-- <th style="width: 10%;"></th> -->
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
-				<button type="button" class="insertBtn" onclick="modalShow();">항목추가</button>
-			</div>
-		</div>
-
-		<div class="modal-overlay" id="attInsert">
-			<div class="modal">
-				<div class="modal-header">
-					<img src="${contextPath}/icon/x.png" class="modalHide"
-						onclick="modalHide();">
-				</div>
-
-				<form action="attInsert" method="post">
-					<div class="modal-body">
-						<h4 class="modal-title">항목 추가</h4>
-						<table align="center">
+		<div id="main-content">
+			<div id="attemdance-content-block">
+				<div id="attListDiv" align="center">
+					<table id="attList" class="attTable">
+						<thead>
 							<tr>
+								<th>근태코드</th>
 								<th>근태명칭</th>
-								<td><input type="text" id="attName" name="attName" required></td>
-							</tr>
-							<tr>
 								<th>근태유형</th>
-								<td><select id="attTypeCode" name="attTypeCode" required>
-										<option value="404">문제</option>
-								</select></td>
+								<th colspan="2">사용</th>
+								<!-- <th style="width: 10%;"></th> -->
 							</tr>
-							<tr>
-								<th>근태수</th>
-								<td><input type="number" step="0.5" min="0.5" id="attCount" name="attCount" required></td>
-							</tr>
-						</table>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					<button type="button" class="insertBtn" onclick="modalShow();">항목추가</button>
+				</div>
+			</div>
+
+			<div class="modal-overlay" id="attInsert">
+				<div class="modal">
+					<div class="modal-header">
+						<img src="${contextPath}/icon/x.png" class="modalHide"
+							onclick="modalHide();">
 					</div>
-					<div class="modal-footer" align="center">
-						<button type="submit" class="insertBtn" id="attInsert">추가하기</button>
-					</div>
-				</form>
+
+					<form action="att/attInsert" method="post">
+						<div class="modal-body">
+							<h4 class="modal-title">항목 추가</h4>
+							<table class="attTable attInsertTable" align="center">
+								<tr>
+									<th>근태명칭</th>
+									<td><input type="text" id="attName" name="attName"
+										required></td>
+								</tr>
+								<tr>
+									<th>근태유형</th>
+									<td><select id="attTypeCode" name="attTypeCode" required>
+											<option value="404">문제</option>
+									</select></td>
+								</tr>
+								<tr>
+									<th>근태수</th>
+									<td><input type="number" step="0.5" min="0.5"
+										id="attCount" name="attCount" required></td>
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer" align="center">
+							<button type="submit" class="insertBtn" id="attInsert">추가하기</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-	
-	<script>
+
+
+		<script>
 	
 		$(function(){
 			selectAttList();
@@ -83,7 +85,7 @@
 		
 		function selectAttList(){
 			$.ajax({
-				url : "attList",
+				url : "/erp/att/attList",
 				success : function(list){
 					
 					var str = "";
@@ -121,7 +123,7 @@
 			
 			if (confirm("해당 항목의 사용을 중지하시겠습니까?")){
 				$.ajax({
-					url : "attUpdate",
+					url : "/erp/att/attUpdate",
 					data : {
 						attCode : code
 					},
@@ -146,7 +148,7 @@
 			
 			if (confirm("해당 항목을 사용하시겠습니까?")){
 				$.ajax({
-					url : "attUpdate2",
+					url : "/erp/att/attUpdate2",
 					data : {
 						attCode : code
 					},
@@ -173,7 +175,7 @@
 			
 			if (confirm("복구가 불가능합니다. 정말 삭제하시겠습니까?")) {
 		        $.ajax({
-		            url: "attDelete",
+		            url: "/erp/att/attDelete",
 		            method: "GET",
 		            data: { attCode: code },
 		            success: function(result) {
