@@ -1,17 +1,14 @@
-body {
-    font-family: '맑은 고딕', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-}
+
+
 .container {
-    width: 700px;
+    width: 800px;
     margin: 50px auto;
     padding: 50px 30px;
     border: 1px solid #000;
     background: #fff;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
+
 .title {
     text-align: center;
     font-size: 28px;
@@ -29,6 +26,10 @@ body {
     vertical-align: top;
     padding: 5px 0;
 }
+.info-table th{
+   background-color: rgb(225, 226, 212);
+}
+
 .content {
     margin-top: 50px;
     text-align: center;

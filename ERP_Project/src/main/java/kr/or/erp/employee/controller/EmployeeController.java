@@ -1,5 +1,7 @@
 package kr.or.erp.employee.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.or.erp.employee.model.service.EmployeeService;
 import kr.or.erp.employee.model.vo.Employee;
+import kr.or.erp.item.model.vo.Customer;
 
 
 @Controller
@@ -125,4 +128,18 @@ public class EmployeeController {
 		Employee empInfo = employeeService.info(e);
 		return empInfo;
 	}
+	
+	//
+	@ResponseBody
+	@GetMapping("/approve/list")
+	public ArrayList<Employee> approvelist(Employee e){
+			
+		ArrayList<Employee> approveList = employeeService.approveList(e);
+		
+
+		return approveList;
+	}
+	
+	
+	
 }

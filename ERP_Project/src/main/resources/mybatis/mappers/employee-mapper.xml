@@ -47,4 +47,20 @@
 		JOIN EMPLOYEE_RANK USING(EMP_RANK)
 		WHERE EMP_NO = #{empNo}
 	</select>
+	
+	<select id="approveList" resultType="Employee" parameterType="Employee">
+	     SELECT EMP_NO, EMP_NAME, DEPT_NAME
+		 FROM EMPLOYEE
+		 JOIN DEPARTMENT USING(DEPT_CODE)
+	     WHERE EMP_RANK IN('R2','R3')
+	     AND DEPT_CODE IN (	
+                     SELECT DEPT_CODE
+                 	 FROM EMPLOYEE
+            		 WHERE EMP_NO = #{empNo}
+                 	 UNION ALL
+                     SELECT PARENT_DEPT
+               	     FROM EMPLOYEE
+           	  		 JOIN DEPARTMENT USING(DEPT_CODE)
+                     WHERE EMP_NO = #{empNo})
+	</select>
 </mapper>

@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="/erp/css/common/menu.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
@@ -30,9 +29,9 @@
                     <span class="side-menu-text">전자결재</span>
                 </div>
                 <ul class="sub-menu">
-                    <li><a onclick="testDocument()">결재테스트</a></li>
-                    <li><a href="">서브메뉴1</a></li>
-                    <li><a href="">서브메뉴1</a></li>
+                    <li><a onclick="testDocument()">결재 등록</a></li>
+                    <li><a onclick="approveList()">결재 목록</a></li>
+                    <li><a href="">빈칸3</a></li>
                 </ul>
             </li>
 

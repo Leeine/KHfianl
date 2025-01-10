@@ -1,12 +1,17 @@
-/* 공통 스타일 */
-body {
-    font-family: Arial, sans-serif;
+.container {
+    width: 800px;
+    margin: 50px auto;
+    padding: 50px 30px;
+    border: 1px solid #000;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
     margin: 0;
 }
+
 
 div.centered {
     text-align: center;
@@ -22,27 +27,25 @@ p.bold {
     margin: 5px 0;
 }
 
-/* 테이블 스타일 */
-table {
+.vehicle-log-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
 }
 
-th, td {
+.vehicle-log-table th, .vehicle-log-table td {
     border: 1px solid #000;
     padding: 8px;
 }
 
-th {
-    background-color: #f2f2f2;
+.vehicle-log-table th{
+   background-color: rgb(225, 226, 212);
 }
 
-td.empty-cell {
+.vehicle-log-table td.empty-cell {
     border: 1px solid #000;
 }
 
-/* 정비 영역 */
 div.repair-section {
     display: flex;
     align-items: flex-start;

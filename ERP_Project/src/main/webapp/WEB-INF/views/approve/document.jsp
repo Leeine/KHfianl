@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>결재 파일 리스트</title>
+<title>결재 목록</title>
 </head>
 <body>
-<table id="item-customer-table">
+<div id="listdiv">
+<table id="">
 			<colgroup>
 				<col style="width: 15%">
 				<col style="width: 35%">
@@ -23,5 +24,6 @@
 				</tr>
 			</thead>
 		</table>
+</div>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package kr.or.erp.employee.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee info(Employee e) {
 		return employeeDao.info(sqlSession, e);
+	}
+
+	@Override
+	public ArrayList<Employee> approveList(Employee e) {
+		
+		return employeeDao.approveList(sqlSession, e);
 	}
 
 }

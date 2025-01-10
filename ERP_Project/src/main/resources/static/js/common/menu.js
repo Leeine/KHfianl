@@ -40,12 +40,14 @@ function itemListPage(){
 	})
 };
 
+//결재 등록 페이지
 function testDocument(){
+	pageChange();
 	$.ajax({
 		url : "/erp/approve/insert",
 		method: 'GET',
 		success: function (data){ 
-			$("#main-content-header").html("<h2>결재 서류</h2>")
+			$("#main-content-header").html("<h1>결재 서류</h1>")
             $("#main-content-block").html($(data).filter("#textdiv")[0]);
             
 		},
@@ -55,6 +57,24 @@ function testDocument(){
 		
 	})
 }
+
+//결재 목록 페이지
+function approveList(){
+	pageChange();
+	$.ajax({
+		url : "/erp/approve/list",
+		method: 'GET',
+		success: function(data){
+			$("#main-content-header").html("<h1>결재 서류 목록</h1>")
+            $("#main-content-block").html($(data).filter("#listdiv")[0]);
+		},
+		error: function (error){
+			console.error('AJAX 요청 실패:', error);
+		}
+	})
+}
+
+
 //발주 페이지 불러오기
 function itemOrderPage(){
 	pageChange();

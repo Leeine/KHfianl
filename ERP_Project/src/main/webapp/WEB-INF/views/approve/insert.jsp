@@ -7,7 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
+<style>
+        
+    </style>
 
 </head>
 <body>
@@ -45,13 +47,12 @@
 </table>
 
 
-<c:set var="a" value="${documentList[1]}" />
 
 <script>
     $(document).ready(function() {
         $("#documnetList>tbody tr").click(function() {
             var bno = $(this).children().first().text(); 
-            $(".modal").css({"width":"1000px", "height" : "800px"})
+            $(".modal").css({"width":"1000px", "height" : "1000px"})
             do_type(bno);
             
            
@@ -64,14 +65,27 @@
                 focus: true,
                 lang: 'ko-KR', 
                 toolbar: [
-                  ['style', ['style']],
-                  ['font', ['bold', 'underline', 'clear']],
-                  ['color', ['color']],
-                  ['para', ['ul', 'ol', 'paragraph']],
-                  ['table', ['table']],
-                  ['insert', ['link', 'picture', 'video']],
-                  ['view', ['fullscreen', 'codeview', 'help']]
-                ]
+	      		    // 글꼴 설정
+	      		    ['fontname', ['fontname']],
+	      		    // 글자 크기 설정
+	      		    ['fontsize', ['fontsize']],
+	      		    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+	      		    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+	      		    // 글자색
+	      		    ['color', ['forecolor','color']],
+	      		    // 표만들기
+	      		    ['table', ['table']],
+	      		    // 글머리 기호, 번호매기기, 문단정렬
+	      		    ['para', ['ul', 'ol', 'paragraph']],
+	      		    // 줄간격
+	      		    ['height', ['height']],
+	      		    // 코드보기
+	      		    ['view', ['codeview']]
+	      		  ],
+	      		  // 추가한 글꼴
+	      		fontNames: ['맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체','Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
+	      		 // 추가한 폰트사이즈
+	      		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
             });
 
             $(".modal-overlay").css("display", "flex");
@@ -79,6 +93,7 @@
 
         $(".modalHide").click(function() {
             $(".modal-overlay").fadeOut(); // 모달 숨기기
+            $("#aptitle").val('');
         });
 
         $(".modal-custom-button").click(function() {
@@ -101,10 +116,32 @@
     		},
     		method : "GET",
     		success : function (result){
-    			console.log(result);
     			$("#summernote").summernote("code", result.doContent);
     		},
     		error : function (error){
+    			console.log(error);
+    		},
+    		complete : function(){
+    			approve_list("${loginUser.empNo}");
+    		}
+    	})
+    }
+    
+    function approve_list(empNo){
+    	$.ajax({
+    		url:"/erp/employee/approve/list",
+    		data : {
+    			empNo : empNo
+    		},
+    		method: "GET",
+    		success : function (result){
+    			var select = $("<select>").addClass("approvelist");
+    			for(var d of result){
+    				select.append($("<option>").val(d.empNo).text(d.deptName+" "+d.empName));
+    			}
+    			$("#approve-table").find("#apmaster").html(select);
+    		},
+    		error: function (error){
     			console.log(error);
     		}
     	})
@@ -118,11 +155,25 @@
                 <img src="${contextPath}/icon/x.png" class="modalHide">
             </div>
             <h2>결재 서류 작성</h2>
-           <br><br>
+            <table id="approve-table">
+             <tr>
+             	<th>결재자</th>   <!-- AP_MASTER -->
+             	<td id="apmaster"></td>
+             </tr>           
+             <tr>
+                 <th>결재 내용</th>
+                 <td><input type="text" name="aptitle" id="aptitle"></td>    <!-- AP_TITLE -->
+             </tr> 
+            </table><br>
+            <div id="modal-btn">
+					<button id="insert-btn" onclick="approve_insert('${loginUser.empNo}');">작성</button>
+			</div> <br>
+			
+			
             <textarea id="summernote" style="resize:'none'"></textarea>
 
             <div id="testdiv"></div>
-            <button class="modal-custom-button">입력</button>
+           
         </div>
     </div>
 </div>

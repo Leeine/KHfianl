@@ -5,11 +5,13 @@
   
 <mapper namespace="approveMapper">
 
-   <resultMap type="Employee" id="employeeResultSet">
+   <resultMap type="Document" id="documentResultSet">
 		<result column="DO_NO" property="doNo"/>
 		<result column="DO_LIST" property="doList"/>
 		<result column="DO_CONTENT" property="doContent"/>
 	</resultMap>
+	
+
 
 	 <select id="selectDocumentList" resultType="Document">
         SELECT 
@@ -28,5 +30,35 @@
         WHERE
             DO_NO = #{doNo}
     </select>
-	
+    
+    <select id="insertDocument" parameterType="Approve">
+    INSERT INTO APPROVE (
+        AP_NO,
+        EMP_NO,
+        AP_CREATE_DATE,
+        AP_TITLE,
+        AP_CONTENT,
+        STATUS_CODE,
+        AP_MASTER
+    )
+    VALUES (
+        SEQ_APPORVE_NO.NEXTVAL,         
+        #{empNo},        
+        SYSDATE,        
+        #{apTitle},      
+        #{apContent},    
+        DEFAULT,         
+        #{apMaster}      
+    )
+	</select>
+
+    <select id="docList" resultType="Approve">
+        SELECT 
+           * 
+        FROM 
+           APPROVE
+    </select>
+
+
+
 </mapper>

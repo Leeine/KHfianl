@@ -1,5 +1,7 @@
 package kr.or.erp.employee.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -20,5 +22,9 @@ public class EmployeeDao {
 
 	public Employee info(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.selectOne("employeeMapper.info",e);
+	}
+
+	public ArrayList<Employee> approveList(SqlSessionTemplate sqlSession, Employee e) {
+		return (ArrayList)sqlSession.selectList("employeeMapper.approveList",e);
 	}
 }
