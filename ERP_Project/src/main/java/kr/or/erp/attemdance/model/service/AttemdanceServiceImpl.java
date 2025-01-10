@@ -98,6 +98,12 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 		return attDao.empOptList(sqlSession);
 	}
 
+	@Override
+	public double optionAttCount(String attCode) {
+		
+		return attDao.optionAttCount(sqlSession, attCode);
+	}
+
 	//사원 리스트
 	@Override
 	public ArrayList<Employee> empList(PageInfo pi) {
@@ -206,6 +212,7 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 		
 		return attDao.userEmpCount(sqlSession, empNo);
 	}
+
 
 
 

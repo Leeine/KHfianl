@@ -273,12 +273,28 @@ th {
 		    }
 		});
 		
+		//근태 유형 option
+		function attOption(){
+			$.ajax({
+				url : "attOption",
+				success : function(list){
+					
+				},
+				error : function(){
+					console.log("통신 오류");
+				}
+			});
+		}
+		
 		//모달
 		function modalShow(){
 			$(".modal-overlay").css("display", "flex");
 		};
 		function modalHide(){
 			$(".modal-overlay").css("display", "none");
+			
+			$("#attName").val("");
+			$("#attCount").val("");
 		}
 		
 	</script>

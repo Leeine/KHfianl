@@ -203,7 +203,7 @@ th {
 							</tr>
 							<tr>
 								<th>근태수</th>
-								<td><input type="number" step="0.5" min="0.5" name="empAttCount"></td>
+								<td><input type="number" step="0.5" min="0.5" name="empAttCount" id="empAttCount"></td>
 							</tr>
 
 						</table>
@@ -258,10 +258,8 @@ th {
 	<script>
 	
 		$(function(){
-			userEmpCount();
-			empAttList();
-			optionList();
-			empList();
+			userEmpCount(); //유저 개인 휴가수
+			empAttList(); //목록
 		});
 		
 		function userEmpCount(){
@@ -352,12 +350,12 @@ th {
 							 + "<td data-value='"+ att.empNo +"'>"+ att.empName +"</td>"
 							 + "<td data-value='"+ att.attCode +"'>"+ att.attName +"</td>"
 							 + "<td data-value='"+ att.empAttCount +"'>"+ att.empAttCount +"</td>"
-							 + "<td style='width: 150px;'>";
+							 + "<td>";
 						
 						if(att.empAttState == null){
-							str += "</td>" + "<td>";
+							str += "</td>" + "<td style='text-align: center; width: 10%;'>";
 						}else{
-							str += att.empAttState +"</td>" + "<td>";
+							str += att.empAttState +"</td>" + "<td style='text-align: center; width: 10%;'>";
 						} 
 						
 						if(att.empAttState == 'Y'){
@@ -403,9 +401,31 @@ th {
 					}
 					
 					$("#attCode").html(str);
+					optionAttCount();
 				},
 				error : function(){
 					console.log("통신 오류");
+				}
+			});
+		}
+		
+		$("#attCode").on("change", function(){
+			optionAttCount();
+		});
+		
+		function optionAttCount(){
+			var attCode = $("#attCode").val();
+			
+			$.ajax({
+				url : "optionAttCount",
+				data : {
+					attCode : attCode
+				},
+				success : function(result){
+					$("#empAttCount").val(result);
+				},
+				error : function(){
+					console.log("통신 오류");	
 				}
 			});
 		}
@@ -627,12 +647,19 @@ th {
 		//모달
 		function modalShow(){
 			$("#insrtEmpAttForm").css("display", "flex");
+			optionList(); //근태 추가 모달 옵션 목록
 		};
 		function modalHide(){
-			$(".modal-overlay").css("display", "none");
+			$("#insrtEmpAttForm").css("display", "none");
+			
+			$("#empAttTime").val("");
+			$("#empNo").val("");
+			$("#empName").val("");
+			
 		}
 		function modalShow2(){
 			$("#empList").css("display", "flex");
+			empList(); //근태 추가 모달 사원 목록
 		};
 		function modalHide2(){
 			$("#empList").css("display", "none");

@@ -31,6 +31,8 @@ public interface AttemdanceService {
 	int userEmpCount(int empNo);
 	//사원 근태 목록 조회
 	ArrayList<EmpAttemdance> empAttList(PageInfo pi);
+	//
+	double optionAttCount(String attCode);
 	//사원 근태 날짜 지정 조회
 	ArrayList<EmpAttemdance> selectAttDate(HashMap<String, String> hashMap, PageInfo pi);
 	//사원 근태 등록
@@ -65,6 +67,7 @@ public interface AttemdanceService {
 	int insertCom(int empNo, String btnVal);
 	//오늘 퇴근 체크
 	int todayComCheck(int empNo);
+	
 	
 	
 

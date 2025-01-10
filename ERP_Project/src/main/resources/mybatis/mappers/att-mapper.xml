@@ -99,6 +99,11 @@
 		FROM ATTEMDANCE
 		WHERE ATT_STATE = 'Y'
 	</select>
+	<select id="optionAttCount" resultType="double">
+		SELECT ATT_COUNT
+		FROM ATTEMDANCE
+		WHERE ATT_CODE = #{attCode}
+	</select>
 	
 	<!-- 사원 리스트 -->
 	<select id="empList" resultType="empAttemdance">

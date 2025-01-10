@@ -88,6 +88,11 @@ public class AttemdanceDao {
 		
 		return (ArrayList)sqlSession.selectList("attMapper.empOptList");
 	}
+	
+	public double optionAttCount(SqlSessionTemplate sqlSession, String attCode) {
+		
+		return sqlSession.selectOne("attMapper.optionAttCount", attCode);
+	}
 
 	//사원 리스트
 	public ArrayList<Employee> empList(SqlSessionTemplate sqlSession, PageInfo pi) {
@@ -199,7 +204,5 @@ public class AttemdanceDao {
 
 	
 
-	
-	
 
 }

@@ -56,7 +56,12 @@ public class AttemdanceController {
 		ArrayList<Attemdance> list = attService.selectAttList(pi);
 		
 		return list;
-	} 
+	}
+	
+	//옵션 리스트
+//	@ResponseBody
+//	@GetMapping("/attOption")
+//	public ArrayList<E>
 	
 	//근태 항목 추가
 	@PostMapping("/attInsert")
@@ -203,6 +208,15 @@ public class AttemdanceController {
 		ArrayList<Attemdance> list = attService.empOptList();
 		
 		return list;
+	}
+	//옵션 기본 근태수
+	@ResponseBody
+	@GetMapping("/optionAttCount")
+	public double optionAttCount(String attCode) {
+		
+		double result = attService.optionAttCount(attCode);
+		
+		return result;
 	}
 	
 	//사원 리스트
