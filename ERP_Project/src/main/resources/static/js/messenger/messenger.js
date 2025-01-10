@@ -63,7 +63,7 @@ function messenger_emp_search_list(empNo,contextPath){
 	})
 }
 
-function chat_room(empNo){
+function chat_room(empNo,empName){
 	$.ajax({
 		url : "/erp/employee/messenger/chatroom",
         method: 'GET',
@@ -77,6 +77,7 @@ function chat_room(empNo){
         complete : function(){
 			$("#messenger-receive-user").val(empNo);
     		$('#chat-text-area').scrollTop($('#chat-text-area')[0].scrollHeight);
+    		$('#chat-header-table').find("td").eq(1).append(empName);
 		}
 	})
 }
