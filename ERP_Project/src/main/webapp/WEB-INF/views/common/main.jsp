@@ -9,6 +9,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <link href="/erp/css/summernote/summernote-lite.css" rel="stylesheet">
+<link href="/erp/css/approve/휴직원.css" rel="stylesheet">
+<link href="/erp/css/approve/차량운행.css" rel="stylesheet">
+<link href="/erp/css/approve/사직서.css" rel="stylesheet">
+<link href="/erp/css/approve/출장 보고서.css" rel="stylesheet">
+<link href="/erp/css/approve/비품신청서.css" rel="stylesheet">
+<link href="/erp/css/approve/doclist.css" rel="stylesheet">
+<script src="/erp/js/approve/approve.js"></script>
 <script src="/erp/js/summernote/summernote-lite.js"></script>
 <script src="/erp/js/summernote/lang/summernote-ko-KR.js"></script>
 
@@ -40,6 +47,9 @@
 
 <link href="/erp/css/notice/list.css" rel="stylesheet">
 <script src="/erp/js/notice/list.js"></script>
+
+
+
 
 <title>ERP</title>
 </head>

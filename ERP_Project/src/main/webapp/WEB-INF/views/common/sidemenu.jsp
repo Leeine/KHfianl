@@ -29,9 +29,9 @@
                     <span class="side-menu-text">전자결재</span>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="">서브메뉴1</a></li>
-                    <li><a href="">서브메뉴1</a></li>
-                    <li><a href="">서브메뉴1</a></li>
+                    <li><a onclick="testDocument()">결재 등록</a></li>
+                    <li><a onclick="approveList()">결재 목록</a></li>
+                    <li><a href="">빈칸3</a></li>
                 </ul>
             </li>
 

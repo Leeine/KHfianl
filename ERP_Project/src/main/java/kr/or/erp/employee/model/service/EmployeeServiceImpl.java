@@ -48,4 +48,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 	}
 
+	@Override
+	public ArrayList<Employee> approveList(Employee e) {
+		
+		return employeeDao.approveList(sqlSession, e);
+	}
+
 }

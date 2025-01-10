@@ -14,6 +14,8 @@ public interface EmployeeService {
 
 	Employee info(Employee e);
 
+	ArrayList<Employee> approveList(Employee e);
+
 	
 	
 	//메신저용 사원리스트 불러오기

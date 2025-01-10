@@ -283,6 +283,12 @@ public class ItemController {
 		}
 	}
 	
+	@GetMapping("/test")
+	public String test() {
+		
+		System.out.println("섬머노트실행");
+		return "item/summernote";
+	}
 	
 	
 	

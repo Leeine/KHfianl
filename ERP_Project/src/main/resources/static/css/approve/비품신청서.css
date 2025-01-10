@@ -1,0 +1,49 @@
+.container {
+    width: 800px;
+    margin: 50px auto;
+    padding: 50px 30px;
+    border: 1px solid #000;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+/* .application-table에 대한 스타일 */
+.application-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.application-table, .application-table th, .application-table td {
+    border: 1px solid black;
+}
+
+.application-table th, .application-table td {
+    padding: 8px;
+    text-align: center;
+}
+
+.application-table .header-row th {
+    text-align: left;
+    font-weight: bold;
+    width: 80px;
+}
+
+.application-table .content {
+    height: 25px;
+}
+
+.application-table th {
+    background-color: rgb(225, 226, 212);
+}
+
+.application-table td {
+    height: 20px;
+}
+
+.application-table .menu th {
+    height: 15px;
+}
