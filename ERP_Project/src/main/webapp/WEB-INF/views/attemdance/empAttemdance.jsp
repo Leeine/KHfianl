@@ -8,268 +8,146 @@
 <title>Insert title here</title>
 
 <link href="/erp/css/common/modal.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<style>
-body {
-	background-color: rgb(225, 235, 255);
-}
-
-#main-content-header {
-	margin: 30px;
-	width: 93%;
-	height: 100px;
-	border-radius: 20px;
-	background-color: white;
-}
-
-#main-content {
-	margin-left: 60px;
-}
-
-#main-content-block {
-	margin: 30px;
-	padding: 1px 15px;
-	background-color: white;
-	border-radius: 20px;
-	width: 93%;
-}
-
-#empAttListDiv {
-	margin: 15px 0px 15px 0px;
-}
-
-#pagingArea {
-	margin-bottom: 15px;
-}
-
-#empAttList tbody tr:hover {
-	background-color: #DDE5FF;
-}
-
-#inputDate {
-	margin-bottom: 5px;
-}
-
-h3 {
-	display: inline-block;
-}
-
-#userDiv {
-	padding-left: 10%;
-}
-
-p {
-	display: inline-block;
-	margin-left: 30px;
-}
-
-.insertBtn {
-	margin: 10px 0px 10px 0px;
-}
-
-#empName:hover {
-	cursor: pointer;
-}
-
-#keyword {
-	width: 150px;
-	border: solid 1px black;
-}
-
-#empList select {
-	width: 70px;
-	border: solid 1px black;
-}
-
-table{
-	width: 80%;
-	border: 2px solid #C0C9D1;
-	margin: 0 auto;
-	border-collapse: collapse;
-}
-
-tr, td, th {
-	border: 2px solid #C0C9D1;
-	padding-left: 5px;
-}
-
-th {
-	text-align: left;
-	background-color: rgb(225, 235, 255);
-}
-
-.modal select {
-	border: 0;
-	width: 100%;
-	outline: none;
-}
-
-#inputDate{
-	margin-left: 10%;
-}
-.insertBtn{
-	align-content: 
-}
-
-.attChange:hover {
-	background-color: rgb(55, 78, 121);
-	color: white;
-}
-.attDelete:hover {
-	background-color: red;
-	color: white;
-}
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
-</style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
 
 	<c:set var="contextPath"
 		value="${pageContext.servletContext.contextPath}" />
-<div id="attemdance-emp-page">
-	<div id="main-content">
-
-		<c:if test="${not empty alertMsg}">
-			<script>
-				alert("${alertMsg}");
-			</script>
-			<c:remove var="alertMsg" />
-		</c:if>
-
-		<div id="main-content-header">
-			<h2>사원 근태 관리</h2>
-		</div>
-
-
-		<div id="main-content-block">
-			<div id="userDiv">
-				<h3>${loginUser.empName } 님</h3>
-				<p>404</p>
-			</div>
-			
-			<div id="empAttListDiv">
-				<div id="inputDate">
-					<input type="date" id="inputDate1"> ~ <input type="date" id="inputDate2">
-					<button onclick="selectAttDate();">검색</button>
-					<button onclick="reset();">초기화</button>
+		
+	<div id="attemdance-emp-page">
+		<div id="main-content">
+			<div id="attemdance-content-block">
+				<div id="userDiv">
+					<h3>${loginUser.empName }님</h3>
+					<p>404</p>
 				</div>
 
-				<table id="empAttList">
-					<thead>
-						<tr>
-							<th>근태일자</th>
-							<th>사원명</th>
-							<th>근태</th>
-							<th>근태수</th>
-							<th colspan="2">사용</th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
-
-				<div align="center">
-					<button class="insertBtn" type="button" onclick="modalShow();">항목추가</button>
-				</div>
-			</div>
-		</div>
-
-		<div class="modal-overlay" id="insrtEmpAttForm">
-			<div class="modal">
-				<div class="modal-header">
-					<img src="${contextPath}/icon/x.png" class="modalHide"
-						onclick="modalHide();">
-				</div>
-
-				<h4 class="modal-title">근태 추가</h4>
-
-				<form action="empAttInsert" method="post" id="empAttInsertForm">
-					<div class="modal-body">
-						<table align="center">
-							<tr>
-								<th>근태일자</th>
-								<td><input type="date" name="empAttTime" id="empAttTime" required></td>
-							</tr>
-							<tr>
-								<th>사원명</th>
-								<td><input type="hidden" name="empNo" id="empNo" required>
-									<input type="text" name="empName" id="empName" onclick="modalShow2();" readonly required></td>
-							</tr>
-							<tr>
-								<th>근태</th>
-								<td><select name="attCode" id="attCode">
-										<option></option>
-								</select></td>
-							</tr>
-							<tr>
-								<th>근태수</th>
-								<td><input type="number" step="0.5" min="0.5" name="empAttCount" id="empAttCount"></td>
-							</tr>
-
-						</table>
+				<div id="empAttListDiv">
+					<div id="inputDate">
+						<input type="date" id="inputDate1"> ~ <input type="date" id="inputDate2">
+						<button onclick="selectAttDate();">검색</button>
+						<button onclick="reset();">초기화</button>
 					</div>
-					<div class="modal-footer" align="center">
-						<button class="insertBtn" type="submit" id="empAttInsert">추가하기</button>
-					</div>
-				</form>
-			</div>
-		</div>
 
-		<div class="modal-overlay" id="empList">
-			<div class="modal">
-				<div class="modal-header">
-					<img src="${contextPath}/icon/x.png" class="modalHide"
-						onclick="modalHide2();">
-				</div>
-
-				<h4 class="modal-title">사원 목록</h4>
-
-				<div class="modal-body">
-					<select class="form-select" id="condition">
-						<option value="empNo">사번</option>
-						<option value="empName">사원명</option>
-						<option value="department">부서</option>
-					</select> <input type="text" id="keyword">
-					<button class="insertBtn" onclick="empSearch();">검색</button>
-					<button onclick="empList();">초기화</button>
-
-					<table align="center" id="empListTable">
+					<table class="empAttTable" id="empAttList">
 						<thead>
 							<tr>
-								<th>사번</th>
+								<th>근태일자</th>
 								<th>사원명</th>
-								<th>부서</th>
-								<th>남은 수</th>
+								<th>근태</th>
+								<th>근태수</th>
+								<th colspan="2">사용</th>
 							</tr>
 						</thead>
 						<tbody>
 						</tbody>
 					</table>
+
+					<div align="center">
+						<button class="insertBtn" type="button" onclick="modalShow();">항목추가</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-overlay" id="insrtEmpAttForm">
+				<div class="modal">
+					<div class="modal-header">
+						<img src="${contextPath}/icon/x.png" class="modalHide" onclick="modalHide();">
+					</div>
+
+					<h4 class="modal-title">근태 추가</h4>
+
+					<form action="empAttInsert" method="post" id="empAttInsertForm">
+						<div class="modal-body">
+							<table class="empAttTable" align="center">
+								<tr>
+									<th>근태일자</th>
+									<td><input type="date" name="empAttTime" id="empAttTime"
+										required></td>
+								</tr>
+								<tr>
+									<th>사원명</th>
+									<td><input type="hidden" name="empNo" id="empNo" required>
+										<input type="text" name="empName" id="empName"
+										onclick="modalShow2();" readonly required></td>
+								</tr>
+								<tr>
+									<th>근태</th>
+									<td><select name="attCode" id="attCode">
+											<option></option>
+									</select></td>
+								</tr>
+								<tr>
+									<th>근태수</th>
+									<td><input type="number" step="0.5" min="0.5"
+										name="empAttCount" id="empAttCount"></td>
+								</tr>
+
+							</table>
+						</div>
+						<div class="modal-footer" align="center">
+							<button class="insertBtn" type="submit" id="empAttInsert">추가하기</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="modal-overlay" id="empList">
+				<div class="modal">
+					<div class="modal-header">
+						<img src="${contextPath}/icon/x.png" class="modalHide"
+							onclick="modalHide2();">
+					</div>
+
+					<h4 class="modal-title">사원 목록</h4>
+
+					<div class="modal-body">
+						<select class="form-select" id="condition">
+							<option value="empNo">사번</option>
+							<option value="empName">사원명</option>
+							<option value="department">부서</option>
+						</select> <input type="text" id="keyword">
+						<button class="insertBtn" onclick="empSearch();">검색</button>
+						<button onclick="empList();">초기화</button>
+
+						<table class="empAttTable" align="center" id="empListTable">
+							<thead>
+								<tr>
+									<th>사번</th>
+									<th>사원명</th>
+									<th>부서</th>
+									<th>남은 수</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
 
 
-	</div>
 
 
-
-
-	<script>
-	
+		<script>
+		
 		$(function(){
 			userEmpCount(); //유저 개인 휴가수
 			empAttList(); //목록
 		});
 		
+		//유저 휴가수
 		function userEmpCount(){
 			var empNo = ${loginUser.empNo };
 			
 			$.ajax({
-				url : "userEmpCount",
+				url : "/erp/att/userEmpCount",
 				data : {
 					empNo : empNo
 				},
@@ -282,10 +160,11 @@ th {
 			});
 		}
 		
+		//근태 리스트
 		function empAttList(){
 			
 			$.ajax({
-				url : "empAttList",
+				url : "/erp/att/empAttList",
 				success : function(list){
 					
 					var str = "";
@@ -324,13 +203,14 @@ th {
 				}
 			});
 		}
+		
 		//날짜 선택 조회
 		function selectAttDate(){
 			var inputDate1 = $("#inputDate1").val();
 			var inputDate2 = $("#inputDate2").val();
 			
 			$.ajax({
-				url : "selectAttDate",
+				url : "/erp/att/selectAttDate",
 				data : {
 					inputDate1 : inputDate1,
 					inputDate2 : inputDate2
@@ -388,13 +268,10 @@ th {
 			empAttList();
 		}
 		
-		$("#inputDate1").on("change", function(){
-			
-		});
-		
+		//셀렉트 옵션 리스트
 		function optionList(){
 			$.ajax({
-				url : "attOptList",
+				url : "/erp/att/attOptList",
 				success : function(list){
 					
 					var str = "";
@@ -416,11 +293,12 @@ th {
 			optionAttCount();
 		});
 		
+		//옵션 근태수
 		function optionAttCount(){
 			var attCode = $("#attCode").val();
 			
 			$.ajax({
-				url : "optionAttCount",
+				url : "/erp/att/optionAttCount",
 				data : {
 					attCode : attCode
 				},
@@ -436,7 +314,7 @@ th {
 		//사원 목록 조회
 		function empList(){
 			$.ajax({
-				url : "empList",
+				url : "/erp/att/empList",
 				success : function(list){
 					var str = "";
 					
@@ -462,13 +340,14 @@ th {
 				}
 			});
 		}
+		
 		//사원 검색
 		function empSearch(){
 			var keyword = $("#keyword").val();
 			var condition = $("#condition").val();
 			
 			$.ajax({
-				url : "empSearch",
+				url : "/erp/att/empSearch",
 				data : {
 					keyword : keyword,
 					condition : condition
@@ -499,7 +378,6 @@ th {
 			});
 		}
 		
-		
 		//사원 값 넣기
 		$("#empListTable").on("click","tbody tr", function(){
 			
@@ -512,6 +390,9 @@ th {
 			modalHide2();
 		});
 		
+		//근태 추가
+		
+		
 		//근태 항목 삭제
 		$("#empAttList").on("click","tbody>tr .attDelete",function(){
 				
@@ -522,7 +403,7 @@ th {
 			
 			if (confirm("복구가 불가능합니다. 정말 삭제하시겠습니까?")) {
 		        $.ajax({
-		            url: "empAttDelete",
+		            url: "/erp/att/empAttDelete",
 		            method: "post",
 		            data: {
 		            	empAttTime : empAttTime,
@@ -555,7 +436,7 @@ th {
 			
 			if (confirm("확인 처리를 하시겠습니까?")) {
 		        $.ajax({
-		            url: "empAttUpdate",
+		            url: "/erp/att/empAttUpdate",
 		            method: "post",
 		            data: {
 		            	empAttTime : empAttTime,
@@ -589,7 +470,7 @@ th {
 			
 			if (confirm("해당 항목을 사용하시겠습니까?")) {
 		        $.ajax({
-		            url: "empAttUpdate",
+		            url: "/erp/att/empAttUpdate",
 		            method: "post",
 		            data: {
 		            	empAttTime : empAttTime,
@@ -623,7 +504,7 @@ th {
 			
 			if (confirm("사용을 중지하시겠습니까?")) {
 		        $.ajax({
-		            url: "empAttUpdate2",
+		            url: "/erp/att/empAttUpdate2",
 		            method: "post",
 		            data: {
 		            	empAttTime : empAttTime,
@@ -669,7 +550,7 @@ th {
 		}
 		
 	</script>
-</div>
+	</div>
 
 </body>
 </html>
