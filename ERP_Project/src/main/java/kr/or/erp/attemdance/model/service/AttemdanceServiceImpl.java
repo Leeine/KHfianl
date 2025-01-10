@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.erp.attemdance.model.dao.AttemdanceDao;
 import kr.or.erp.attemdance.model.vo.Attemdance;
+import kr.or.erp.attemdance.model.vo.AttemdanceType;
 import kr.or.erp.attemdance.model.vo.CommuteOn;
 import kr.or.erp.attemdance.model.vo.EmpAttemdance;
 import kr.or.erp.common.model.vo.PageInfo;
@@ -37,6 +38,13 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 		return attDao.selectAttList(sqlSession, pi);
 	}
 
+	//
+	@Override
+	public ArrayList<AttemdanceType> attOption() {
+		
+		return attDao.attOption(sqlSession);
+	}
+	
 	//근태 항목 등록
 	@Override
 	public int attInsert(Attemdance att) {
@@ -212,10 +220,5 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 		
 		return attDao.userEmpCount(sqlSession, empNo);
 	}
-
-
-
-
-	
 
 }

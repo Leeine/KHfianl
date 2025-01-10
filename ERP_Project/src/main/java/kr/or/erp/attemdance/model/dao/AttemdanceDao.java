@@ -10,6 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.or.erp.attemdance.model.vo.Attemdance;
+import kr.or.erp.attemdance.model.vo.AttemdanceType;
 import kr.or.erp.attemdance.model.vo.CommuteOn;
 import kr.or.erp.attemdance.model.vo.EmpAttemdance;
 import kr.or.erp.common.model.vo.PageInfo;
@@ -33,6 +34,12 @@ public class AttemdanceDao {
 		return (ArrayList)sqlSession.selectList("attMapper.selectAttList", null, rowBounds);
 	}
 
+	//
+	public ArrayList<AttemdanceType> attOption(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("attMapper.attOption");
+	}
+	
 	//추가
 	public int attInsert(SqlSessionTemplate sqlSession, Attemdance att) {
 		
@@ -201,8 +208,4 @@ public class AttemdanceDao {
 		
 		return sqlSession.selectOne("attMapper.userEmpCount", empNo);
 	}
-
-	
-
-
 }

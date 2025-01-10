@@ -19,6 +19,12 @@
 		ORDER BY ATT_CODE
 	</select>
 	
+	<select id="attOption" resultType="attemdanceType">
+		SELECT ATT_TYPE_CODE
+			  ,ATT_TYPE_NAME
+		FROM ATTEMDANCE_TYPE
+	</select>
+	
 	<insert id="attInsert" parameterType="attemdance">
 		INSERT INTO ATTEMDANCE
 		VALUES(SEQ_ANO.NEXTVAL
@@ -89,7 +95,7 @@
 				#{inputDate2} >= EMP_ATT_TIME
 			</when>
 		</choose>
-		ORDER BY INPUT_DATE DESC
+		ORDER BY EMP_ATT_TIME DESC
 	</select>
 	
 	<!-- 근태옵션리스트 -->

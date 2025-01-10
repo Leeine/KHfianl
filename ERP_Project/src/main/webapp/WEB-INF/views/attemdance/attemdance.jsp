@@ -4,10 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>Insert title here</title>
-<<<<<<< HEAD
 
 <link href="/erp/css/common/modal.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
 body {
@@ -78,41 +79,6 @@ th {
 	color: white;
 }
 </style>
-<!-- 
-=======
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	 <style>
-	 	body {
-    		background-color: rgb(225, 235, 255);
-	    }
-	    #main-content-header{
-	    	margin : 30px;
-	    	width : 93%;
-	    	height : 100px;
-	    	border-radius : 20px;
-			background-color: white;
-	    }
-		#main-content{
-			margin-left : 60px;
-		}
-		#main-content-block{
-			margin : 30px;
-			padding : 1px 15px;
-			background-color: white;
-			border-radius: 20px;
-			width : 93%;
-		}
-		
-		#attListDiv {
-			margin: 15px 0px 15px 0px;
-		}
-		
-		#attList tbody tr:hover {
-		    background-color: #DDE5FF;
-		}
-	 </style>
->>>>>>> branch 'main' of https://github.com/Leeine/KHfianl.git
- -->
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
@@ -169,9 +135,7 @@ th {
 							<tr>
 								<th>근태유형</th>
 								<td><select id="attTypeCode" name="attTypeCode" required>
-										<option value="100">연차</option>
-										<option value="101">반차</option>
-										<option value="102">월차</option>
+										<option value="404">문제</option>
 								</select></td>
 							</tr>
 							<tr>
@@ -187,39 +151,8 @@ th {
 			</div>
 		</div>
 	</div>
-<<<<<<< HEAD
-
-
-
-
-
-
-=======
-	
-    <script>
-    	$(function(){
-			var dept = ("${loginUser.deptCode}").substring(0,1);
-			if(dept != "D"){
-				$(".admin").hide();
-			}
-		});
-        $(".side-menu").click(function(){
-            $($(this).parent()).siblings().find(".sub-menu").slideUp();
-            $(this).siblings(".sub-menu").slideToggle();
-        });
-        $("#sidebar").mouseleave(function(){
-            $(".sub-menu").slideUp();
-        })
-        $(".sign-out").click(function(){
-        	location.href ="${contextPath}/employee/logout";
-        })
-    </script>
 	
 	
-    
-    
-	
->>>>>>> branch 'main' of https://github.com/Leeine/KHfianl.git
 	<script>
 	
 		$(function(){
@@ -341,7 +274,11 @@ th {
 			$.ajax({
 				url : "attOption",
 				success : function(list){
-					
+					var str = "";
+					for(var ao of list){
+						str += "<option value='"+ ao.attTypeCode +"'>"+ ao.attTypeName +"</option>";
+					}
+					$("#attTypeCode").html(str);
 				},
 				error : function(){
 					console.log("통신 오류");
@@ -352,6 +289,7 @@ th {
 		//모달
 		function modalShow(){
 			$(".modal-overlay").css("display", "flex");
+			attOption();
 		};
 		function modalHide(){
 			$(".modal-overlay").css("display", "none");

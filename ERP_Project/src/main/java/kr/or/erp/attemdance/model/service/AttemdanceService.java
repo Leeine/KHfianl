@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import kr.or.erp.attemdance.model.vo.Attemdance;
+import kr.or.erp.attemdance.model.vo.AttemdanceType;
 import kr.or.erp.attemdance.model.vo.CommuteOn;
 import kr.or.erp.attemdance.model.vo.EmpAttemdance;
 import kr.or.erp.common.model.vo.PageInfo;
@@ -16,7 +17,8 @@ public interface AttemdanceService {
 	int listCount();
 	//근태 항목 목록 조회
 	ArrayList<Attemdance> selectAttList(PageInfo pi);
-	
+	//
+	ArrayList<AttemdanceType> attOption();
 	//근태 항목 등록
 	int attInsert(Attemdance att);
 	//근태 수정
@@ -67,8 +69,6 @@ public interface AttemdanceService {
 	int insertCom(int empNo, String btnVal);
 	//오늘 퇴근 체크
 	int todayComCheck(int empNo);
-	
-	
 	
 
 }
