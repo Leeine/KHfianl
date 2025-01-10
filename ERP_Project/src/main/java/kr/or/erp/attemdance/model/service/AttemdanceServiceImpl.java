@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.erp.attemdance.model.dao.AttemdanceDao;
 import kr.or.erp.attemdance.model.vo.Attemdance;
+import kr.or.erp.attemdance.model.vo.AttemdanceType;
 import kr.or.erp.attemdance.model.vo.CommuteOn;
 import kr.or.erp.attemdance.model.vo.EmpAttemdance;
 import kr.or.erp.common.model.vo.PageInfo;
@@ -37,6 +38,13 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 		return attDao.selectAttList(sqlSession, pi);
 	}
 
+	//
+	@Override
+	public ArrayList<AttemdanceType> attOption() {
+		
+		return attDao.attOption(sqlSession);
+	}
+	
 	//근태 항목 등록
 	@Override
 	public int attInsert(Attemdance att) {
@@ -96,6 +104,12 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 	public ArrayList<Attemdance> empOptList() {
 		
 		return attDao.empOptList(sqlSession);
+	}
+
+	@Override
+	public double optionAttCount(String attCode) {
+		
+		return attDao.optionAttCount(sqlSession, attCode);
 	}
 
 	//사원 리스트
@@ -190,7 +204,6 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 	public int insertCom(int empNo, String btnVal) {
 		
 		int result = 0;
-		System.out.println(btnVal);
 		
 		if(btnVal.equals("on")) {
 			result = attDao.insertComOn(sqlSession, empNo);
@@ -207,9 +220,5 @@ public class AttemdanceServiceImpl implements AttemdanceService{
 		
 		return attDao.userEmpCount(sqlSession, empNo);
 	}
-
-
-
-	
 
 }

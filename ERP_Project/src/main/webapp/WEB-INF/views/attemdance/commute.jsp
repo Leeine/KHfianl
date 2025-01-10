@@ -1,97 +1,146 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-    <!-- 부트스트랩에서 제공하고 있는 스타일 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    -->
-	 <style>
-	 	body {
-    		background-color: rgb(225, 235, 255);
-	    }
-	    #main-content-header{
-	    	margin : 30px;
-	    	width : 93%;
-	    	height : 100px;
-	    	border-radius : 20px;
-			background-color: white;
-	    }
-		#main-content{
-			margin-left : 60px;
-		}
-		#main-content-block{
-			margin : 30px;
-			padding : 1px 15px;
-			background-color: white;
-			border-radius: 20px;
-			width : 93%;
-		}
-		
-	    table tbody tr {
-	      height: 10px;
-	    }
-	    
-	    #userCommuteDiv {
-		    overflow: auto;
-	  		white-space: nowrap;
-	  		margin-bottom: 20px;
-	    }
-	    
-	    #searchDiv{
-	    	margin-top : 30px;
-	    	margin-bottom: 10px;
-	    }
-	    
-	    h4 {
-	    	display: inline-block;
-	    }
-	    #loginUserDiv {
-	    	padding: 15px 0px 15px 0px;
-	    }
-	    #comInBtn {
-	    	display: inline-block;
-	    	float: right;
-	    }
-	    
-	    #inputDate {
-	    	margin-bottom: 5px;
-	    }
-	    
-	    #comListTable tbody tr:hover {
-		    background-color: #DDE5FF;
-		}
-	    
-	 </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<style>
+body {
+	background-color: rgb(225, 235, 255);
+}
+
+#main-content-header {
+	margin: 30px;
+	width: 93%;
+	height: 100px;
+	border-radius: 20px;
+	background-color: white;
+}
+
+#main-content {
+	margin-left: 60px;
+}
+
+#main-content-block {
+	margin: 30px;
+	padding: 1px 15px;
+	background-color: white;
+	border-radius: 20px;
+	width: 93%;
+}
+
+table tbody tr {
+	height: 10px;
+}
+
+#userCommuteDiv {
+	overflow: auto;
+	white-space: nowrap;
+	margin-bottom: 50px;
+}
+
+#searchDiv {
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+
+h3 {
+	display: inline-block;
+}
+
+#loginUserDiv {
+	padding: 15px 0px 15px 0px;
+}
+
+#comInBtn {
+	display: inline-block;
+	float: right;
+	margin-top: 25px;
+	margin-right: 10%;
+}
+
+#inputDate {
+	margin-bottom: 5px;
+}
+
+#comListTable tbody tr:hover {
+	background-color: #DDE5FF;
+}
+#comListTable {
+	margin-bottom: 30px;
+}
+
+table {
+	border: 2px solid #C0C9D1;
+	border-collapse: collapse;
+}
+#comListTable{
+	width: 80%;
+}
+#userCommuteDiv{
+	width: 80%;
+}
+#userWeekTable{
+	width: 100%;
+}
+
+tr, td, th {
+	border: 2px solid #C0C9D1;
+	padding-left: 5px;
+}
+
+th {
+	text-align: left;
+	background-color: rgb(225, 235, 255);
+}
+#searchDiv, h3 {
+	margin-left: 10%;
+}
+
+.modal select {
+	border: 0;
+	width: 100%;
+	outline: none;
+}
+
+#daysc:hover {
+	cursor: pointer;
+}
+
+</style>
+
 
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
-	<%@include file="/WEB-INF/views/attemdance/modal.jsp"%>
-	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
+	<c:set var="contextPath"
+		value="${pageContext.servletContext.contextPath}" />
 	<div id="main-content">
 		<c:if test="${not empty alertMsg}">
 			<script>
 				alert("${alertMsg}");
 			</script>
-			<c:remove var="alertMsg"/>
+			<c:remove var="alertMsg" />
 		</c:if>
-		
+
 		<div id="main-content-header">
-			<h3>출퇴근 관리</h3>
+			<h2>출퇴근 관리</h2>
 		</div>
-		
+
 		<div id="main-content-block">
-			<div>
-				<div id="loginUserDiv">
-					<h4>${loginUser.empName } 님</h4>
-					<button class='btn btn-primary btn-sm' id='comInBtn' value=''></button>
-				</div>
+			
+			<div id="loginUserDiv">
+				<h3>${loginUser.empName } 님</h3>
+				<button id='comInBtn' value=''></button>
+			</div>
+			<div align="center">
 				<div id="userCommuteDiv">
-					<table class="table table-bordered table-sm" id="userWeekTable">
+					<table id="userWeekTable">
 						<thead>
 							<tr>
 								<th colspan="2">월요일</th>
@@ -111,7 +160,7 @@
 					</table>
 				</div>
 			</div>
-			
+
 			<script>
 				$(function(){
 					empWeek();
@@ -239,7 +288,7 @@
 				});
 				
 			</script>
-			
+
 			<div id="searchDiv">
 				<div id="inputDate">
 					<input type="date" id="inputDate1"> ~ <input type="date" id="inputDate2">
@@ -249,13 +298,12 @@
 					<option value="empNo">사번</option>
 					<option value="empName">사원명</option>
 					<option value="deptName">부서</option>
-				</select>
-				<input type="text" id="keyword">
+				</select> <input type="text" id="keyword">
 				<button class='btn btn-secondary btn-sm' onclick="comSearch();">검색</button>
-			    <button class='btn btn-secondary btn-sm' onclick="reset();">초기화</button>
-		    </div>
-		    
-			<table class="table table-sm table-bordered" align="center" id="comListTable">
+				<button class='btn btn-secondary btn-sm' onclick="reset();">초기화</button>
+			</div>
+
+			<table align="center" id="comListTable">
 				<thead>
 					<tr>
 						<th id="daysc" data-value="desc">일자 ▲</th>
@@ -271,7 +319,7 @@
 			</table>
 		</div>
 	</div>
-	
+
 	<script>
 		$(function(){
 			comList();
