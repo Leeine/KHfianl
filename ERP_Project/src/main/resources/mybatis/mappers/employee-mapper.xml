@@ -48,30 +48,46 @@
 		WHERE EMP_NO = #{empNo}
 	</select>
 	
-	<select id="messengerEmpList" parameterType="Employee" resultType="Employee">
+	<select id="messengerEmpList" parameterType="Employee" resultType="Messenger">
 		SELECT EMP_NO
 		        , EMP_NAME
 		        , DEPT_CODE
 		        , DEPT_NAME
 		        , EMP_RANK
 		        , RANK_NAME
+		        , UNREAD_COUNT
 		FROM EMPLOYEE
 		JOIN DEPARTMENT USING(DEPT_CODE)
 		JOIN EMPLOYEE_RANK USING(EMP_RANK)
+		LEFT JOIN (
+			    	SELECT SEND, RECEIVE, COUNT(*) AS "UNREAD_COUNT"
+			        FROM MESSAGE_DATA
+			        WHERE RECEIVE = #{empNo} 
+			        AND READ_MSG = 'N'
+			        GROUP BY SEND, RECEIVE
+			        ) ON(EMP_NO = SEND)
 		WHERE EMP_NO != #{empNo} 
 		AND EMP_NO != 99
 		ORDER BY DEPT_CODE, EMP_RANK, EMP_NAME
 	</select>
-	<select id="messengerEmpSearchList" parameterType="Employee" resultType="Employee">
+	<select id="messengerEmpSearchList" parameterType="Employee" resultType="Messenger">
 		SELECT EMP_NO
 		        , EMP_NAME
 		        , DEPT_CODE
 		        , DEPT_NAME
 		        , EMP_RANK
 		        , RANK_NAME
+		        , UNREAD_COUNT
 		FROM EMPLOYEE
 		JOIN DEPARTMENT USING(DEPT_CODE)
 		JOIN EMPLOYEE_RANK USING(EMP_RANK)
+		LEFT JOIN (
+			    	SELECT SEND, RECEIVE, COUNT(*) AS "UNREAD_COUNT"
+			        FROM MESSAGE_DATA
+			        WHERE RECEIVE = #{empNo} 
+			        AND READ_MSG = 'N'
+			        GROUP BY SEND, RECEIVE
+			        ) ON(EMP_NO = SEND)
 		WHERE EMP_NO != #{empNo} 
 		AND EMP_NO != 99 
 		AND EMP_NAME LIKE '%'||#{empName}||'%'

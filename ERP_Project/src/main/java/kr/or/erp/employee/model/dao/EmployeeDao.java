@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.or.erp.employee.model.vo.Employee;
-import kr.or.erp.item.model.vo.Search;
+import kr.or.erp.messenger.model.vo.Messenger;
 
 
 @Repository
@@ -30,11 +30,11 @@ public class EmployeeDao {
 	
 	
 	//메신저용 사원리스트 불러오기
-	public ArrayList<Employee> messengerEmpList(SqlSessionTemplate sqlSession, Employee e) {
+	public ArrayList<Messenger> messengerEmpList(SqlSessionTemplate sqlSession, Employee e) {
 		return (ArrayList)sqlSession.selectList("employeeMapper.messengerEmpList",e);
 	}
 
-	public ArrayList<Employee> messengerEmpSearchList(SqlSessionTemplate sqlSession, Employee e) {
+	public ArrayList<Messenger> messengerEmpSearchList(SqlSessionTemplate sqlSession, Employee e) {
 		return (ArrayList)sqlSession.selectList("employeeMapper.messengerEmpSearchList",e);
 	}
 

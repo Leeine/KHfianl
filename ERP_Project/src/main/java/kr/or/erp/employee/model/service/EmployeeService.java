@@ -3,7 +3,7 @@ package kr.or.erp.employee.model.service;
 import java.util.ArrayList;
 
 import kr.or.erp.employee.model.vo.Employee;
-import kr.or.erp.item.model.vo.Search;
+import kr.or.erp.messenger.model.vo.Messenger;
 
 public interface EmployeeService {
 
@@ -17,6 +17,6 @@ public interface EmployeeService {
 	
 	
 	//메신저용 사원리스트 불러오기
-	ArrayList<Employee> messengerEmpList(Employee e);
+	ArrayList<Messenger> messengerEmpList(Employee e);
 
 }
