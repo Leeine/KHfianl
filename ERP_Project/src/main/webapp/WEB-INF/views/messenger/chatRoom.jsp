@@ -22,21 +22,7 @@
 			</table>
 		</div>
 		<div id="chat-text-area">
-			<div class="user1-chat chat">채팅테스트ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
-			<div class="user2-chat chat">답장
-				ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
-			<div class="user1-chat chat">11111</div>
-			<div class="user1-chat chat"></div>
-			<div class="user2-chat chat">22222</div>
-			<div class="user2-chat chat">22</div>
-			<div class="user1-chat chat">1</div>
-			<div class="user1-chat chat">1</div>
-			<div class="user2-chat chat">2</div>
-			<div class="user2-chat chat">2</div>
-			<div class="user1-chat chat">1</div>
-			<div class="user1-chat chat">1</div>
-			<div class="user2-chat chat">2</div>
-			<div class="user2-chat chat">2</div>
+			
 		</div>
 		<div id="chat-input">
 			<table id="chat-input-table">
@@ -46,8 +32,9 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<td colspan="2"><textarea style="resize: none;"
-								id="chat-input-textarea"></textarea></td>
+						<td colspan="2">
+							<textarea style="resize: none;"id="chat-input-textarea"></textarea>
+						</td>
 					</tr>
 					<tr style="height: 30px;">
 						<td></td>
@@ -58,6 +45,25 @@
 				</tbody>
 			</table>
 		</div>
+		
+		<script>
+			$("#chat-send-btn").click(function(){
+	        	sendMessage('${loginUser.empNo}');
+			});
+			
+			$(function(){
+			    $("#chat-input-textarea").keydown(function(event) {
+			        // Enter 키를 감지
+			        if (event.key === "Enter" && !event.shiftKey) {
+			        	event.preventDefault();
+			        	sendMessage('${loginUser.empNo}');
+			        }
+			    })
+			})
+	        
+	    </script>
+		
+		
 	</div>
 </body>
 </html>

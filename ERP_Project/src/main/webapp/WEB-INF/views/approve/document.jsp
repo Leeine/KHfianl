@@ -6,6 +6,7 @@
 <head>
 <meta charset="EUC-KR">
 <title>결재 목록</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}" />
@@ -62,8 +63,8 @@
         $("#documnetList>tbody tr").click(function() {
             var bno = $(this).children().first().text(); 
             $(".modal").css({"width":"1000px", "height" : "1000px"})
-            console.log(bno);
-            //bn = apNo(결재고유번호)
+            document_type(bno);
+          
             
            
                          
@@ -113,29 +114,49 @@
         });
     });
 
-
-    function do_type(bno){
+    
+    function document_type(bno){
     	$.ajax({
-    		url:"/erp/approve/type",
+    		url:"/erp/approve/dotype",
     		data : {
-    			doNo : bno
+    			apNo : bno
     		},
     		method : "GET",
     		success : function (result){
-    			$("#summernote").summernote("code", result.doContent);
+    			$("#summernote").summernote("code", result.apContent);
     		},
     		error : function (error){
     			console.log(error);
-    		},
-    		complete : function(){
-    			approve_list("${loginUser.empNo}");
     		}
     	})
     }
-    
+
+   
+   
+   
     
 </script>
 
+ 
+    <div class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <img src="${contextPath}/icon/x.png" class="modalHide">
+            </div>
+            <h2>결재 서류 작성</h2>
+           
+            <div id="modal-btn">
+					<button id="" onclick="">승인</button>
+					<button id="" onclick="">미승인</button>
+					<button id="" onclick="">대기</button>
+			</div> <br>
+			
+		
+            <textarea id="summernote" style="resize:'none'"></textarea>
+
+           
+        </div>
+    </div>
 
 </div>
 </body>

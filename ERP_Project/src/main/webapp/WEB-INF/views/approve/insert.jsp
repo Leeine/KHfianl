@@ -172,7 +172,7 @@
 			
             <textarea id="summernote" style="resize:'none'"></textarea>
 
-            <div id="testdiv"></div>
+            
            
         </div>
     </div>

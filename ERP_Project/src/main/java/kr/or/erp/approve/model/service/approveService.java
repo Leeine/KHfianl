@@ -19,6 +19,8 @@ public interface approveService {
 	int insertDocument(Approve a);
 
 	ArrayList<Document> docList();
+
+	Approve typeDocument(Approve ap);
 	
 	
 
