@@ -16,6 +16,7 @@ function approve_insert(writer){
 				alert("결재 등록 실패");
 			}
 			$("#aptitle").val('');
+			$(".modal-overlay").fadeOut();
 		},
 		error : function (error){
 			console.log("AJAX 통신 실패", error);
