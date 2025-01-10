@@ -25,6 +25,9 @@ public class EmployeeDao {
 		return sqlSession.selectOne("employeeMapper.info",e);
 	}
 
+	public ArrayList<Employee> approveList(SqlSessionTemplate sqlSession, Employee e) {
+		return (ArrayList)sqlSession.selectList("employeeMapper.approveList",e);
+	}
 	
 	
 	

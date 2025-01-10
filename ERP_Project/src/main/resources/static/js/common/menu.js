@@ -40,6 +40,41 @@ function itemListPage(){
 	})
 };
 
+//결재 등록 페이지
+function testDocument(){
+	pageChange();
+	$.ajax({
+		url : "/erp/approve/insert",
+		method: 'GET',
+		success: function (data){ 
+			$("#main-content-header").html("<h1>결재 서류</h1>")
+            $("#main-content-block").html($(data).filter("#textdiv")[0]);
+            
+		},
+		error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+		
+	})
+}
+
+//결재 목록 페이지
+function approveList(){
+	pageChange();
+	$.ajax({
+		url : "/erp/approve/list",
+		method: 'GET',
+		success: function(data){
+			$("#main-content-header").html("<h1>결재 서류 목록</h1>")
+            $("#main-content-block").html($(data).filter("#listdiv")[0]);
+		},
+		error: function (error){
+			console.error('AJAX 요청 실패:', error);
+		}
+	})
+}
+
+
 //발주 페이지 불러오기
 function itemOrderPage(){
 	pageChange();
@@ -88,6 +123,56 @@ function itemReleasePage(){
 	})
 };
 
+//------------근태-------------
+function attemdance(){
+	pageChange();
+	$.ajax({
+		url : "/erp/att/attListPage",
+        method: 'GET',
+        success: function (data) {
+			$("#main-content-header").html("<h1>근태</h1>")
+			$("#main-content-block").html($(data).filter("#attemdance-main-page")[0]);
+			console.log($(data).filter("#attemdance-main-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
+
+function commute(){
+	pageChange();
+	$.ajax({
+		url : "/erp/att/comPage",
+        method: 'GET',
+        success: function (data) {
+			$("#main-content-header").html("<h1>내 정보</h1>")
+			$("#main-content-block").html($(data).filter("#attemdance-commute-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
+
+function empAttemdance(){
+	pageChange();
+	$.ajax({
+		url : "/erp/att/empAttListPage",
+        method: 'GET',
+        success: function (data) {
+			$("#main-content-header").html("<h1>내 정보</h1>")
+			$("#main-content-block").html($(data).filter("#attemdance-emp-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
+
+
+
+
 
 //------------마이페이지-------------
 function employeeMypage(){
@@ -120,4 +205,6 @@ function noticePage(){
         }
 	})
 };
+
+
 

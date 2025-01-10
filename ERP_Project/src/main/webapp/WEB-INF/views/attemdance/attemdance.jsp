@@ -1,147 +1,79 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>Insert title here</title>
-    <!-- 부트스트랩에서 제공하고 있는 스타일 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    -->
-	 <style>
-	 	body {
-    		background-color: rgb(225, 235, 255);
-	    }
-	    #main-content-header{
-	    	margin : 30px;
-	    	width : 93%;
-	    	height : 100px;
-	    	border-radius : 20px;
-			background-color: white;
-	    }
-		#main-content{
-			margin-left : 60px;
-		}
-		#main-content-block{
-			margin : 30px;
-			padding : 1px 15px;
-			background-color: white;
-			border-radius: 20px;
-			width : 93%;
-		}
-		
-		#attListDiv {
-			margin: 15px 0px 15px 0px;
-		}
-		
-		#attList tbody tr:hover {
-		    background-color: #DDE5FF;
-		}
-	 </style>
+
+<link href="/erp/css/common/modal.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 </head>
 <body>
+    
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
-	<%@include file="/WEB-INF/views/attemdance/modal.jsp"%>
-	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
+	<c:set var="contextPath"
+		value="${pageContext.servletContext.contextPath}" />
+	<div id="attemdance-main-page">
 	<div id="main-content">
-	
-		<c:if test="${not empty alertMsg}">
-			<script>
-				alert("${alertMsg}");
-			</script>
-			<c:remove var="alertMsg"/>
-		</c:if>
-		
-		<div id="main-content-header">
-			<h3>근태 관리</h3>
-		</div>
-		
-		
-		<div id="main-content-block">
-			<div id="attListDiv">
-				<table id="attList" class="table table-bordered table-sm" align="center">
-		        	<thead>
-		            	<tr>
-		                	<th>근태코드</th>
-		                	<th>근태명칭</th>
-		                	<th>근태유형</th>
-		                	<th>사용</th>
-		                	<th></th>
-		            	</tr>
-			       	</thead>
-			    	<tbody>
-		        	</tbody>
+
+
+		<div id="attemdance-content-block">
+			<div id="attListDiv" align="center">
+				<table id="attList">
+					<thead>
+						<tr>
+							<th>근태코드</th>
+							<th>근태명칭</th>
+							<th>근태유형</th>
+							<th colspan="2">사용</th>
+							<!-- <th style="width: 10%;"></th> -->
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
 				</table>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insrtAttForm">항목추가</button>
+				<button type="button" class="insertBtn" onclick="modalShow();">항목추가</button>
 			</div>
 		</div>
-			
-			<div class="modal fade" id="insrtAttForm">
-		        <div class="modal-dialog modal-dialog-centered">
-		            <div class="modal-content">
-		
-		                <!-- Modal Header -->
-		                <div class="modal-header">
-		                    <h4 class="modal-title">항목 추가</h4>
-		                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-		                </div>
-		
-		                <form action="attInsert" method="post">
-		                    <!-- Modal body -->
-		                    <div class="modal-body">
-		                    	<table class="table table-bordered table-sm" align="center">
-					            	<tr>
-					                	<th>근태명칭</th>
-					                	<td><input type="text" class="form-control" id="attName" name="attName"></td>
-					            	</tr>
-					            	<tr>
-					            		<th>근태유형</th>
-					            		<td>
-					            			<select id="attTypeCode" name="attTypeCode">
-					            				<option value="100">연차</option>
-					            				<option value="101">반차</option>
-					            				<option value="102">월차</option>
-					            			</select>
-					            		</td>
-					            	</tr>
-					            	<tr>
-					            		<th>근태수</th>
-					            		<td><input type="number" class="form-control" id="attCount" name="attCount"></td>
-					            	</tr>
-						    	</table>
-		                    </div>
-		                    <!-- Modal footer -->
-		                    <div class="modal-footer" align="center">
-		                        <button type="button" class="btn btn-primary" id="attInsert">추가하기</button>
-		                    </div>
-		                </form>
-		            </div>
+
+		<div class="modal-overlay" id="attInsert">
+			<div class="modal">
+				<div class="modal-header">
+					<img src="${contextPath}/icon/x.png" class="modalHide"
+						onclick="modalHide();">
 				</div>
-		    </div>
+
+				<form action="attInsert" method="post">
+					<div class="modal-body">
+						<h4 class="modal-title">항목 추가</h4>
+						<table align="center">
+							<tr>
+								<th>근태명칭</th>
+								<td><input type="text" id="attName" name="attName" required></td>
+							</tr>
+							<tr>
+								<th>근태유형</th>
+								<td><select id="attTypeCode" name="attTypeCode" required>
+										<option value="404">문제</option>
+								</select></td>
+							</tr>
+							<tr>
+								<th>근태수</th>
+								<td><input type="number" step="0.5" min="0.5" id="attCount" name="attCount" required></td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer" align="center">
+						<button type="submit" class="insertBtn" id="attInsert">추가하기</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 	
-    <script>
-    	$(function(){
-			var dept = ("${loginUser.deptCode}").substring(0,1);
-			if(dept != "D"){
-				$(".admin").hide();
-			}
-		});
-        $(".side-menu").click(function(){
-            $($(this).parent()).siblings().find(".sub-menu").slideUp();
-            $(this).siblings(".sub-menu").slideToggle();
-        });
-        $("#sidebar").mouseleave(function(){
-            $(".sub-menu").slideUp();
-        })
-        $(".sign-out").click(function(){
-        	location.href ="${contextPath}/employee/logout";
-        })
-    </script>
-	
-	
-    
-    
 	
 	<script>
 	
@@ -153,7 +85,6 @@
 			$.ajax({
 				url : "attList",
 				success : function(list){
-					//console.log(list);
 					
 					var str = "";
 					
@@ -163,15 +94,15 @@
 							 + "<td>"+ att.attName +"</td>"
 							 + "<td>"+ att.attTypeName +"</td>"
 							 + "<td>"+ att.attState +"</td>"
-							 + "<td>";
+							 + "<td style='text-align: center; width: 10%;'>";
 							 
 						if(att.attState == 'Y'){
-							str += "<button class='btn btn-secondary btn-sm attUpdate'>중지</button>";
+							str += "<button class='attChange attUpdate'>중지</button>";
 						}else{
-							str += "<button class='btn btn-secondary btn-sm attUpdate2'>사용</button>";
+							str += "<button class='attChange attUpdate2'>사용</button>";
 						}
 						
-						str += "<button  class='btn btn-danger btn-sm attDelete'>삭제</button>"
+						str += "<button  class='attDelete'>삭제</button>"
 							 + "</td>"
 							 + "</tr>";
 					}
@@ -182,38 +113,6 @@
 				}
 			});
 		}
-		
-		//항목 추가
-		$("#attInsert").click(function(){
-			
-			$.ajax({
-				url : "attInsert",
-				type : "post",
-				data : {
-					attName : $("#attName").val(),
-					attTypeCode : $("#attTypeCode").val(),
-					attCount : $("#attCount").val()
-				},
-				success : function(result) {
-	                if (result == "NNNNY") {
-	                    alert("추가되었습니다.");
-	                    
-	                    $("#attName").val("");
-	                    $("#attTypeCode").val("");
-	                    $("#attCount").val("");
-	                    
-	                    $("#insrtAttForm").modal("hide");
-	                    
-	                    selectAttList();
-	                } else {
-	                    alert("추가 실패");
-	                }
-				},
-				error : function(){
-					console.log("통신 오류");
-				}
-			});
-		});
 		
 		//근태 항목 수정
 		$("#attList").on("click","tbody>tr .attUpdate",function(){
@@ -244,7 +143,6 @@
 		$("#attList").on("click","tbody>tr .attUpdate2",function(){
 			
 			var code = $(this).closest("tr").children().first().text();
-			//console.log(code);
 			
 			if (confirm("해당 항목을 사용하시겠습니까?")){
 				$.ajax({
@@ -272,7 +170,6 @@
 		$("#attList").on("click","tbody>tr .attDelete",function(){
 				
 			var code = $(this).closest("tr").children().first().text();
-			//console.log(code);
 			
 			if (confirm("복구가 불가능합니다. 정말 삭제하시겠습니까?")) {
 		        $.ajax({
@@ -294,8 +191,38 @@
 		    }
 		});
 		
+		//근태 유형 option
+		function attOption(){
+			$.ajax({
+				url : "/erp/att/attOption",
+				success : function(list){
+					var str = "";
+					for(var ao of list){	
+						str += "<option value='"+ ao.attTypeCode +"'>"+ ao.attTypeName +"</option>";
+					}
+					$("#attTypeCode").html(str);
+				},
+				error : function(){
+					console.log("통신 오류");
+				}
+			});
+		}
+		
+		//모달
+		function modalShow(){
+			$(".modal-overlay").css("display", "flex");
+			attOption();
+		};
+		function modalHide(){
+			$(".modal-overlay").css("display", "none");
+			
+			$("#attName").val("");
+			$("#attCount").val("");
+		}
+		
 	</script>
-	
-	
+	</div>
+
+
 </body>
 </html>

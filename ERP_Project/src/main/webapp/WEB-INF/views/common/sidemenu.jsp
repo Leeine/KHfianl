@@ -29,9 +29,9 @@
                     <span class="side-menu-text">전자결재</span>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="">서브메뉴1</a></li>
-                    <li><a href="">서브메뉴1</a></li>
-                    <li><a href="">서브메뉴1</a></li>
+                    <li><a onclick="testDocument()">결재 등록</a></li>
+                    <li><a onclick="approveList()">결재 목록</a></li>
+                    <li><a href="">빈칸3</a></li>
                 </ul>
             </li>
 
@@ -71,9 +71,9 @@
                     <span class="side-menu-text">근태 관리</span>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="/erp/att/attListPage">근태 관리</a></li>
-                    <li><a href="">사원 근태 관리</a></li>
-                    <li><a href="">출퇴근 관리</a></li>
+                    <li><a onclick="attemdance();">근태 관리</a></li>
+                    <li><a onclick="empAttemdance();">사원 근태 관리</a></li>
+                    <li><a onclick="commute();">출퇴근 관리</a></li>
                 </ul>
             </li>
 

@@ -1,0 +1,38 @@
+#documnetList {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#documnetList th, #documnetList td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+#documnetList th {
+    background-color: rgb(225, 226, 212);
+    font-weight: bold;
+}
+
+#documnetList tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#documnetList tr:hover {
+    background-color: #f1f1f1;
+}
+
+#documnetList td[colspan="6"] {
+    text-align: center;
+    background-color: #f2f2f2;
+}
+
+#textdiv {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 900px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

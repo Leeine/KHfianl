@@ -19,6 +19,12 @@
 		ORDER BY ATT_CODE
 	</select>
 	
+	<select id="attOption" resultType="attemdanceType">
+		SELECT ATT_TYPE_CODE
+			  ,ATT_TYPE_NAME
+		FROM ATTEMDANCE_TYPE
+	</select>
+	
 	<insert id="attInsert" parameterType="attemdance">
 		INSERT INTO ATTEMDANCE
 		VALUES(SEQ_ANO.NEXTVAL
@@ -89,7 +95,7 @@
 				#{inputDate2} >= EMP_ATT_TIME
 			</when>
 		</choose>
-		ORDER BY INPUT_DATE DESC
+		ORDER BY EMP_ATT_TIME DESC
 	</select>
 	
 	<!-- 근태옵션리스트 -->
@@ -98,6 +104,11 @@
 			  ,ATT_CODE
 		FROM ATTEMDANCE
 		WHERE ATT_STATE = 'Y'
+	</select>
+	<select id="optionAttCount" resultType="double">
+		SELECT ATT_COUNT
+		FROM ATTEMDANCE
+		WHERE ATT_CODE = #{attCode}
 	</select>
 	
 	<!-- 사원 리스트 -->
@@ -320,7 +331,7 @@
 	<select id="userEmpCount" resultType="_int">
 		SELECT
 		CASE 
-		    WHEN VACATION != NULL 
+		    WHEN VACATION IS NOT NULL 
 		    THEN VACATION
 		    ELSE '0'
 		END AS VACATION

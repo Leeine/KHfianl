@@ -1,25 +1,21 @@
 package kr.or.erp.attemdance.controller;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpSession;
 import kr.or.erp.attemdance.model.service.AttemdanceService;
 import kr.or.erp.attemdance.model.vo.Attemdance;
+import kr.or.erp.attemdance.model.vo.AttemdanceType;
 import kr.or.erp.attemdance.model.vo.CommuteOn;
 import kr.or.erp.attemdance.model.vo.EmpAttemdance;
 import kr.or.erp.common.model.vo.PageInfo;
@@ -56,24 +52,32 @@ public class AttemdanceController {
 		ArrayList<Attemdance> list = attService.selectAttList(pi);
 		
 		return list;
-	} 
+	}
+	
+	//옵션 리스트
+	@ResponseBody
+	@GetMapping("/attOption")
+	public ArrayList<AttemdanceType> attOption(){
+		
+		ArrayList<AttemdanceType> list = attService.attOption();
+		
+		return list;
+	}
 	
 	//근태 항목 추가
-	@ResponseBody
 	@PostMapping("/attInsert")
-	public String attInsert(Attemdance att) {
+	public String attInsert(Attemdance att, HttpSession session) {
 		
 		int result = attService.attInsert(att);
 		
-		String resultStr = "";
-		
 		if(result >0) {
-			resultStr = "NNNNY";
+			session.setAttribute("alertMsg","등록 성공");
 		}else {
-			resultStr = "NNNNN";
+			session.setAttribute("alertMsg","등록 실패");
 		}
-
-		return resultStr;
+		
+		
+		return "redirect:/att/attListPage";
 	}
 	
 	//근태 항목 수정
@@ -205,6 +209,15 @@ public class AttemdanceController {
 		ArrayList<Attemdance> list = attService.empOptList();
 		
 		return list;
+	}
+	//옵션 기본 근태수
+	@ResponseBody
+	@GetMapping("/optionAttCount")
+	public double optionAttCount(String attCode) {
+		
+		double result = attService.optionAttCount(attCode);
+		
+		return result;
 	}
 	
 	//사원 리스트

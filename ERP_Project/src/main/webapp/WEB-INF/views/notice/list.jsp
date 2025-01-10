@@ -122,7 +122,7 @@
 					<img src="${contextPath}/icon/x.png" class="modalHide">
 				</div>
 				<h3>NOTICE</h3>
-				<table>
+				<table class="testtable">
 					<colgroup>
 						<col style="width: 10%">
 						<col style="width: 10%">

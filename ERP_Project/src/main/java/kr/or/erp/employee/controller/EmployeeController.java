@@ -129,6 +129,19 @@ public class EmployeeController {
 		return empInfo;
 	}
 	
+	//
+	@ResponseBody
+	@GetMapping("/approve/list")
+	public ArrayList<Employee> approvelist(Employee e){
+			
+		ArrayList<Employee> approveList = employeeService.approveList(e);
+		
+
+		return approveList;
+	}
+	
+	
+	
 	
 	
 	

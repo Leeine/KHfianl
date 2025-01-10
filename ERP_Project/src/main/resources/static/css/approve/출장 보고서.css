@@ -1,0 +1,35 @@
+.report-container { 
+    width: 800px;
+    margin: 50px auto;
+    padding: 50px 30px;
+    border: 1px solid #000;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+.report-table th, .report-table td {
+    border: 1px solid #000;
+    text-align: center;
+    padding: 10px;
+}
+.report-table th {
+    background-color: rgb(225, 226, 212);
+}
+.report-table .w {
+    text-align: left;
+    height: 40px;
+}
+.report-table td {
+    height: 40px;
+}
+.report-table .ic {
+    min-width: 100px;
+}
+.report-table .ic-s {
+    min-width: 50px;
+}
