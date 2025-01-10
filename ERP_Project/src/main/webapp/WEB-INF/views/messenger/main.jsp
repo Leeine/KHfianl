@@ -16,7 +16,7 @@
 	<div id="messenger-main-page">
 		<div id="messenger-wrap">
             <div id="messenger-header">
-
+				<div id="messenger-status-text"></div>
             </div>
             <div id="messenger-content-wrap">
             
@@ -74,7 +74,8 @@
 	                   		<table id="messenger-emplist-table">
 		                		<colgroup>
 		                			<col style="width:20%">
-		                			<col style="width:80%">
+		                			<col style="width:70%">
+		                			<col style="width:10%">
 		                		</colgroup>
 								<tbody>
 									<tr class="messenger-emplist">
@@ -85,28 +86,13 @@
 				                    		<div class="messenger-emplist-dept">부서</div>
 				                    		<div class="messenger-emplist-name">직급 이름</div>
 										</td>
+	                					<td>10</td>
 									</tr>
 								</tbody>
 	                   		</table>
 	                    </div>
 	                </div>
-	                <script>
-		                const socket = new WebSocket("ws://localhost:8888/erp/messenger/ws");
-		
-		                socket.onopen = () => {
-		                  console.log("WebSocket 연결 성공");
-		                  socket.send("안녕하세요!");
-		                };
-		
-		                socket.onmessage = (event) => {
-		                  console.log("서버로부터 메시지 수신: ", event.data);
-		                };
-		
-		                socket.onclose = () => {
-		                  console.log("WebSocket 연결 종료");
-		                };
-	
-	                </script>
+	                
             	</div> 
                 <div id="direct-message-area">
                 </div>

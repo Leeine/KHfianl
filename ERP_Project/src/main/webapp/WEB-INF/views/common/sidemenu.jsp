@@ -82,8 +82,9 @@
 
             <li class="menu-item">
                 <div class="side-menu sidemenu-messenger">
-                    <img src="${contextPath}/icon/message.png" class="icon">
+	                <img src="${contextPath}/icon/message.png" class="icon">
                     <span class="side-menu-text">메신저</span>
+	                <span id="msg-count" class="circle"></span>
                 </div>
             </li>
 
@@ -113,11 +114,20 @@
             <span class="side-menu-text">Sign out</span>
         </div>
         <script>
+        	$(function(){
+				webSocketConnect('${loginUser.empNo}');
+        	})
         	$(".home").click(function(){
         		location.href="${contextPath}/menu/home";
         	});
-        	
+
+            $(".sign-out").click(function(){
+            	webSocketDisconnect();
+            	location.href ="${contextPath}/employee/logout";
+            })
         	$(".sidemenu-messenger").click(function(){
+				$("#msg-count").val(0);
+				$("#msg-count").hide();
         		if($("#messenger-main-page").css("display") == "block"){
         			$("#messenger-main-page").hide();
         		}else{

@@ -104,9 +104,6 @@
         $("#sidebar").mouseleave(function(){
             $(".sub-menu").slideUp();
         })
-        $(".sign-out").click(function(){
-        	location.href ="${contextPath}/employee/logout";
-        })
     </script>
 </body>
 </html>
