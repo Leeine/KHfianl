@@ -138,20 +138,43 @@
 #chat-text-area::-webkit-scrollbar {
 	display: none;
 }
-
-.chat {
+.chat-date{
+	height: 20px;
+	width: fit-content;
+	margin: 2px auto;
+	padding: 0px 10px;
+	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 20px;
+	font-size: 14px;
+	color: rgb(80,80,80);
+}
+.chat{
+	margin: 2px;
+	width: fit-content;
+	min-width: 100px;
+	min-height: 35px;
+}
+.msg-time{
+	font-size: 10px;
+	display: inline-block;
+	vertical-align: -9px;
+}
+.chat-text {
 	margin: 8px;
 	padding: 4px 6px;
 	border-radius: 7px;
 	width: fit-content;
-	max-width: 260px;
-	min-height: 30px;
+	max-width: 250px;
+	min-height: 35px;
 	box-shadow: 0 0 10px 1px rgb(206, 206, 206);
+	font-size: 18px;
+	background-color: white;
+	display: inline-block;
 }
 
 .send-chat {
-	background-color: white;
 	margin-left: auto;
+	text-align: right;
 }
 
 .receive-chat {
@@ -174,6 +197,7 @@
 	outline: none;
 	width: 100%;
 	height: 100%;
+	font-size: 16px;
 }
 
 #chat-send-btn {
@@ -192,7 +216,7 @@
 	display: block;
 	/* 이미지가 컨테이너에 맞게 표시되도록 */
 }
-#msg-count{
+#msg-alert{
 	display: none;
 }
 .circle {

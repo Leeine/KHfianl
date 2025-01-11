@@ -65,7 +65,8 @@
 		    						$("#messenger-emplist-table").on("click", ".messenger-emplist", function(){
 		    							var empNo = $(this).find(".messenger-empNo").val();
 		    							var empName = $(this).find(".messenger-emplist-name").text();
-		    							chat_room(empNo,empName);
+		    							var myEmpNo = "${loginUser.empNo}";
+		    							chat_room(empNo,empName,myEmpNo);
 		    						})
 		    					});
 	                        </script>
@@ -105,6 +106,7 @@
 	<script>
 		$(function(){
 			$("#messenger-wrap").on("click",".exit-icon",function(){
+    			messenger_emp_list('${loginUser.empNo}','${contextPath}');
 				$("#messenger-user-list").show();
 				$("#direct-message-area").html('');
 			})

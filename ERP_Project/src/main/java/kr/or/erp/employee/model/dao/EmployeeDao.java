@@ -32,13 +32,5 @@ public class EmployeeDao {
 	
 	
 	
-	//메신저용 사원리스트 불러오기
-	public ArrayList<Messenger> messengerEmpList(SqlSessionTemplate sqlSession, Employee e) {
-		return (ArrayList)sqlSession.selectList("employeeMapper.messengerEmpList",e);
-	}
-
-	public ArrayList<Messenger> messengerEmpSearchList(SqlSessionTemplate sqlSession, Employee e) {
-		return (ArrayList)sqlSession.selectList("employeeMapper.messengerEmpSearchList",e);
-	}
 
 }

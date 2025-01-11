@@ -84,7 +84,7 @@
                 <div class="side-menu sidemenu-messenger">
 	                <img src="${contextPath}/icon/message.png" class="icon">
                     <span class="side-menu-text">메신저</span>
-	                <span id="msg-count" class="circle"></span>
+	                <span id="msg-alert" class="circle">!</span>
                 </div>
             </li>
 
@@ -125,14 +125,22 @@
             	webSocketDisconnect();
             	location.href ="${contextPath}/employee/logout";
             })
+            
         	$(".sidemenu-messenger").click(function(){
-				$("#msg-count").val(0);
-				$("#msg-count").hide();
+				$("#msg-alert").hide();
         		if($("#messenger-main-page").css("display") == "block"){
         			$("#messenger-main-page").hide();
         		}else{
         			$("#messenger-main-page").show();
         			messenger_emp_list('${loginUser.empNo}','${contextPath}');
+        			
+        			//메세지창 켰을때 채팅창이 켜져있는 경우(대화상대 값이 있는경우)
+        			var receiver = $("#messenger-receive-user").val();
+        			if(receiver != null){
+        				readMessage('${loginUser.empNo}',receiver);
+        			}
+            		
+        			
         		}
         	});
         </script>

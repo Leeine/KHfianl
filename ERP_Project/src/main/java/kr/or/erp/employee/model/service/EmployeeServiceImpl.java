@@ -38,15 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	
 	
-	//메신저용 사원리스트 불러오기
-	@Override
-	public ArrayList<Messenger> messengerEmpList(Employee e) {
-		if(e.getEmpName()==null) {			
-			return employeeDao.messengerEmpList(sqlSession,e);
-		}else {
-			return employeeDao.messengerEmpSearchList(sqlSession,e);
-		}
-	}
+	
 
 	@Override
 	public ArrayList<Employee> approveList(Employee e) {

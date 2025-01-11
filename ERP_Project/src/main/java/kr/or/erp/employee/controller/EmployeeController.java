@@ -146,24 +146,5 @@ public class EmployeeController {
 	
 	
 	
-	//메신저 사용자 목록
-	@ResponseBody
-	@GetMapping("/messenger/list")
-	public ArrayList<Messenger> messengerEmpList(Employee e) {
-		ArrayList<Messenger> list = employeeService.messengerEmpList(e);
-		return list;
-	}
 	
-	@ResponseBody
-	@GetMapping("/messenger/search")
-	public ArrayList<Messenger> messengerEmpSearchList(Employee e) {
-		ArrayList<Messenger> list = employeeService.messengerEmpList(e);
-		return list;
-	}
-
-	//채팅방 이동
-	@GetMapping("/messenger/chatroom")
-	public String chatroom() {
-		return "messenger/chatRoom";
-	}
 }
