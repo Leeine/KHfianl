@@ -134,7 +134,8 @@ function webSocketConnect(myEmpNo) {
 
 		var wrap = $("<div>").addClass("chat");
 		var chat = $("<div>").addClass("chat-text");
-
+		var receiver = $("#messenger-receive-user").val(); //대화상대
+		var msgBrowser = $("#messenger-main-page").css("display"); //메신저 창 켜져있는지
 		var message = (data.message)
 
 		if (send == myEmpNo) { //송신자 화면 (우측) [send : 나 / receive : 대화상대]
@@ -164,12 +165,10 @@ function webSocketConnect(myEmpNo) {
 				//공백 및 줄바꿈 처리
 				var msg = message.replace(/\n/g, "<br>").replace(/(\s+)/g, (match) => '&nbsp;'.repeat(match.length));
 
-				//대화상대
-				var receiver = $("#messenger-receive-user").val();
+				
 
 				//메시지를 보낸 사람(send)이 대화상대와 같고(같은 채팅방에 들어와있는 경우)
 				//AND 메신저 창이 켜져있는 경우 => 채팅방 최신화
-				var msgBrowser = $("#messenger-main-page").css("display");
 				if (receiver == send && msgBrowser == "block") {
 					chat.addClass("receive-chat").html(msg);
 					wrap.append(chat);
@@ -188,10 +187,15 @@ function webSocketConnect(myEmpNo) {
 			}
 
 		}
+		//메시지를 전송 받았을때
 		if (message != null) {
+			//채팅 추가
 			$("#chat-text-area").append(wrap);
-			//스크롤 맨 밑으로 내리기
-			$('#chat-text-area').scrollTop($('#chat-text-area')[0].scrollHeight);
+			//채팅방에 들어가 있는 경우
+			if (msgBrowser == "block" && receiver != null) {
+				//스크롤 맨 밑으로 내리기
+				$('#chat-text-area').scrollTop($('#chat-text-area')[0].scrollHeight);
+			}
 		}
 
 
@@ -246,7 +250,7 @@ function loadMessage(myEmpNo, receive) {
 				var time = (dateTime.split(" ")[1]).split(":").slice(0, 2).join(":");
 				var date = dateTime.split(" ")[0];
 				var msg = (data.message).replace(/\n/g, "<br>").replace(/(\s+)/g, (match) => '&nbsp;'.repeat(match.length));
-				if(tempDate != date){
+				if (tempDate != date) {
 					var chatDate = $("<div>").addClass("chat-date").text(date);
 					tempDate = date;
 					$("#chat-text-area").append(chatDate);
@@ -275,7 +279,7 @@ function loadMessage(myEmpNo, receive) {
 				}
 				$("#chat-text-area").append(wrap);
 			}
-				//스크롤 맨 밑으로 내리기
+			//스크롤 맨 밑으로 내리기
 			$('#chat-text-area').scrollTop($('#chat-text-area')[0].scrollHeight);
 
 		},
