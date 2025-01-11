@@ -25,11 +25,7 @@ public class MessengerDao {
 	}
 
 	public int readMessage(SqlSessionTemplate sqlSession, MessageVO mv) {
-//		ArrayList<MessageVO> list = (ArrayList)sqlSession.selectList("messengerMapper.readMessage2", mv);
-//		for(MessageVO m : list) {
-//			System.out.println(m);
-//		}
-//		return 0;
+
 		return sqlSession.update("messengerMapper.readMessage", mv);
 	}
 
