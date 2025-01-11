@@ -10,7 +10,6 @@ function messenger_emp_list(empNo, contextPath) {
 			$("#messenger-emplist-table>tbody").remove();
 			var tbody = $("<tbody>");
 			for (var d of data) {
-				console.log(d);
 				var tr = $("<tr>").addClass("messenger-emplist");
 				var td1 = $("<td>");
 				td1.append($("<input>").attr("type", "hidden").val(d.empNo).addClass("messenger-empNo"));
