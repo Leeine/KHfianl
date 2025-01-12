@@ -15,4 +15,5 @@ public class MessageVO {
 	private String message;
 	private String readMsg;
 	private String sendTime;
+	private String notice;
 }

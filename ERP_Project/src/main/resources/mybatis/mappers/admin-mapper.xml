@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminMapper">
+	<select id="empRankList" resultType="Employee">
+		SELECT *
+		FROM EMPLOYEE_RANK
+	</select>
+	<select id="deptList" resultType="Employee">
+		SELECT *
+		FROM DEPARTMENT
+	</select>
+	
+	
+	<select id="empList" resultType="Employee">
+		SELECT EMP_NO
+			, DEPT_NAME
+			, RANK_NAME
+			, EMP_NAME
+		FROM EMPLOYEE
+		JOIN DEPARTMENT USING(DEPT_CODE)
+		JOIN EMPLOYEE_RANK USING(EMP_RANK)
+		ORDER BY EMP_NO
+	</select>
+	<insert id="empInsert" parameterType="Employee">
+		INSERT INTO EMPLOYEE(EMP_NO,EMP_NAME,DEPT_CODE,EMP_RANK)
+		VALUES(SEQ_EMPLOYEE_NO.NEXTVAL,#{empName},#{deptCode},#{empRank})
+	</insert>
+	
+	
+	<select id="itemList" resultType="Item">
+		SELECT ITEM_NAME
+		FROM ITEM
+		ORDER BY ITEM_CODE
+	</select>
+	<insert id="itemInsert" parameterType="Item">
+		INSERT INTO ITEM(ITEM_CODE,ITEM_NAME,ITEM_PRICE)
+		VALUES (SEQ_ITEM_NO.NEXTVAL, #{itemName}, #{itemPrice})
+	</insert>
+	
+	
+	<select id="categoryList" resultType="CategoryList">
+		SELECT *
+		FROM ITEM_CATEGORY_LIST
+	</select>
+	<insert id="categoryInsert" parameterType="CategoryList">
+		INSERT INTO ITEM_CATEGORY_LIST
+		VALUES(SEQ_ITEM_CATEGORY_NO.NEXTVAL,#{itemCategoryName})
+	</insert>
+</mapper>

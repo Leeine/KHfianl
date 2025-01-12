@@ -1,4 +1,4 @@
-//
+//index 페이지 div 숨기고 main페이지 div 표시
 function pageChange(){
 	$(".modal-overlay").remove();
 	$("#index-content-block").hide();
@@ -15,7 +15,7 @@ function itemCustomerPage(){
 		url : "/erp/item/customer",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>거래처 관리</h1>")
+			$("#main-content-header").html("<h1>거래처 관리</h1>");
 			$("#main-content-block").html($(data).filter("#item-customer-page")[0]);
         },
         error: function (error) {
@@ -31,7 +31,7 @@ function itemListPage(){
 		url : "/erp/item/stock",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>재고 현황</h1>")
+			$("#main-content-header").html("<h1>재고 현황</h1>");
 			$("#main-content-block").html($(data).filter("#item-stock-page")[0]);
         },
         error: function (error) {
@@ -47,7 +47,7 @@ function testDocument(){
 		url : "/erp/approve/insert",
 		method: 'GET',
 		success: function (data){ 
-			$("#main-content-header").html("<h1>결재 서류</h1>")
+			$("#main-content-header").html("<h1>결재 서류</h1>");
             $("#main-content-block").html($(data).filter("#textdiv")[0]);
             
 		},
@@ -65,7 +65,7 @@ function approveList(){
 		url : "/erp/approve/list",
 		method: 'GET',
 		success: function(data){
-			$("#main-content-header").html("<h1>결재 서류 목록</h1>")
+			$("#main-content-header").html("<h1>결재 서류 목록</h1>");
             $("#main-content-block").html($(data).filter("#listdiv")[0]);
 		},
 		error: function (error){
@@ -82,7 +82,7 @@ function itemOrderPage(){
 		url : "/erp/item/order",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>발주 현황</h1>")
+			$("#main-content-header").html("<h1>발주 현황</h1>");
 			$("#main-content-block").html($(data).filter("#item-order-page")[0]);
         },
         error: function (error) {
@@ -98,7 +98,7 @@ function itemSellPage(){
 		url : "/erp/item/sell",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>판매 현황</h1>")
+			$("#main-content-header").html("<h1>판매 현황</h1>");
 			$("#main-content-block").html($(data).filter("#item-sell-page")[0]);
         },
         error: function (error) {
@@ -114,7 +114,7 @@ function itemReleasePage(){
 		url : "/erp/item/release",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>출하 현황</h1>")
+			$("#main-content-header").html("<h1>출하 현황</h1>");
 			$("#main-content-block").html($(data).filter("#item-release-page")[0]);
         },
         error: function (error) {
@@ -132,7 +132,7 @@ function attemdance(){
 		url : "/erp/att/attListPage",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>근태</h1>")
+			$("#main-content-header").html("<h1>근태</h1>");
 			$("#main-content-block").html($(data).filter("#attemdance-main-page")[0]);
 			console.log($(data).filter("#attemdance-main-page")[0]);
         },
@@ -149,7 +149,7 @@ function commute(){
 		url : "/erp/att/comPage",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>내 정보</h1>")
+			$("#main-content-header").html("<h1>내 정보</h1>");
 			$("#main-content-block").html($(data).filter("#attemdance-commute-page")[0]);
         },
         error: function (error) {
@@ -165,7 +165,7 @@ function empAttemdance(){
 		url : "/erp/att/empAttListPage",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>내 정보</h1>")
+			$("#main-content-header").html("<h1>내 정보</h1>");
 			$("#main-content-block").html($(data).filter("#attemdance-emp-page")[0]);
         },
         error: function (error) {
@@ -185,7 +185,7 @@ function employeeMypage(){
 		url : "/erp/employee/mypage",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>내 정보</h1>")
+			$("#main-content-header").html("<h1>내 정보</h1>");
 			$("#main-content-block").html($(data).filter("#employee-mypage-page")[0]);
         },
         error: function (error) {
@@ -201,8 +201,24 @@ function noticePage(){
 		url : "/erp/notice/page",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>공지</h1>")
+			$("#main-content-header").html("<h1>공지</h1>");
 			$("#main-content-block").html($(data).filter("#notice-list-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
+
+//-------------- 관리자 -----------------
+function adminNoticePage(){
+	pageChange();
+	$.ajax({
+		url : "/erp/admin/page",
+        method: 'POST',
+        success: function (data) {
+			$("#main-content-header").html("<h1>관리자</h1>");
+			$("#main-content-block").html($(data).filter("#admin-page")[0]);
         },
         error: function (error) {
             console.error('AJAX 요청 실패:', error);
