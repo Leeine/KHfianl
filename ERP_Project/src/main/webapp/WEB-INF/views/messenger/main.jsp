@@ -12,7 +12,7 @@
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}" />
-
+	
 	<div id="messenger-main-page">
 		<div id="messenger-wrap">
             <div id="messenger-header">
@@ -103,14 +103,5 @@
             </div>
 		</div>
 	</div>
-	<script>
-		$(function(){
-			$("#messenger-wrap").on("click",".exit-icon",function(){
-    			messenger_emp_list('${loginUser.empNo}','${contextPath}');
-				$("#messenger-user-list").show();
-				$("#direct-message-area").html('');
-			})
-		})
-	</script>
 </body>
 </html>

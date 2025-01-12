@@ -112,7 +112,7 @@ function chat_room(empNo, empName, myEmpNo) {
 //웹소켓 담을 변수 선언
 let socket;
 //웹소켓 연결(로그인 시 상시 연결)
-function webSocketConnect(myEmpNo) {
+function webSocketConnect(myEmpNo,contextPath) {
 	//소켓 중복접속 방지
 	if (socket && socket.readyState === socket.OPEN) {
 		return;
@@ -137,7 +137,25 @@ function webSocketConnect(myEmpNo) {
 		var receiver = $("#messenger-receive-user").val(); //대화상대
 		var msgBrowser = $("#messenger-main-page").css("display"); //메신저 창 켜져있는지
 		var message = (data.message)
-
+		
+		//관리자 실시간 공지를 수신했을 때
+		if(data.notice != null){
+			//관리자의 전체 로그아웃 요청
+			if(data.notice == "/logoutAll"){
+				$("#admin-notice-content").html("1분뒤 일괄 로그아웃 처리됩니다.");
+				$("#admin-notice").show();
+				setTimeout(function(){
+					location.href = contextPath+"/employee/logout";
+				}, 60000);
+			}else{
+				//화면에 공지 띄우기
+				$("#admin-notice-content").html(data.notice);
+				$("#admin-notice").show();
+			}
+			return;
+		}
+		
+		//일반 메시지를 수신했을 때
 		if (send == myEmpNo) { //송신자 화면 (우측) [send : 나 / receive : 대화상대]
 			if (data.message != null) {
 

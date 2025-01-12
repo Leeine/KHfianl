@@ -52,6 +52,25 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 		String send = jsonObject.get("send").getAsString();
 		String receive = jsonObject.get("receive").getAsString();
 		
+		//관리자 공지
+		if(jsonObject.get("notice")!=null) {
+			// 생성한 메시지 정보 VO를 json 문자열로 변환하여 전달하기
+			System.out.println();
+			MessageVO mv = MessageVO.builder().notice(jsonObject.get("notice").getAsString()).build();
+			String responseMsg = new Gson().toJson(mv); // gson 이용해서 json화 하기
+
+			TextMessage tm = new TextMessage(responseMsg); // 새 메시지 형태 담아서 메시지 객체 생성
+			
+			//접속중인 모든 사용자에게 전송
+			for (WebSocketSession user : users.values()) {
+			    user.sendMessage(tm);
+			}
+			return;
+		}
+		
+		
+		
+		
 		MessageVO mv = MessageVO.builder().send(send).receive(receive).build();
 		
 		// 채팅방 접속시 메시지 읽음 처리

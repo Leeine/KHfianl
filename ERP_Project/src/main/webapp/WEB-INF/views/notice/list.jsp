@@ -40,21 +40,24 @@
 				//currentPage 번호 입력시
 				$('#notice-currentPage').on('blur', function() {
 					var num = $('#notice-currentPage').val();
+					//공백이면 1로 바꾸기
 					if (num == '') {
 						$(this).val('1');
 					}
 					num = $('#notice-currentPage').val();
 					var maxPage = $('#notice-maxPage').text();
 					var startPage = $("#notice-startPage").val();
-
+					
+					//페이지 범위롤 벗어나면 1로 바꾸기
 					if (num > maxPage || num < startPage) {
 						$('#notice-currentPage').val('1');
 					}
 					var keyword = $("#notice-list-search-keyword").val();
-
+					
+					//키워드가 공백이 아니면 검색 함수실행
 					if (keyword != '') {
 						notice_search();
-					} else {
+					} else {	//키워드가 공백이면 전체 리스트 함수 실행
 						notice_list();
 					}
 				});
@@ -69,6 +72,7 @@
 				$("#notice-list-search-select").change(function () {
 					var val = $(this).val();
 					var input = $("#notice-list-search-keyword");
+					//날짜 선택후 text로 변경시 날짜 문자열이 남아있으므로 비워주기
 					input.val('');
 					if(val == "DATE"){
 						input.attr("type","date");
@@ -80,6 +84,7 @@
 				//모달 숨기기
 				$(".modalHide").click(function() {
 					clear();
+					//모달 닫을시 최신화된 조회수를 보여주기 위해 목록 다시 불러오기
 					if($("#notice-list-search-keyword").val()==''){
 						notice_list();
 					}else{						
@@ -213,10 +218,13 @@
 			    </script>
 			    <script>
 			    	$(function(){
-			    		var user = "${loginUser.empName}";
-			    		if(user != "admin"){
+						var dept = "${loginUser.deptCode}";
+						//부장급인지 확인 (부장급은 부서코드 길이가 1)
+						if(dept.length != 1){//부장이 아닌경우
+							//공지 세부보기 페이지의 수정,삭제 버튼 가리기 (기본값 show)
 			    			$("#modal-btn-area").hide();
 			    		}else{
+			    			//공지 작성 버튼 보여주기 (기본값 hide)
 			    			$(".notice-write").show();
 			    		}
 			    	})
