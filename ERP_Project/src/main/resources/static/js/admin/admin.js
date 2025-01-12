@@ -10,6 +10,17 @@ function sendAdminNotice() {
 	socket.send(JSON.stringify(adminNotice));
 	$("#admin-notice-input-text").val('');
 }
+function logoutAll() {
+	const adminNotice = {
+		send: "admin",
+		receive: "all",
+		notice: "/logoutAll"
+	};
+
+	// JSON 객체를 문자열로 변환 후 전송
+	socket.send(JSON.stringify(adminNotice));
+	$("#admin-notice-input-text").val('');
+}
 function empList(){
 	$.ajax({
 		url : "/erp/admin/empList",

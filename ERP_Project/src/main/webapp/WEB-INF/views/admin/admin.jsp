@@ -31,6 +31,7 @@
 									접속중인 모든 사용자 화면에 표시됩니다.
 									<textarea id="admin-notice-input-text"style="resize: none"></textarea><br>
 									<button onclick="sendAdminNotice();">전송</button>
+									<button onclick="logoutAll();">모든 사용자 로그아웃</button>
 								</div>
 							</div>
 						</td>
