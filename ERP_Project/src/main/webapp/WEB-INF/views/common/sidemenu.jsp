@@ -120,6 +120,7 @@
 		<script>
 			$(function() {
 				//로그인시 웹 소켓 연결
+				console.log('${loginUser}');
 				webSocketConnect('${loginUser.empNo}',"${contextPath}");
 			})
 			$(".home").click(function() {
@@ -132,6 +133,7 @@
 			})
 
 			$(".sidemenu-messenger").click(function() {
+				webSocketConnect('${loginUser.empNo}',"${contextPath}");
 				$("#msg-alert").hide();
 				if ($("#messenger-main-page").css("display") == "block") {
 					$("#messenger-main-page").hide();
