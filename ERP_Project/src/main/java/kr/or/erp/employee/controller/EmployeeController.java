@@ -19,9 +19,9 @@ import jakarta.servlet.http.HttpSession;
 import kr.or.erp.common.model.vo.PageInfo;
 import kr.or.erp.common.template.Pagination;
 import kr.or.erp.employee.model.service.EmployeeService;
+import kr.or.erp.employee.model.vo.Appointment;
 import kr.or.erp.employee.model.vo.Employee;
 import kr.or.erp.item.model.vo.Search;
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/employee")
@@ -186,12 +186,13 @@ public class EmployeeController {
 		return resultMap;
 	}
 	
-	
+	//인사발령 페이지 이동
 	@GetMapping("/appointment/page")
 	public String appointmentPage() {
-		return "employee/appointment";
+		return "employee/appointmentList";
 	}
 	
+	//부서 변경
 	@ResponseBody
 	@PostMapping(value="/appointment/dept")
 	public String dept(Employee e, String data) {
@@ -203,6 +204,7 @@ public class EmployeeController {
 			return "NNNNN";
 		}
 	}
+	//직급 변경
 	@ResponseBody
 	@PostMapping(value="/appointment/rank")
 	public String rank(Employee e, String data) {
@@ -213,5 +215,81 @@ public class EmployeeController {
 		}else {
 			return "NNNNN";
 		}
+	}
+
+	@ResponseBody
+	@GetMapping("/appointment/typeList")
+	public ArrayList<Appointment> appointmentTypeList() {
+
+		ArrayList<Appointment> list = employeeService.appointmentTypeList();
+
+		return list;
+	}
+	
+	//사원추가
+	@ResponseBody
+	@PostMapping(value="/insert")
+	public String insert(Employee e) {
+		int result = employeeService.insertEmployee(e);
+		if(result > 0) {
+			return "NNNNY";
+		}else {
+			return "NNNNN";
+		}
+	}
+	
+	//인사발령 기록 추가
+	@ResponseBody
+	@PostMapping(value="/appointment/insert")
+	public String insert(Appointment a) {
+		int result = employeeService.insertAppointment(a);
+		if(result > 0) {
+			return "NNNNY";
+		}else {
+			return "NNNNN";
+		}
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/appointment/list", produces = "application/json; charset=UTF-8")
+	public HashMap<String,Object> appointmentList(
+			@RequestParam(value="currentPage", defaultValue ="1")
+			String currentPage){
+		
+		HashMap<String,Object> resultMap = new HashMap<>();
+		
+
+		int searchCount = employeeService.appointmentListCount();
+		int pageLimit = 1;	
+		int boardLimit = 25;
+		PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
+
+		ArrayList<Appointment> list = employeeService.appointmentList(pi);
+
+		resultMap.put("pi", pi);
+		resultMap.put("result", list);
+		return resultMap;
+	}
+
+	@ResponseBody
+	@GetMapping(value="/appointment/search", produces = "application/json; charset=UTF-8")
+	public HashMap<String,Object> appointmentSearchList(
+			Search search,
+			@RequestParam(value="currentPage", defaultValue ="1")
+			String currentPage){
+		
+		HashMap<String,Object> resultMap = new HashMap<>();
+		
+
+		int searchCount = employeeService.appointmentSearchListCount(search);
+		int pageLimit = 1;	
+		int boardLimit = 25;
+		PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
+
+		ArrayList<Appointment> list = employeeService.appointmentsearchList(pi, search);
+
+		resultMap.put("pi", pi);
+		resultMap.put("result", list);
+		return resultMap;
 	}
 }

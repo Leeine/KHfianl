@@ -54,7 +54,7 @@
 					}
 					var keyword = $("#employee-search-keyword").val();
 
-					if (keyword != null) {
+					if (keyword != '') {
 						employee_search();
 					} else {
 						employee_list();
@@ -211,10 +211,18 @@
 							var empNo = $("#emp-appointment-table>thead>tr>th").eq(0).text();
 							if(select === "dept"){
 								var pk = $("#appointment-dept-list").val();
-								appointment(select,empNo,pk);
+								if(pk == "NULL"){
+									alert("변경 부서를 선택해주세요");
+								}else{
+									appointment(select,empNo,pk);
+								}
 							}else if(select === "rank"){
 								var pk = $("#appointment-rank-list").val();
-								appointment(select,empNo,pk);
+								if(pk == "NULL"){
+									alert("변경 직급을 선택해주세요");
+								}else{
+									appointment(select,empNo,pk);
+								}
 							}
 						})
 					})
