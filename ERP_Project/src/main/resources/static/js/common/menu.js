@@ -132,7 +132,7 @@ function attemdance(){
 		url : "/erp/att/attListPage",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>근태</h1>");
+			$("#main-content-header").html("<h1>근태 항목 관리</h1>");
 			$("#main-content-block").html($(data).filter("#attemdance-main-page")[0]);
 			console.log($(data).filter("#attemdance-main-page")[0]);
         },
@@ -149,7 +149,7 @@ function commute(){
 		url : "/erp/att/comPage",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>내 정보</h1>");
+			$("#main-content-header").html("<h1>출퇴근 관리</h1>");
 			$("#main-content-block").html($(data).filter("#attemdance-commute-page")[0]);
         },
         error: function (error) {
@@ -165,7 +165,7 @@ function empAttemdance(){
 		url : "/erp/att/empAttListPage",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>내 정보</h1>");
+			$("#main-content-header").html("<h1>사원 근태 관리</h1>");
 			$("#main-content-block").html($(data).filter("#attemdance-emp-page")[0]);
         },
         error: function (error) {
