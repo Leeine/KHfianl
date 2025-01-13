@@ -53,11 +53,13 @@
 				
 				//tr선택시
 				$("#item-stock-table").on("click","td",function(){
-					let list = [];
-					$(this).parent().find("td").each(function(){
-						list.push($(this).text());
-					})
-					item_stock_modal_info(list);
+					if($(this).parent().find("td").length != 1){
+						let list = [];
+						$(this).parent().find("td").each(function(){
+							list.push($(this).text());
+						})
+						item_stock_modal_info(list);
+					}
 				})
 				
 			$("#item-catagory-select-body").on("change","input", function(){

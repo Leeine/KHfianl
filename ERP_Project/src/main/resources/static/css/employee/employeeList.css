@@ -1,0 +1,45 @@
+#employee-list-page>div {
+	margin: 10px 0;
+}
+
+#employee-table {
+	margin: 0 auto;
+	width: 100%;
+	min-width: 1200px;
+}
+
+#employee-table th,
+#employee-table td {
+
+	border: 2px solid black;
+	text-align: center;
+}
+#employee-table thead{
+    background-color: rgb(225, 235, 255);
+}
+#employee-table tr:hover {
+	background-color: rgb(192, 192, 192);
+}
+#employee-table>thead>tr:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#employee-pagingbar>input {
+	width: 30px;
+}
+#employee-search-select{
+	margin-left: 20px;
+}
+#employee-search-keyword{
+	margin-left: 5px;
+}
+#employee-input-area{
+	margin: 0 auto;
+	width: 100%;
+	min-width: 1200px;
+}
+
+input {
+	outline: none;
+}
+

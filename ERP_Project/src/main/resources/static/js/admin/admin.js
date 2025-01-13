@@ -14,160 +14,172 @@ function logoutAll() {
 	const adminNotice = {
 		send: "admin",
 		receive: "all",
-		notice: "/logoutAll"
+		notice: "1분뒤 일괄 로그아웃 처리됩니다."
 	};
 
 	// JSON 객체를 문자열로 변환 후 전송
 	socket.send(JSON.stringify(adminNotice));
 	$("#admin-notice-input-text").val('');
+
+	setTimeout(function() {
+		const logoutAll = {
+			send: "admin",
+			receive: "all",
+			notice: "/logoutAll"
+		};
+	
+		// JSON 객체를 문자열로 변환 후 전송
+		socket.send(JSON.stringify(logoutAll));
+		$("#admin-notice-input-text").val('');
+	}, 60000);
 }
-function empList(){
+function empList() {
 	$.ajax({
-		url : "/erp/admin/empList",
-		method : "GET",
-		success : function(list) {
+		url: "/erp/admin/empList",
+		method: "GET",
+		success: function(list) {
 			$("#employee-list-area").html('');
-			for(var e of list){
-				var div = $("<div>").addClass("employee").append(e.empNo+" / "+e.deptName+" / "+e.rankName+" / "+e.empName);
+			for (var e of list) {
+				var div = $("<div>").addClass("employee").append(e.empNo + " / " + e.deptName + " / " + e.rankName + " / " + e.empName);
 				$("#employee-list-area").append(div);
 			}
 		},
-		error : function (error){
+		error: function(error) {
 			console.log("AJAX 통신 오류", error);
 		}
 	})
 }
-function empInsert(){
+function empInsert() {
 	$.ajax({
-		url : "/erp/admin/empInsert",
-		method : "POST",
-		data : {
-			deptCode : $("#dept-select").val(),
-			empRank : $("#empRank-select").val(),
-			empName : $("#admin-insert-employeeName").val()
+		url: "/erp/admin/empInsert",
+		method: "POST",
+		data: {
+			deptCode: $("#dept-select").val(),
+			empRank: $("#empRank-select").val(),
+			empName: $("#admin-insert-employeeName").val()
 		},
-		success : function(result) {
-			if(result == "NNNNY"){
+		success: function(result) {
+			if (result == "NNNNY") {
 				alert("등록 성공");
-			}else{
+			} else {
 				alert("등록 실패");
 			}
 		},
-		error : function (error){
+		error: function(error) {
 			console.log("AJAX 통신 오류", error);
 		},
-		complete : function(){
+		complete: function() {
 			$("#admin-insert-employeeName").val('');
 			empList();
 		}
 	})
-	
+
 }
-function itemList(){
+function itemList() {
 	$.ajax({
-		url : "/erp/admin/itemList",
-		method : "GET",
-		success : function(list) {
+		url: "/erp/admin/itemList",
+		method: "GET",
+		success: function(list) {
 			$("#item-list-area").html('');
-			for(var i of list){
+			for (var i of list) {
 				var div = $("<div>").append(i.itemName).addClass("item");
 				$("#item-list-area").append(div);
 			}
 		},
-		error : function (error){
+		error: function(error) {
 			console.log("AJAX 통신 오류", error);
 		}
 	})
 }
-function itemInsert(){
+function itemInsert() {
 	$.ajax({
-		url : "/erp/admin/itemInsert",
-		method : "POST",
-		data : {
-			itemName : $("#admin-insert-itemName").val(),
-			itemPrice : $("#admin-insert-itemPrice").val()
+		url: "/erp/admin/itemInsert",
+		method: "POST",
+		data: {
+			itemName: $("#admin-insert-itemName").val(),
+			itemPrice: $("#admin-insert-itemPrice").val()
 		},
-		success : function(result) {
-			if(result == "NNNNY"){
+		success: function(result) {
+			if (result == "NNNNY") {
 				alert("등록 성공");
-			}else{
+			} else {
 				alert("등록 실패");
 			}
 		},
-		error : function (error){
+		error: function(error) {
 			console.log("AJAX 통신 오류", error);
 		},
-		complete : function(){
+		complete: function() {
 			$("#admin-insert-itemName").val('');
 			itemList();
 		}
 	})
 }
-function categoryList(){
+function categoryList() {
 	$.ajax({
-		url : "/erp/admin/categoryList",
-		method : "GET",
-		success : function(list) {
+		url: "/erp/admin/categoryList",
+		method: "GET",
+		success: function(list) {
 			$("#category-list-area").html('');
-			for(var c of list){
+			for (var c of list) {
 				var div = $("<div>").append(c.itemCategoryName).addClass("categoryList");
 				$("#category-list-area").append(div);
 			}
 		},
-		error : function (error){
+		error: function(error) {
 			console.log("AJAX 통신 오류", error);
 		}
 	})
 }
-function categoryInsert(){
+function categoryInsert() {
 	$.ajax({
-		url : "/erp/admin/categoryInsert",
-		method : "POST",
-		data : {
-			itemCategoryName : $("#admin-insert-categoryName").val()
+		url: "/erp/admin/categoryInsert",
+		method: "POST",
+		data: {
+			itemCategoryName: $("#admin-insert-categoryName").val()
 		},
-		success : function(result) {
-			if(result == "NNNNY"){
+		success: function(result) {
+			if (result == "NNNNY") {
 				alert("등록 성공");
-			}else{
+			} else {
 				alert("등록 실패");
 			}
 		},
-		error : function (error){
+		error: function(error) {
 			console.log("AJAX 통신 오류", error);
 		},
-		complete : function(){
+		complete: function() {
 			$("#admin-insert-categoryName").val('');
 			categoryList();
 		}
 	})
 }
-function deptList(){
+function deptList() {
 	$.ajax({
-		url : "/erp/admin/deptList",
-		method : "GET",
-		success : function(list) {
-			for(var d of list){
+		url: "/erp/admin/deptList",
+		method: "GET",
+		success: function(list) {
+			for (var d of list) {
 				var opt = $("<option>").val(d.deptCode).text(d.deptName);
 				$("#dept-select").append(opt);
 			}
 		},
-		error : function (error){
+		error: function(error) {
 			console.log("AJAX 통신 오류", error);
 		}
 	})
 }
-function empRankList(){
+function empRankList() {
 	$.ajax({
-		url : "/erp/admin/empRankList",
-		method : "GET",
-		success : function(list) {
-			for(var r of list){
+		url: "/erp/admin/empRankList",
+		method: "GET",
+		success: function(list) {
+			for (var r of list) {
 				var opt = $("<option>").val(r.empRank).text(r.rankName);
 				$("#empRank-select").append(opt);
 			}
 		},
-		error : function (error){
+		error: function(error) {
 			console.log("AJAX 통신 오류", error);
 		}
 	})

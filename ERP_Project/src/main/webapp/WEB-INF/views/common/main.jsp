@@ -46,6 +46,10 @@
 <script src="/erp/js/item/release.js"></script>
 
 
+<link href="/erp/css/employee/employeeList.css" rel="stylesheet">
+<script src="/erp/js/employee/employeeList.js"></script>
+<link href="/erp/css/employee/appointment.css" rel="stylesheet">
+<script src="/erp/js/employee/appointment.js"></script>
 <link href="/erp/css/employee/mypage.css" rel="stylesheet">
 <script src="/erp/js/employee/mypage.js"></script>
 

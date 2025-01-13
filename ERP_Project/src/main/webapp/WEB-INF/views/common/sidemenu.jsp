@@ -42,7 +42,8 @@
 					<span class="side-menu-text">인사 관리</span>
 				</div>
 				<ul class="sub-menu">
-					<li><a href="">사원 목록</a></li>
+					<li><a onclick="employeeListPage();">사원 목록</a></li>
+					<li><a onclick="personnelAppointmentPage();">인사 발령</a></li>
 				</ul>
 			</li>
 
@@ -120,7 +121,6 @@
 		<script>
 			$(function() {
 				//로그인시 웹 소켓 연결
-				console.log('${loginUser}');
 				webSocketConnect('${loginUser.empNo}',"${contextPath}");
 			})
 			$(".home").click(function() {

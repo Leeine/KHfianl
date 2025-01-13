@@ -6,39 +6,7 @@ function pageChange(){
 }
 
 
-//------------제품 관리-------------
-
-//거래처 등록 페이지 불러오기
-function itemCustomerPage(){
-	pageChange();
-	$.ajax({
-		url : "/erp/item/customer",
-        method: 'GET',
-        success: function (data) {
-			$("#main-content-header").html("<h1>거래처 관리</h1>");
-			$("#main-content-block").html($(data).filter("#item-customer-page")[0]);
-        },
-        error: function (error) {
-            console.error('AJAX 요청 실패:', error);
-        }
-	})
-};
-
-//재고 현황 페이지 불러오기
-function itemListPage(){
-	pageChange();
-	$.ajax({
-		url : "/erp/item/stock",
-        method: 'GET',
-        success: function (data) {
-			$("#main-content-header").html("<h1>재고 현황</h1>");
-			$("#main-content-block").html($(data).filter("#item-stock-page")[0]);
-        },
-        error: function (error) {
-            console.error('AJAX 요청 실패:', error);
-        }
-	})
-};
+//------------전자 결재-------------
 
 //결재 등록 페이지
 function testDocument(){
@@ -73,6 +41,75 @@ function approveList(){
 		}
 	})
 }
+
+//------------인사 관리-------------
+
+//사원목록 페이지 불러오기
+function employeeListPage(){
+	pageChange();
+	$.ajax({
+		url : "/erp/employee/list/page",
+        method: 'GET',
+        success: function (data) {
+			$("#main-content-header").html("<h1>사원 현황</h1>");
+			$("#main-content-block").html($(data).filter("#employee-list-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
+//인사발령 페이지 불러오기
+function personnelAppointmentPage(){
+	pageChange();
+	$.ajax({
+		url : "/erp/employee/appointment/page",
+        method: 'GET',
+        success: function (data) {
+			$("#main-content-header").html("<h1>인사 발령</h1>");
+			$("#main-content-block").html($(data).filter("#appointment-list-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
+
+//------------제품 관리-------------
+
+//거래처 등록 페이지 불러오기
+function itemCustomerPage(){
+	pageChange();
+	$.ajax({
+		url : "/erp/item/customer",
+        method: 'GET',
+        success: function (data) {
+			$("#main-content-header").html("<h1>거래처 관리</h1>");
+			$("#main-content-block").html($(data).filter("#item-customer-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
+
+//재고 현황 페이지 불러오기
+function itemListPage(){
+	pageChange();
+	$.ajax({
+		url : "/erp/item/stock",
+        method: 'GET',
+        success: function (data) {
+			$("#main-content-header").html("<h1>재고 현황</h1>");
+			$("#main-content-block").html($(data).filter("#item-stock-page")[0]);
+        },
+        error: function (error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+	})
+};
+
+
 
 
 //발주 페이지 불러오기
