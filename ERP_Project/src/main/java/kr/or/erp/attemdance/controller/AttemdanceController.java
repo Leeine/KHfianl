@@ -65,19 +65,21 @@ public class AttemdanceController {
 	}
 	
 	//근태 항목 추가
-	@PostMapping("/attInsert")
+	@ResponseBody
+	@GetMapping("/attInsert")
 	public String attInsert(Attemdance att, HttpSession session) {
 		
 		int result = attService.attInsert(att);
 		
+		String str = "";
+		
 		if(result >0) {
-			session.setAttribute("alertMsg","등록 성공");
+			str = "NNNNY";
 		}else {
-			session.setAttribute("alertMsg","등록 실패");
+			str = "NNNNN";
 		}
 		
-		
-		return "redirect:/att/attListPage";
+		return str;
 	}
 	
 	//근태 항목 수정
@@ -251,20 +253,22 @@ public class AttemdanceController {
 	}
 	
 	//사원 근태 등록
+	@ResponseBody
 	@PostMapping("/empAttInsert")
 	public String empAttInsert(EmpAttemdance empAtt, HttpSession session) {
 		
 		
 		int result = attService.empAttInsert(empAtt);
 		
+		String str = "";
+		
 		if(result >0) {
-			session.setAttribute("alertMsg","등록 성공");
+			str = "NNNNY";
 		}else {
-			session.setAttribute("alertMsg","등록 실패");
+			str = "NNNNN";
 		}
 		
-		
-		return "redirect:/att/empAttListPage";
+		return str;
 	}
 	
 	//사원 근태 삭제
