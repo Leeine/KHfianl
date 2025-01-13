@@ -17,8 +17,10 @@
 			$(function(){
 				//목록에서 선택시 공지 내용보기
 				$("#index-notice-table").on("click","td",function(){
-					var noticeNo = $(this).parents("tr").find("td").eq(0).text();
-					notice_modal_detail(noticeNo);
+					if($(this).parents("tr").find("td").length != 1){
+						var noticeNo = $(this).parent().find("td").eq(0).text();
+						notice_modal_detail(noticeNo);
+					}
 				});
 				
 				//모달 숨기기

@@ -1,6 +1,7 @@
 package kr.or.erp.employee.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,10 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import kr.or.erp.common.model.vo.PageInfo;
+import kr.or.erp.common.template.Pagination;
 import kr.or.erp.employee.model.service.EmployeeService;
 import kr.or.erp.employee.model.vo.Employee;
-import kr.or.erp.messenger.model.vo.Messenger;
-
+import kr.or.erp.item.model.vo.Search;
 
 @Controller
 @RequestMapping("/employee")
@@ -28,58 +30,56 @@ public class EmployeeController {
 
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
-	
-	//로그인 페이지 이동
+
+	// 로그인 페이지 이동
 	@GetMapping("/loginPage")
 	public String loginPage() {
-		
+
 		return "common/loginPage";
 	}
-	
-	//로그인
+
+	// 로그인
 	@PostMapping("/login")
-	public ModelAndView login(@RequestParam(value="inputId", defaultValue = "0")String inputId, 
-						@RequestParam(value="inputPwd", defaultValue = "")String inputPwd, 
-						@RequestParam(value="saveId", defaultValue ="off")String saveId,
-						HttpSession session,
-						ModelAndView mv,
-						HttpServletResponse response) {
-		//아이디 저장 (쿠키)
+	public ModelAndView login(@RequestParam(value = "inputId", defaultValue = "0") String inputId,
+			@RequestParam(value = "inputPwd", defaultValue = "") String inputPwd,
+			@RequestParam(value = "saveId", defaultValue = "off") String saveId, HttpSession session, ModelAndView mv,
+			HttpServletResponse response) {
+		// 아이디 저장 (쿠키)
 		Cookie cookie;
-		if(saveId.equals("on")) {
-			cookie = new Cookie("empNo",inputId);
-			
-			cookie.setMaxAge(60*60*24); //초 단위 표현(하루)
-			
+		if (saveId.equals("on")) {
+			cookie = new Cookie("empNo", inputId);
+
+			cookie.setMaxAge(60 * 60 * 24); // 초 단위 표현(하루)
+
 			response.addCookie(cookie);
-		}else {
-			cookie = new Cookie("empNo",null);
+		} else {
+			cookie = new Cookie("empNo", null);
 			cookie.setMaxAge(0);
-			
+
 			response.addCookie(cookie);
 		}
-		//로그인 입력 정보 객체 생성
+		// 로그인 입력 정보 객체 생성
 		Employee e = Employee.builder().empNo(Integer.parseInt(inputId)).build();
 		Employee loginUser = employeeService.login(e);
-		
-		if(loginUser==null) {	
+
+		if (loginUser == null) {
 			mv.setViewName("common/loginPage");
 			session.setAttribute("alertMsg", "존재하지 않는 사원번호입니다.");
 
-		}else {
-			//첫 로그인 확인(비밀번호 null)
-			if(loginUser.getEmpPwd()==null) {
+		} else {
+			// 첫 로그인 확인(비밀번호 null)
+			if (loginUser.getEmpPwd() == null) {
 				mv.addObject("inputId", inputId);
 				session.setAttribute("alertMsg", "비밀번호 설정 페이지로 이동합니다.");
 				mv.setViewName("common/password");
 
-			}else {
-				if(bcryptPasswordEncoder.matches(inputPwd, loginUser.getEmpPwd())) {
+			} else {
+				if (bcryptPasswordEncoder.matches(inputPwd, loginUser.getEmpPwd())) {
 					session.setAttribute("loginUser", loginUser);
-					
+
 					mv.setViewName("redirect:/");
 
-				}else {
+				} else {
 					mv.setViewName("common/loginPage");
 					session.setAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
 
@@ -88,63 +88,107 @@ public class EmployeeController {
 		}
 		return mv;
 	}
-	
-	//첫 로그인 비밀번호 설정
+
+	// 첫 로그인 비밀번호 설정
 	@PostMapping("/enrollPwd")
-	public String enrollPwd(String inputId, 
-							String inputPwd,
-							HttpSession session) {
+	public String enrollPwd(String inputId, String inputPwd, HttpSession session) {
 
 		String encPwd = bcryptPasswordEncoder.encode(inputPwd);
-		
+
 		Employee e = Employee.builder().empNo(Integer.parseInt(inputId)).empPwd(encPwd).build();
-		
+
 		int result = employeeService.enrollPwd(e);
-		if(result>0) {
-			session.setAttribute("alertMsg","비밀번호 등록 성공");
-		}else {
-			session.setAttribute("alertMsg","비밀번호 등록 실패");
+		if (result > 0) {
+			session.setAttribute("alertMsg", "비밀번호 등록 성공");
+		} else {
+			session.setAttribute("alertMsg", "비밀번호 등록 실패");
 		}
 		return "common/loginPage";
-		
+
 	}
-	
-	//로그아웃
+
+	// 로그아웃
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("loginUser");
 		return "redirect:/";
 	}
-	
-	//마이페이지 이동
+
+	// 마이페이지 이동
 	@GetMapping("/mypage")
 	public String mypage() {
 		return "employee/mypage";
 	}
-	
+
 	@ResponseBody
-	@GetMapping("/mypage/info")
+	@GetMapping("/info")
 	public Employee info(Employee e) {
 		Employee empInfo = employeeService.info(e);
 		return empInfo;
 	}
-	
+
 	//
 	@ResponseBody
 	@GetMapping("/approve/list")
-	public ArrayList<Employee> approvelist(Employee e){
-			
+	public ArrayList<Employee> approvelist(Employee e) {
+
 		ArrayList<Employee> approveList = employeeService.approveList(e);
-		
 
 		return approveList;
 	}
+
+	//사원 목록 페이지
+	@GetMapping("/list/page")
+	public String employeeListPage() {
+		return "employee/employeeList";
+	}
+
+	@ResponseBody
+	@GetMapping(value="/list", produces = "application/json;charset=UTF-8")
+	public HashMap<String,Object> employeeList(
+			@RequestParam(value="currentPage", defaultValue ="1")
+			String currentPage){
+		
+		HashMap<String,Object> resultMap = new HashMap<>();
+		
+
+		int searchCount = employeeService.employeeListCount();
+		int pageLimit = 1;	
+		int boardLimit = 25;
+		PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
+
+		ArrayList<Employee> list = employeeService.employeeList(pi);
+
+		resultMap.put("pi", pi);
+		resultMap.put("result", list);
+		return resultMap;
+	}
+	@ResponseBody
+	@GetMapping(value="/search", produces = "application/json;charset=UTF-8")
+	public HashMap<String,Object> employeeSearchList(
+			Search search,
+			@RequestParam(value="currentPage", defaultValue ="1")
+			String currentPage){
+		
+		HashMap<String,Object> resultMap = new HashMap<>();
+		
+
+		int searchCount = employeeService.employeeSearchListCount(search);
+		int pageLimit = 1;	
+		int boardLimit = 25;
+		PageInfo pi = Pagination.getPageInfo(searchCount, Integer.parseInt(currentPage), pageLimit, boardLimit);
+
+		ArrayList<Employee> list = employeeService.employeeSearchList(pi, search);
+
+		resultMap.put("pi", pi);
+		resultMap.put("result", list);
+		return resultMap;
+	}
 	
 	
-	
-	
-	
-	
-	
-	
+	@GetMapping("/appointment/page")
+	public String appointmentPage() {
+		return "employee/appointment";
+	}
+
 }
