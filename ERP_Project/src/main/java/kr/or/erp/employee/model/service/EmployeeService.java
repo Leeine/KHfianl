@@ -25,6 +25,10 @@ public interface EmployeeService {
 
 	ArrayList<Employee> employeeSearchList(PageInfo pi, Search search);
 
+	int updateDept(Employee e);
+
+	int updateRank(Employee e);
+
 	
 	
 

@@ -179,4 +179,15 @@
 		</choose>
 		ORDER BY DEPT_CODE, EMP_RANK, EMP_NO
 	</select>
+	
+	<update id="updateDept" parameterType="Employee">
+		UPDATE EMPLOYEE
+		SET DEPT_CODE = #{deptCode}
+		WHERE EMP_NO = #{empNo}
+	</update>
+	<update id="updateRank" parameterType="Employee">
+		UPDATE EMPLOYEE
+		SET EMP_RANK = #{empRank}
+		WHERE EMP_NO = #{empNo}
+	</update>
 </mapper>

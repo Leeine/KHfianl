@@ -66,4 +66,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.employeeSearchList(sqlSession, pi, search);
 	}
 
+	@Override
+	public int updateDept(Employee e) {
+		return employeeDao.updateDept(sqlSession, e);
+	}
+
+	@Override
+	public int updateRank(Employee e) {
+		return employeeDao.updateRank(sqlSession, e);
+	}
+
 }
