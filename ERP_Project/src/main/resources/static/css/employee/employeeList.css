@@ -42,4 +42,16 @@
 input {
 	outline: none;
 }
-
+.appointment-btn{
+	width: 30%;
+	margin: 10px 5%;
+}
+#emp-appointment-table{
+	display: none;
+}
+.appointment-btn{
+	display: none;
+}
+#appointment-rank-list{
+	display: none;
+}

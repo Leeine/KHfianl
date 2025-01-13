@@ -53,6 +53,14 @@ public class EmployeeDao {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return  (ArrayList)sqlSession.selectList("employeeMapper.employeeSearchList",search,rowBounds);
 	}
+
+	public int updateDept(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.updateDept",e);
+	}
+
+	public int updateRank(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.updateRank",e);
+	}
 	
 	
 	

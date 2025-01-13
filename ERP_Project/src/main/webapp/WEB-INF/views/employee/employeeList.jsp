@@ -31,6 +31,8 @@
 			$(function() {
 				//사원 리스트 불러오기
 				employee_list();
+				appointment_dept_list();
+				appointment_rank_list();
 
 				//search 버튼 클릭시
 				$("#employee-search-btn").click(function() {
@@ -81,6 +83,7 @@
 				//모달 숨기기
 				$(".modalHide").click(function() {
 					$(".modal-input").val('');
+					modal_appointment_reset();
 					modalHide();
 				})
 			});
@@ -118,10 +121,10 @@
 					<img src="${contextPath}/icon/x.png" class="modalHide">
 				</div>
 				<h3>사원 정보</h3>
-				<table>
+				<table id="emp-info-table">
 					<tbody>
 						<tr>
-							<th>사원번호</th>
+							<th width="30%">사원번호</th>
 							<td><input type="text" id="modal-empNo" class="modal-input" readonly></td>
 						</tr>
 						<tr>
@@ -135,10 +138,6 @@
 						<tr>
 							<th>이름</th>
 							<td><input type="text" id="modal-empName" class="modal-input" readonly></td>
-						</tr>
-						<tr>
-							<th>나이</th>
-							<td><input type="text" id="modal-age" class="modal-input" readonly></td>
 						</tr>
 						<tr>
 							<th>전화</th>
@@ -162,6 +161,64 @@
 						</tr>
 					</tbody>
 				</table>
+				<button class="modal-submit-btn" onclick="modal_employee_appointment();">인사 발령</button>
+			
+			
+				<table id="emp-appointment-table">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+						<tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th colspan="2" width="50%">
+								<select id="appointment-select">
+									<option value="dept">부서 이동</option>
+									<option value="rank">직급 변경</option>
+								</select>
+							</th>
+							<td colspan="2">
+								<select id="appointment-dept-list">
+									<option value="NULL">미선택(부서)</option>
+								</select>
+								<select id="appointment-rank-list">
+									<option value="NULL">미선택(직급)</option>
+								</select>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<button class="appointment-btn" onclick="modal_appointment_reset();">취소</button>
+				<button class="appointment-btn" id="appointment-submit-btn">등록</button>
+				<script>
+					$("#appointment-select").on("change",function(){
+						if($(this).val()==="dept"){
+							$("#appointment-dept-list").show();
+							$("#appointment-rank-list").hide();
+						}else if($(this).val()==="rank"){
+							$("#appointment-dept-list").hide();
+							$("#appointment-rank-list").show();
+						}
+					})
+					
+					$(function(){
+						$("#appointment-submit-btn").click(function(){
+							var select = $("#appointment-select").val();
+							var empNo = $("#emp-appointment-table>thead>tr>th").eq(0).text();
+							if(select === "dept"){
+								var pk = $("#appointment-dept-list").val();
+								appointment(select,empNo,pk);
+							}else if(select === "rank"){
+								var pk = $("#appointment-rank-list").val();
+								appointment(select,empNo,pk);
+							}
+						})
+					})
+				</script>
 			</div>
 		</div>
 	</div>

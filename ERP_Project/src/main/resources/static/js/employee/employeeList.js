@@ -93,15 +93,10 @@ function employee_info(empNo) {
 			$("#modal-deptName").val(data.deptName);
 			$("#modal-rankName").val(data.rankName);
 			$("#modal-empName").val(data.empName);
-			if (data.age == 0) {
-				$("#modal-age").val('');
-			} else {
-				$("#modal-age").val(data.age);
-			}
 			$("#modal-phone").val(data.phone);
 			$("#modal-email").val(data.email);
 			$("#modal-address").val(data.address);
-			$("#modal-birthdat").val(data.birthdat);
+			$("#modal-birthday").val(data.birthday);
 			$("#modal-joinDate").val(data.joinDate.split(" ")[0]);
 
 		},

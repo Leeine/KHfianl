@@ -21,6 +21,7 @@ import kr.or.erp.common.template.Pagination;
 import kr.or.erp.employee.model.service.EmployeeService;
 import kr.or.erp.employee.model.vo.Employee;
 import kr.or.erp.item.model.vo.Search;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/employee")
@@ -190,5 +191,27 @@ public class EmployeeController {
 	public String appointmentPage() {
 		return "employee/appointment";
 	}
-
+	
+	@ResponseBody
+	@PostMapping(value="/appointment/dept")
+	public String dept(Employee e, String data) {
+		e.setDeptCode(data);
+		int result = employeeService.updateDept(e);
+		if(result > 0) {
+			return "NNNNY";
+		}else {
+			return "NNNNN";
+		}
+	}
+	@ResponseBody
+	@PostMapping(value="/appointment/rank")
+	public String rank(Employee e, String data) {
+		e.setEmpRank(data);
+		int result = employeeService.updateRank(e);
+		if(result > 0) {
+			return "NNNNY";
+		}else {
+			return "NNNNN";
+		}
+	}
 }
