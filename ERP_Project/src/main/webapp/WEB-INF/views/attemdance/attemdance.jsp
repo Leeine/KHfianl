@@ -17,7 +17,7 @@
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
 	<c:set var="contextPath"
 		value="${pageContext.servletContext.contextPath}" />
-		
+
 	<div id="attemdance-main-page">
 		<div id="main-content">
 			<div id="attemdance-content-block">
@@ -29,7 +29,6 @@
 								<th>근태명칭</th>
 								<th>근태유형</th>
 								<th colspan="2">사용</th>
-								<!-- <th style="width: 10%;"></th> -->
 							</tr>
 						</thead>
 						<tbody>
@@ -39,39 +38,35 @@
 				</div>
 			</div>
 
-			<div class="modal-overlay" id="attInsert">
+			<div class="modal-overlay" id="attInsertDiv">
 				<div class="modal">
 					<div class="modal-header">
 						<img src="${contextPath}/icon/x.png" class="modalHide"
 							onclick="modalHide();">
 					</div>
 
-					<form action="att/attInsert" method="post">
-						<div class="modal-body">
-							<h4 class="modal-title">항목 추가</h4>
-							<table class="attTable attInsertTable" align="center">
-								<tr>
-									<th>근태명칭</th>
-									<td><input type="text" id="attName" name="attName"
-										required></td>
-								</tr>
-								<tr>
-									<th>근태유형</th>
-									<td><select id="attTypeCode" name="attTypeCode" required>
-											<option value="404">문제</option>
-									</select></td>
-								</tr>
-								<tr>
-									<th>근태수</th>
-									<td><input type="number" step="0.5" min="0.5"
-										id="attCount" name="attCount" required></td>
-								</tr>
-							</table>
-						</div>
-						<div class="modal-footer" align="center">
-							<button type="submit" class="insertBtn" id="attInsert">추가하기</button>
-						</div>
-					</form>
+					<div class="modal-body">
+						<h4 class="modal-title">항목 추가</h4>
+						<table class="attTable attInsertTable" align="center">
+							<tr>
+								<th>근태명칭</th>
+								<td><input type="text" id="attName" name="attName" required></td>
+							</tr>
+							<tr>
+								<th>근태유형</th>
+								<td><select id="attTypeCode" name="attTypeCode" required>
+										<option value="404">데이터 없음</option>
+								</select></td>
+							</tr>
+							<tr>
+								<th>근태수</th>
+								<td><input type="number" step="0.5" min="0.5" id="attCount" required></td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer" align="center">
+						<button type="button" class="insertBtn" id="attInsert">추가하기</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -115,6 +110,35 @@
 				}
 			});
 		}
+		
+		//근태 항목 추가
+		$("#attInsert").click(function(){
+			var attName = $("#attName").val();
+			var attTypeCode = $("#attTypeCode").val();
+			var attCount = $("#attCount").val();
+			
+			$.ajax({
+				url : "/erp/att/attInsert",
+				data : {
+					attName : attName,
+					attTypeCode : attTypeCode,
+					attCount : attCount
+				},
+				success : function(result){
+					if (result == "NNNNY") {
+	                    alert("등록이 완료되었습니다.");
+	                    selectAttList();
+	                } else {
+	                    alert("등록 실패");
+	                }
+					
+					modalHide();
+				},
+				error : function(){
+					console.log("통신 오류(추가)");
+				}
+			});
+		});
 		
 		//근태 항목 수정
 		$("#attList").on("click","tbody>tr .attUpdate",function(){

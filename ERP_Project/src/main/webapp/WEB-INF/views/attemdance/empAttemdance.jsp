@@ -18,7 +18,7 @@
 
 	<c:set var="contextPath"
 		value="${pageContext.servletContext.contextPath}" />
-		
+
 	<div id="attemdance-emp-page">
 		<div id="main-content">
 			<div id="attemdance-content-block">
@@ -29,7 +29,8 @@
 
 				<div id="empAttListDiv">
 					<div id="inputDate">
-						<input type="date" id="inputDate1"> ~ <input type="date" id="inputDate2">
+						<input type="date" id="inputDate1"> ~ <input type="date"
+							id="inputDate2">
 						<button onclick="selectAttDate();">검색</button>
 						<button onclick="reset();">초기화</button>
 					</div>
@@ -57,43 +58,42 @@
 			<div class="modal-overlay" id="insrtEmpAttForm">
 				<div class="modal">
 					<div class="modal-header">
-						<img src="${contextPath}/icon/x.png" class="modalHide" onclick="modalHide();">
+						<img src="${contextPath}/icon/x.png" class="modalHide"
+							onclick="modalHide();">
 					</div>
 
 					<h4 class="modal-title">근태 추가</h4>
 
-					<form action="empAttInsert" method="post" id="empAttInsertForm">
-						<div class="modal-body">
-							<table class="empAttTable" align="center">
-								<tr>
-									<th>근태일자</th>
-									<td><input type="date" name="empAttTime" id="empAttTime"
-										required></td>
-								</tr>
-								<tr>
-									<th>사원명</th>
-									<td><input type="hidden" name="empNo" id="empNo" required>
-										<input type="text" name="empName" id="empName"
-										onclick="modalShow2();" readonly required></td>
-								</tr>
-								<tr>
-									<th>근태</th>
-									<td><select name="attCode" id="attCode">
-											<option></option>
-									</select></td>
-								</tr>
-								<tr>
-									<th>근태수</th>
-									<td><input type="number" step="0.5" min="0.5"
-										name="empAttCount" id="empAttCount"></td>
-								</tr>
 
-							</table>
-						</div>
-						<div class="modal-footer" align="center">
-							<button class="insertBtn" type="submit" id="empAttInsert">추가하기</button>
-						</div>
-					</form>
+					<div class="modal-body">
+						<table class="empAttTable" align="center">
+							<tr>
+								<th>근태일자</th>
+								<td><input type="date" name="empAttTime" id="empAttTime" required></td>
+							</tr>
+							<tr>
+								<th>사원명</th>
+								<td><input type="hidden" name="empNo" id="empNo" required>
+									<input type="text" name="empName" id="empName"
+									onclick="modalShow2();" readonly required></td>
+							</tr>
+							<tr>
+								<th>근태</th>
+								<td><select name="attCode" id="attCode" required>
+										<option></option>
+								</select></td>
+							</tr>
+							<tr>
+								<th>근태수</th>
+								<td><input type="number" step="0.5" min="0.5"
+									name="empAttCount" id="empAttCount"></td>
+							</tr>
+
+						</table>
+					</div>
+					<div class="modal-footer" align="center">
+						<button class="insertBtn" type="button" id="empAttInsert">추가하기</button>
+					</div>
 				</div>
 			</div>
 
@@ -391,7 +391,37 @@
 		});
 		
 		//근태 추가
-		
+		$("#empAttInsert").click(function(){
+			var empAttTime = $("#empAttTime").val();
+			var empNo = $("#empNo").val();
+			var empName = $("#empName").val();
+			var attCode = $("#attCode").val();
+			var empAttCount = $("#empAttCount").val();
+			
+			$.ajax({
+				url : "/erp/att/empAttInsert",
+				type : "post",
+				data : {
+					empAttTime : empAttTime,
+					empNo : empNo,
+					empName : empName,
+					attCode : attCode,
+					empAttCount : empAttCount
+				},
+				success : function(result){
+					if(result == 'NNNNY'){
+						alert("등록이 완료되었습니다.");
+						empList();
+					}else{
+						alert("등록 실패");
+					}
+					modalHide();
+				},
+				error : function(){
+					console.log("통신 오류(추가)");
+				}
+			});
+		});
 		
 		//근태 항목 삭제
 		$("#empAttList").on("click","tbody>tr .attDelete",function(){
