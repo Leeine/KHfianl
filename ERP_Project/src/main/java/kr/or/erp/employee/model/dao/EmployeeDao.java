@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.or.erp.common.model.vo.PageInfo;
+import kr.or.erp.employee.model.vo.Appointment;
 import kr.or.erp.employee.model.vo.Employee;
 import kr.or.erp.item.model.vo.Search;
 import kr.or.erp.messenger.model.vo.Messenger;
@@ -61,6 +62,41 @@ public class EmployeeDao {
 	public int updateRank(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.updateRank",e);
 	}
+
+	public int insertEmployee(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.insert("employeeMapper.insertEmployee",e);
+	}
+
+	public int insertAppointment(SqlSessionTemplate sqlSession, Appointment a) {
+		return sqlSession.insert("employeeMapper.insertAppointment",a);
+	}
+
+	public ArrayList<Appointment> appointmentTypeList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("employeeMapper.appointmentTypeList");
+	}
+
+	public int appointmentListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("employeeMapper.appointmentListCount");
+	}
+	
+	public ArrayList<Appointment> appointmentList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("employeeMapper.appointmentList",null,rowBounds);
+	}
+
+	public int appointmentSearchListCount(SqlSessionTemplate sqlSession, Search search) {
+		return sqlSession.selectOne("employeeMapper.appointmentSearchListCount");
+	}
+
+	public ArrayList<Appointment> appointmentSearchList(SqlSessionTemplate sqlSession, PageInfo pi, Search search) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("employeeMapper.appointmentSearchList",search,rowBounds);
+	}
+
 	
 	
 	

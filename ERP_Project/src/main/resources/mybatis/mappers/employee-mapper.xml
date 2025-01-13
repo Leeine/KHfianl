@@ -190,4 +190,88 @@
 		SET EMP_RANK = #{empRank}
 		WHERE EMP_NO = #{empNo}
 	</update>
+	<select id="appointmentTypeList" resultType="Appointment">
+		SELECT *
+		FROM APPOINTMENT_TYPE
+	</select>
+	<insert id="insertEmployee" parameterType="Employee">
+		INSERT INTO EMPLOYEE(EMP_NO,DEPT_CODE,EMP_RANK,EMP_NAME)
+		VALUES(SEQ_EMPLOYEE_NO.NEXTVAL, #{deptCode}, #{empRank}, #{empName})
+	</insert>
+	<insert id="insertAppointment" parameterType="Appointment">
+		INSERT INTO PERSONNEL_APPOINTMENT
+		<choose>
+			<when test="empNo==0">
+				VALUES(SEQ_APPOINTMENT_NO.NEXTVAL, SEQ_EMPLOYEE_NO.CURRVAL, DEFAULT, #{appointmentTypeCode}, #{newDept}, #{newRank})
+			</when>
+			<otherwise>
+				VALUES(SEQ_APPOINTMENT_NO.NEXTVAL, #{empNo}, DEFAULT, #{appointmentTypeCode}, #{newDept}, #{newRank})
+			</otherwise>
+		</choose>
+	</insert>
+	<select id="appointmentListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM PERSONNEL_APPOINTMENT
+	</select>
+	<select id="appointmentList" resultType="Appointment">
+		SELECT APPOINTMENT_NO
+			, EMP_NAME
+			, APPOINTMENT_DATE
+			, APPOINTMENT_TYPE_NAME
+			, D.DEPT_NAME
+			, R.RANK_NAME
+		FROM PERSONNEL_APPOINTMENT P
+		JOIN EMPLOYEE USING(EMP_NO)
+		JOIN APPOINTMENT_TYPE USING(APPOINTMENT_TYPE_CODE)
+		LEFT JOIN DEPARTMENT D ON(D.DEPT_CODE = P.NEW_DEPT)
+		LEFT JOIN EMPLOYEE_RANK R ON(R.EMP_RANK = P.NEW_RANK)
+		ORDER BY APPOINTMENT_DATE
+	</select>
+	
+	
+	<select id="appointmentSearchListCount" parameterType="Search" resultType="_int">
+		SELECT COUNT(*)
+		FROM PERSONNEL_APPOINTMENT
+		JOIN EMPLOYEE USING(EMP_NO)
+		<where>
+			<choose>
+				<when test="mode == 'NO'">
+					APPOINTMENT_NO = #{keyword}
+				</when>
+				<when test="mode == 'NAME'">
+					EMP_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'DATE'">
+					APPOINTMENT_DATE LIKE '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
+	<select id="appointmentSearchList" parameterType="Search" resultType="Appointment">
+		SELECT APPOINTMENT_NO
+			, EMP_NAME
+			, APPOINTMENT_DATE
+			, APPOINTMENT_TYPE_NAME
+			, D.DEPT_NAME
+			, R.RANK_NAME
+		FROM PERSONNEL_APPOINTMENT P
+		JOIN EMPLOYEE USING(EMP_NO)
+		JOIN APPOINTMENT_TYPE USING(APPOINTMENT_TYPE_CODE)
+		LEFT JOIN DEPARTMENT D ON(D.DEPT_CODE = P.NEW_DEPT)
+		LEFT JOIN EMPLOYEE_RANK R ON(R.EMP_RANK = P.NEW_RANK)
+		<where>
+			<choose>
+				<when test="mode == 'NO'">
+					APPOINTMENT_NO = #{keyword}
+				</when>
+				<when test="mode == 'NAME'">
+					EMP_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'DATE'">
+					APPOINTMENT_DATE LIKE '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</where>
+		ORDER BY APPOINTMENT_DATE
+	</select>
 </mapper>
