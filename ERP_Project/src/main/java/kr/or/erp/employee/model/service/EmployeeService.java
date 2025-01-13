@@ -18,7 +18,5 @@ public interface EmployeeService {
 
 	
 	
-	//메신저용 사원리스트 불러오기
-	ArrayList<Messenger> messengerEmpList(Employee e);
 
 }

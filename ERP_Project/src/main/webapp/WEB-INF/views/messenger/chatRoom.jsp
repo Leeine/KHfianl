@@ -53,7 +53,7 @@
 			
 			$(function(){
 			    $("#chat-input-textarea").keydown(function(event) {
-			        // Enter 키를 감지
+			        // Enter 키 감지
 			        if (event.key === "Enter" && !event.shiftKey) {
 			        	event.preventDefault();
 			        	sendMessage('${loginUser.empNo}');
