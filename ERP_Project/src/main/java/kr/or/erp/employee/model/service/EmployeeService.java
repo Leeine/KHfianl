@@ -48,4 +48,8 @@ public interface EmployeeService {
 	
 	
 
+	Employee employeeDetail(Employee e);
+
+	int employeeUpdate(Employee e);
+
 }

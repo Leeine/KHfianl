@@ -62,11 +62,30 @@
     
     <select id="typeDocument" resultType="Approve">
         SELECT 
-            AP_CONTENT
+            AP_CONTENT,
+            STATUS_CODE
         FROM 
             APPROVE
         WHERE
             AP_NO = #{apNo}   
+     </select>
+     
+     <select id="updateStatus" resultType="Approve">
+        UPDATE APPROVE
+		SET STATUS_CODE = '1'
+		WHERE AP_NO = #{apNo}
+     </select>
+     
+     <select id="refuseStatus" resultType="Approve">
+        UPDATE APPROVE
+		SET STATUS_CODE = '2'
+		WHERE AP_NO = #{apNo}
+     </select>
+     
+     <select id="waitStatus" resultType="Approve">
+        UPDATE APPROVE
+		SET STATUS_CODE = '0'
+		WHERE AP_NO = #{apNo}
      </select>
     
 

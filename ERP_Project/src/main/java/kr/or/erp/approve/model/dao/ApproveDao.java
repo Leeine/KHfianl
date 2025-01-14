@@ -39,4 +39,19 @@ public class ApproveDao {
 		return sqlSession.selectOne("approveMapper.typeDocument", ap);
 	}
 
+	public int updateStatus(SqlSessionTemplate sqlSession, Approve a) {
+		
+		return sqlSession.update("approveMapper.updateStatus", a);
+	}
+
+	public int refuseStatus(SqlSessionTemplate sqlSession, Approve a) {
+		
+		return sqlSession.update("approveMapper.refuseStatus", a);
+	}
+
+	public int waitStatus(SqlSessionTemplate sqlSession, Approve a) {
+		
+		return sqlSession.update("approveMapper.waitStatus", a);
+	}
+
 }

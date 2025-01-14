@@ -10,7 +10,6 @@ import kr.or.erp.common.model.vo.PageInfo;
 import kr.or.erp.employee.model.vo.Appointment;
 import kr.or.erp.employee.model.vo.Employee;
 import kr.or.erp.item.model.vo.Search;
-import kr.or.erp.messenger.model.vo.Messenger;
 
 
 @Repository
@@ -44,6 +43,15 @@ public class EmployeeDao {
 		return  (ArrayList)sqlSession.selectList("employeeMapper.employeeList",null,rowBounds);
 	}
 
+	public Employee employeeDetail(SqlSessionTemplate sqlSession, Employee e) {
+		
+		return sqlSession.selectOne("employeeMapper.employeeDetail",e);
+	}
+
+	public int employeeUpdate(SqlSessionTemplate sqlSession, Employee e) {
+		
+		return sqlSession.update("employeeMapper.employeeUpdate",e);
+	}
 	public int employeeSearchListCount(SqlSessionTemplate sqlSession, Search search) {
 		return sqlSession.selectOne("employeeMapper.employeeSearchListCount");
 	}

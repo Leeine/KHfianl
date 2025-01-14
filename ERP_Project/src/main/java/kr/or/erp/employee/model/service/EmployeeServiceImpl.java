@@ -141,4 +141,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
 
+	@Override
+	public Employee employeeDetail(Employee e) {
+		
+		return employeeDao.employeeDetail(sqlSession,e);
+	}
+
+	@Override
+	public int employeeUpdate(Employee e) {
+		
+		return employeeDao.employeeUpdate(sqlSession, e);
+	}
+
 }

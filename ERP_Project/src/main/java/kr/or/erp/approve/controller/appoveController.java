@@ -78,6 +78,51 @@ public class appoveController {
         return "approve/document"; 
     }
 	
+	@ResponseBody
+	@PostMapping(value="/update", produces = "text/html;charset=UTF-8")
+	public String updateStatus(Approve a) {
+		
+		
+		int result = approveService.updateStatus(a);
+
+		if(result>0) {
+			return "NNNNY";
+		}else{
+			return "NNNNN";
+		}
+		
+	}
+	
+	@ResponseBody
+	@PostMapping(value="/refuse", produces = "text/html;charset=UTF-8")
+	public String refuseStatus(Approve a) {
+		
+		
+		int result = approveService.refuseStatus(a);
+
+		if(result>0) {
+			return "NNNNY";
+		}else{
+			return "NNNNN";
+		}
+		
+	}
+	
+	
+	@ResponseBody
+	@PostMapping(value="/wait", produces = "text/html;charset=UTF-8")
+	public String waitStatus(Approve a) {
+		
+		
+		int result = approveService.waitStatus(a);
+
+		if(result>0) {
+			return "NNNNY";
+		}else{
+			return "NNNNN";
+		}
+		
+	}
 	
 	
 	
