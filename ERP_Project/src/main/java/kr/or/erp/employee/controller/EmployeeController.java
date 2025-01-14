@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import kr.or.erp.approve.model.vo.Document;
 import kr.or.erp.employee.model.service.EmployeeService;
 import kr.or.erp.employee.model.vo.Employee;
 import kr.or.erp.messenger.model.vo.Messenger;
@@ -140,7 +141,30 @@ public class EmployeeController {
 		return approveList;
 	}
 	
+	@ResponseBody
+	@GetMapping(value="/detail", produces = "application/json;charset=UTF-8")
+	public Employee detail(Employee e) {
+		
+		
+		Employee empDetail = employeeService.employeeDetail(e);
+		
+		
+		return empDetail;
+	}
 	
+
+	@ResponseBody
+	@PostMapping(value="/update")
+	public String update(Employee e) {
+		
+		int result = employeeService.employeeUpdate(e);
+		
+		if(result>0) {
+			return "NNNNY";
+		}else{
+			return "NNNNN";
+		}
+	}
 	
 	
 	

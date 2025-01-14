@@ -110,4 +110,32 @@
 		ORDER BY DEPT_CODE, EMP_RANK, EMP_NAME
 	</select>
 	
+	
+	<select id="employeeDetail" parameterType="Employee" resultType="Employee">
+	   SELECT EMP_NO
+			, EMP_NAME
+			, DEPT_NAME
+			, RANK_NAME
+			, PHONE
+			, EMAIL
+			, ADDRESS
+			, BIRTHDAY
+			, JOIN_DATE
+		FROM EMPLOYEE
+		JOIN DEPARTMENT USING(DEPT_CODE)
+		JOIN EMPLOYEE_RANK USING(EMP_RANK)
+		WHERE EMP_NO = #{empNo}
+	</select>
+	
+	<select id="employeeUpdate" parameterType="Employee" resultType="Employee">
+  	 UPDATE EMPLOYEE
+   		SET 
+       EMP_NAME = #{empName}, 
+       PHONE = #{phone},
+       ADDRESS = #{address},
+       EMAIL = #{email}
+   WHERE EMP_NO = #{empNo}
+</select>
+	
+	
 </mapper>

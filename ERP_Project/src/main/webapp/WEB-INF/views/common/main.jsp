@@ -20,7 +20,6 @@
 <script src="/erp/js/summernote/lang/summernote-ko-KR.js"></script>
 
 
-
 <link href="/erp/css/attemdance/attemdance.css" rel="stylesheet">
 
 <script src="/erp/js/common/menu.js"></script>
@@ -28,7 +27,7 @@
 <link href="/erp/css/common/main.css" rel="stylesheet">
 <script src="/erp/js/common/modal.js"></script>
 <link href="/erp/css/common/modal.css" rel="stylesheet">
-<script src="/erp/js/common/indexNotice.js"></script>
+<script src="/erp/js/common/index.js"></script>
 <link href="/erp/css/common/indexNotice.css" rel="stylesheet">
 
 <link href="/erp/css/item/customer.css" rel="stylesheet">
@@ -67,6 +66,8 @@
 		<script>
 			$(function(){
 				indexNoticePage();
+				employeeMypage("${loginUser.empNo}");
+				//employeeDetail("${loginUser.empNo}");
 			})
 		</script>
 		<div id="main-content-header">
@@ -74,7 +75,6 @@
 		<div id="index-content-block">
 			<div id="index-content-wrap">
 				<div id="employee-info-block">
-					<h3>사원정보</h3>
 				</div>
 				<div id="notice-list-block">
 					<h3 onclick="noticePage();">NOTICE</h3>

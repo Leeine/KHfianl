@@ -41,4 +41,14 @@ public class EmployeeDao {
 		return (ArrayList)sqlSession.selectList("employeeMapper.messengerEmpSearchList",e);
 	}
 
+	public Employee employeeDetail(SqlSessionTemplate sqlSession, Employee e) {
+		
+		return sqlSession.selectOne("employeeMapper.employeeDetail",e);
+	}
+
+	public int employeeUpdate(SqlSessionTemplate sqlSession, Employee e) {
+		
+		return sqlSession.update("employeeMapper.employeeUpdate",e);
+	}
+
 }

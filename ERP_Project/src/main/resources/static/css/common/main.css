@@ -28,7 +28,7 @@
 	border-radius: 10px;
 	width: 95%;
 	height: 80vh;
-	overflow: auto;
+	overflow: hidden;
 	background-color: rgba(0, 0, 0, 0);
 }
 
@@ -57,6 +57,7 @@
 	border-radius: 10px;
 	background-color: white;
 	margin-left: 3.5%;
+	vertical-align: 550px;
 }
 #index-content-block h3{
 	margin : 15px auto;

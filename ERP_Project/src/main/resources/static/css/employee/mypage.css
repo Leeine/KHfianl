@@ -1,0 +1,95 @@
+.mypage_container {
+    box-sizing: border-box;
+    width: 90%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    width:100%;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgb(192, 192, 192);
+    color: black;
+}
+
+.header h1 {
+    font-size: 1.8em;
+}
+
+.user-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.profile-overview {
+    display: flex;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-photo img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.profile-info {
+    flex-grow: 1;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.info-row .label {
+    font-weight: bold;
+    color: #555;
+}
+
+.info-row .value {
+    color: #333;
+}
+
+
+.details {
+    padding: 20px;
+}
+
+.details h2 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.detail-item input,
+.detail-item select {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}

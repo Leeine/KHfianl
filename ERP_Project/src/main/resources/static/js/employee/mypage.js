@@ -15,7 +15,6 @@ function employee_mypage_info(){
 			div.append($("<div>").text("부서 : "+data.deptName));
 			div.append($("<div>").text("나이 : "+data.age));
 			div.append($("<div>").text("전화 : "+data.phone));
-			div.append($("<div>").text("연차 : "+data.vacation));
 			div.append($("<div>").text("입사일 : "+data.joinDate));
 			$("#employee-mypage-page").append(div);
         },

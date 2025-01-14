@@ -31,7 +31,6 @@
                 <ul class="sub-menu">
                     <li><a onclick="testDocument()">결재 등록</a></li>
                     <li><a onclick="approveList()">결재 목록</a></li>
-                    <li><a href="">빈칸3</a></li>
                 </ul>
             </li>
 
@@ -93,7 +92,7 @@
             <li class="menu-item">
                 <div class="side-menu">
                     <img src="${contextPath}/icon/mypage.png" class="icon">
-                    <span class="side-menu-text mypage-menu"><a onclick="employeeMypage();">내정보</a></span>
+                    <span class="side-menu-text mypage-menu"><a onclick="">내정보</a></span>
                 </div>
             </li>
             
