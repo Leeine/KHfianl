@@ -19,9 +19,7 @@
 		</div>
 
 
-		<ul>
-
-
+        <ul>
 
 			<li class="menu-item">
 				<div class="side-menu">
@@ -89,26 +87,17 @@
 			</li>
 
 
+            
+            <li class="menu-item admin">
+                <div class="side-menu">
+                    <img src="${contextPath}/icon/admin.png" class="icon">
+                    <span class="side-menu-text">관리자</span>
+                </div>
+            </li>
+        </ul>
 
-			<li class="menu-item mypage">
-				<div class="side-menu">
-					<img src="${contextPath}/icon/mypage.png" class="icon"> 
-					<span class="side-menu-text mypage-menu">
-						<a onclick="employeeMypage();">내정보</a>
-					</span>
-				</div>
-			</li>
 
-			<li class="menu-item admin">
-				<div class="side-menu">
-					<img src="${contextPath}/icon/admin.png" class="icon"> 
-					<span class="side-menu-text">관리자</span>
-				</div>
-				<ul class="sub-menu">
-					<li><a onclick="adminNoticePage();">관리자 기능</a></li>
-				</ul>
-			</li>
-		</ul>
+			
 
 		<div class="home">
 			<img src="${contextPath}/icon/home.png" class="icon"> 

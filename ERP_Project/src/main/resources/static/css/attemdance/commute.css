@@ -33,7 +33,17 @@
 	margin-bottom: 10px;
 }
 
-#loginUserDiv h3 {
+#pageChange{
+	display: inline-block;
+	float: right;
+	margin-right: 10%;
+}
+#pageChange p{
+	display: inline-block;
+	margin: 0px 5px 0px 5px;
+}
+
+#loginUserDiv h3, #inputSearchData{
 	display: inline-block;
 }
 
@@ -56,6 +66,7 @@
 	background-color: #DDE5FF;
 }
 #comListTable {
+	margin-left: 10%;
 	margin-bottom: 30px;
 }
 

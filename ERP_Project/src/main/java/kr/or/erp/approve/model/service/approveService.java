@@ -21,6 +21,12 @@ public interface approveService {
 	ArrayList<Document> docList();
 
 	Approve typeDocument(Approve ap);
+
+	int updateStatus(Approve a);
+
+	int refuseStatus(Approve a);
+
+	int waitStatus(Approve a);
 	
 	
 

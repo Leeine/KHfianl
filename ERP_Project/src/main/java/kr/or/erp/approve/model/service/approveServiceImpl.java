@@ -52,4 +52,22 @@ public class approveServiceImpl implements approveService{
 		return approveDao.typeDocument(sqlSession, ap);
 	}
 
+	@Override
+	public int updateStatus(Approve a) {
+		
+		return approveDao.updateStatus(sqlSession, a);
+	}
+
+	@Override
+	public int refuseStatus(Approve a) {
+
+		return approveDao.refuseStatus(sqlSession, a);
+	}
+
+	@Override
+	public int waitStatus(Approve a) {
+		
+		return approveDao.waitStatus(sqlSession, a);
+	}
+
 }

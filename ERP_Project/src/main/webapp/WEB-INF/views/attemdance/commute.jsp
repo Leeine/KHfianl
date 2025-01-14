@@ -15,7 +15,7 @@
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
 	<c:set var="contextPath"
 		value="${pageContext.servletContext.contextPath}" />
-		
+
 	<div id="attemdance-commute-page">
 		<div id="main-content">
 			<div id="attemdance-content-block">
@@ -177,34 +177,39 @@
 
 				<div id="searchDiv">
 					<div id="inputDate">
-						<input type="date" id="inputDate1"> ~ <input type="date" id="inputDate2">
+						<input type="date" id="inputDate1"> ~ <input type="date"
+							id="inputDate2">
 					</div>
-					<div id="inputSearchData">
-						<select id="condition">
-							<option value=null selected>===</option>
-							<option value="empNo">사번</option>
-							<option value="empName">사원명</option>
-							<option value="deptName">부서</option>
-						</select> <input type="text" id="keyword">
-						<button class='btn btn-secondary btn-sm' onclick="comSearch();">검색</button>
-						<button class='btn btn-secondary btn-sm' onclick="reset();">초기화</button>
+					<div>
+						<div id="inputSearchData">
+							<select id="condition">
+								<option value=null selected>===</option>
+								<option value="empNo">사번</option>
+								<option value="empName">사원명</option>
+								<option value="deptName">부서</option>
+							</select> <input type="text" id="keyword">
+							<button class='btn btn-secondary btn-sm' onclick="comSearch();">검색</button>
+							<button class='btn btn-secondary btn-sm' onclick="reset();">초기화</button>
+						</div>
 					</div>
 				</div>
 
-				<table align="center" class="comTable" id="comListTable">
-					<thead>
-						<tr>
-							<th id="daysc" data-value="desc">일자 ▲</th>
-							<th>사원명</th>
-							<th>부서명</th>
-							<th>출근시간</th>
-							<th>퇴근시간</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr></tr>
-					</tbody>
-				</table>
+				<div>
+					<table class="comTable" id="comListTable">
+						<thead>
+							<tr>
+								<th id="daysc" data-value="desc">일자 ▲</th>
+								<th>사원명</th>
+								<th>부서명</th>
+								<th>출근시간</th>
+								<th>퇴근시간</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr></tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 

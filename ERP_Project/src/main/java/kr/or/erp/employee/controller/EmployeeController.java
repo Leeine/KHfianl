@@ -137,6 +137,35 @@ public class EmployeeController {
 
 		return approveList;
 	}
+	
+	@ResponseBody
+	@GetMapping(value="/detail", produces = "application/json;charset=UTF-8")
+	public Employee detail(Employee e) {
+		
+		
+		Employee empDetail = employeeService.employeeDetail(e);
+		
+		
+		return empDetail;
+	}
+	
+
+	@ResponseBody
+	@PostMapping(value="/update")
+	public String update(Employee e) {
+		
+		int result = employeeService.employeeUpdate(e);
+		
+		if(result>0) {
+			return "NNNNY";
+		}else{
+			return "NNNNN";
+		}
+	}
+	
+	
+	
+	
 
 	//사원 목록 페이지
 	@GetMapping("/list/page")

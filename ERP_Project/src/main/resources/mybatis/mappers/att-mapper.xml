@@ -224,6 +224,7 @@
 		<if test="daysc == 'desc'">
 			DESC
 		</if>
+		,COM_START_CHAR DESC
 	</select>
 	
 	<!-- 검색 조회 -->

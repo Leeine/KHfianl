@@ -221,9 +221,9 @@
 					
 					if(list == ""){
 						str += "<tr>"
-							 + "<td colspan='5' align='center'>조회된 내용이 없습니다.</td>";
+							 + "<td colspan='6' align='center'>조회된 내용이 없습니다.</td>";
 						
-						$("#comListTable tbody").html(str);
+							 $("#empAttList tbody").html(str);
 						return;
 					}
 					
@@ -354,6 +354,15 @@
 				},
 				success : function(list){
 					var str = "";
+
+					if(list == ""){
+						str += "<tr>"
+							 + "<td colspan='4'>조회된 내용이 없습니다.</td>"
+							 + "</tr>";
+						
+						$("#empListTable tbody").html(str);
+						return;
+					}
 					
 					for(var emp of list){
 						str += "<tr>"
@@ -411,7 +420,7 @@
 				success : function(result){
 					if(result == 'NNNNY'){
 						alert("등록이 완료되었습니다.");
-						empList();
+						empAttList();
 					}else{
 						alert("등록 실패");
 					}
@@ -479,6 +488,7 @@
 		                    alert("완료되었습니다.");
 		                    empAttList();
 		                    empList();
+		                    userEmpCount();
 		                } else {
 		                    alert("실패");
 		                }
@@ -513,6 +523,7 @@
 		                    alert("완료되었습니다.");
 		                    empAttList();
 		                    empList();
+		                    userEmpCount();
 		                } else {
 		                    alert("실패");
 		                }
@@ -547,6 +558,7 @@
 		                    alert("완료되었습니다.");
 		                    empAttList();
 		                    empList();
+		                    userEmpCount();
 		                } else {
 		                    alert("실패");
 		                }

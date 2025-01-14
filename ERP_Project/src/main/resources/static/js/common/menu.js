@@ -33,7 +33,7 @@ function approveList(){
 		url : "/erp/approve/list",
 		method: 'GET',
 		success: function(data){
-			$("#main-content-header").html("<h1>결재 서류 목록</h1>");
+			$("#main-content-header").html("<br><h1>결재 서류 목록</h1>")
             $("#main-content-block").html($(data).filter("#listdiv")[0]);
 		},
 		error: function (error){
@@ -222,8 +222,8 @@ function employeeMypage(){
 		url : "/erp/employee/mypage",
         method: 'GET',
         success: function (data) {
-			$("#main-content-header").html("<h1>내 정보</h1>");
-			$("#main-content-block").html($(data).filter("#employee-mypage-page")[0]);
+			$("#main-content-header").html("<br><h1>내 정보</h1>")
+			$("#main-content-block").html($(data).filter("#mypage_container")[0]);
         },
         error: function (error) {
             console.error('AJAX 요청 실패:', error);
