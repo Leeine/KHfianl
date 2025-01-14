@@ -42,7 +42,8 @@
 					<span class="side-menu-text">인사 관리</span>
 				</div>
 				<ul class="sub-menu">
-					<li><a href="">사원 목록</a></li>
+					<li><a onclick="employeeListPage();">사원 목록</a></li>
+					<li><a onclick="personnelAppointmentPage();">인사 발령</a></li>
 				</ul>
 			</li>
 
@@ -132,6 +133,7 @@
 			})
 
 			$(".sidemenu-messenger").click(function() {
+				webSocketConnect('${loginUser.empNo}',"${contextPath}");
 				$("#msg-alert").hide();
 				if ($("#messenger-main-page").css("display") == "block") {
 					$("#messenger-main-page").hide();

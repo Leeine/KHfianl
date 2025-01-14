@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import jakarta.servlet.http.HttpSession;
 import kr.or.erp.employee.model.vo.Employee;
 import kr.or.erp.messenger.model.service.MessengerService;
 import kr.or.erp.messenger.model.vo.MessageVO;
@@ -62,8 +63,9 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 			TextMessage tm = new TextMessage(responseMsg); // 새 메시지 형태 담아서 메시지 객체 생성
 			
 			//접속중인 모든 사용자에게 전송
-			for (WebSocketSession user : users.values()) {
-			    user.sendMessage(tm);
+			for (HashMap.Entry<String,WebSocketSession> user : users.entrySet()) {
+			    user.getValue().sendMessage(tm);
+				users.remove(user.getKey());
 			}
 			return;
 		}
@@ -108,7 +110,6 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		// 접속 종료시 세션에 담겨있는 users 저장소에서 내 세션 정보를 지워준다.
-
 		// 접속정보를 지우지 않으면 서버에서는 없는 세션정보에 지속적으로 메시지를 보낸다.
 		Employee loginUser = (Employee) session.getAttributes().get("loginUser");
 		String empNo = Integer.toString(loginUser.getEmpNo());

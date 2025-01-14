@@ -140,13 +140,9 @@ function webSocketConnect(myEmpNo,contextPath) {
 		
 		//관리자 실시간 공지를 수신했을 때
 		if(data.notice != null){
-			//관리자의 전체 로그아웃 요청
+			//관리자의 일괄 로그아웃 요청
 			if(data.notice == "/logoutAll"){
-				$("#admin-notice-content").html("1분뒤 일괄 로그아웃 처리됩니다.");
-				$("#admin-notice").show();
-				setTimeout(function(){
 					location.href = contextPath+"/employee/logout";
-				}, 60000);
 			}else{
 				//화면에 공지 띄우기
 				$("#admin-notice-content").html(data.notice);
