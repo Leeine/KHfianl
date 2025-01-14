@@ -18,7 +18,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(myWebSocketHandler, "/messenger/ws") // WebSocket 엔드포인트 설정
-        		.addInterceptors(new HttpSessionHandshakeInterceptor())
+        		.addInterceptors(new HttpSessionHandshakeInterceptor())	//핸드쉐이크인터셉터 설정
         		.setAllowedOrigins("*"); // 허용된 도메인 설정
     }
 }

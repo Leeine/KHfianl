@@ -130,13 +130,13 @@ function webSocketConnect(myEmpNo,contextPath) {
 		var data = JSON.parse(messageData.data);
 		var send = data.send;
 		var receive = data.receive;
-		var dateTime = (data.sendTime);
-
+		var dateTime = data.sendTime;
+		var message = data.message;
+		
 		var wrap = $("<div>").addClass("chat");
 		var chat = $("<div>").addClass("chat-text");
 		var receiver = $("#messenger-receive-user").val(); //대화상대
 		var msgBrowser = $("#messenger-main-page").css("display"); //메신저 창 켜져있는지
-		var message = (data.message)
 		
 		//관리자 실시간 공지를 수신했을 때
 		if(data.notice != null){
@@ -178,8 +178,6 @@ function webSocketConnect(myEmpNo,contextPath) {
 
 				//공백 및 줄바꿈 처리
 				var msg = message.replace(/\n/g, "<br>").replace(/(\s+)/g, (match) => '&nbsp;'.repeat(match.length));
-
-				
 
 				//메시지를 보낸 사람(send)이 대화상대와 같고(같은 채팅방에 들어와있는 경우)
 				//AND 메신저 창이 켜져있는 경우 => 채팅방 최신화
@@ -225,9 +223,9 @@ function webSocketDisconnect() {
 	socket.close();
 }
 //메시지 전송
-function sendMessage(empNo) {
+function sendMessage(myEmpNo) {
 	const jsonData = {
-		send: empNo,	//보낸사람 : 나
+		send: myEmpNo,	//보낸사람 : 나
 		receive: $("#messenger-receive-user").val(),
 		msg: $("#chat-input-textarea").val()
 	};
@@ -264,38 +262,34 @@ function loadMessage(myEmpNo, receive) {
 				var time = (dateTime.split(" ")[1]).split(":").slice(0, 2).join(":");
 				var date = dateTime.split(" ")[0];
 				var msg = (data.message).replace(/\n/g, "<br>").replace(/(\s+)/g, (match) => '&nbsp;'.repeat(match.length));
-				if (tempDate != date) {
+				
+				if (tempDate != date) {	//기존 메시지의 같은 날짜인지 확인 (날짜 변경시 화면에 날짜 구분 표시)
 					var chatDate = $("<div>").addClass("chat-date").text(date);
 					tempDate = date;
 					$("#chat-text-area").append(chatDate);
 				}
 
-				if (send == myEmpNo) {
-					//송신자 화면 (우측)
-
+				if (send == myEmpNo) {//메시지의 송신자 정보가 내정보와 일치하는지(내가 전송한 메시지)
+					//송신자(우측 말풍선)
 					var label = $("<label>").addClass("msg-readNo");
-					if (data.readMsg == "N") {
+					if (data.readMsg == "N") {	//읽지 않은 메시지일때 숫자 표시
 						label.text("1");
 					} else {
 						label.text("");
 					}
 					wrap.addClass("send-chat").append($("<div>").addClass("msg-time").html("<br>" + time).prepend(label));
-
 					chat.append(msg);
 					wrap.append(chat);
 				} else {
-					//수신자 화면 (좌측)
-
+					//수신자(좌측 말풍선)
 					chat.addClass("receive-chat").html(msg);
 					wrap.append(chat);
 					wrap.append($("<div>").addClass("msg-time").html("<br>" + time));
-
 				}
 				$("#chat-text-area").append(wrap);
 			}
 			//스크롤 맨 밑으로 내리기
 			$('#chat-text-area').scrollTop($('#chat-text-area')[0].scrollHeight);
-
 		},
 		error: function(error) {
 			console.error('AJAX 요청 실패:', error);

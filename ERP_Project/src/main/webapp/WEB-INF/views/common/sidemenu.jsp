@@ -93,6 +93,9 @@
                     <img src="${contextPath}/icon/admin.png" class="icon">
                     <span class="side-menu-text">관리자</span>
                 </div>
+                <ul class="sub-menu">
+					<li><a onclick="adminNoticePage();">관리자 기능</a></li>
+				</ul>
             </li>
         </ul>
 
