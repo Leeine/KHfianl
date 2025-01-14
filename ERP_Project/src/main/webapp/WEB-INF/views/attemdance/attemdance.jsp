@@ -136,6 +136,7 @@
 				},
 				error : function(){
 					console.log("통신 오류(추가)");
+					alert("등록 실패");
 				}
 			});
 		});
@@ -160,7 +161,7 @@
 		                }
 					},
 					error : function(){
-						
+						alert("수정 실패");
 					}
 				});
 			}
@@ -185,7 +186,7 @@
 		                }
 					},
 					error : function(){
-						
+						alert("수정 실패");
 					}
 				});
 			}
@@ -211,7 +212,7 @@
 		                }
 		            },
 		            error: function() {
-		                alert("통신 오류가 발생했습니다.");
+		            	alert("삭제 실패");
 		            }
 		        });
 		    }
