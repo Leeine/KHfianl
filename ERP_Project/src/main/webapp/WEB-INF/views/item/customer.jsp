@@ -54,11 +54,13 @@
 				
 				//목록에서 선택시 수정 모달창
 				$("#item-customer-table").on("click","td",function(){
-					let list = [];
-					$(this).parent().find("td").each(function(){
-						list.push($(this).text());
-					})
-					item_customer_modal_info(list);
+					if($(this).parent().find("td").length!=1){
+						let list = [];
+						$(this).parent().find("td").each(function(){
+							list.push($(this).text());
+						})
+						item_customer_modal_info(list);
+					}
 				})
 				
 				//모달 숨기기

@@ -21,9 +21,13 @@
 
 
 <link href="/erp/css/attemdance/attemdance.css" rel="stylesheet">
+<link href="/erp/css/attemdance/empAttemdance.css" rel="stylesheet">
+<link href="/erp/css/attemdance/commute.css" rel="stylesheet">
 
+
+<link href="/erp/css/admin/admin.css" rel="stylesheet">
+<script src="/erp/js/admin/admin.js"></script>
 <script src="/erp/js/common/menu.js"></script>
-
 <link href="/erp/css/common/main.css" rel="stylesheet">
 <script src="/erp/js/common/modal.js"></script>
 <link href="/erp/css/common/modal.css" rel="stylesheet">
@@ -42,6 +46,10 @@
 <script src="/erp/js/item/release.js"></script>
 
 
+<link href="/erp/css/employee/employeeList.css" rel="stylesheet">
+<script src="/erp/js/employee/employeeList.js"></script>
+<link href="/erp/css/employee/appointment.css" rel="stylesheet">
+<script src="/erp/js/employee/appointment.js"></script>
 <link href="/erp/css/employee/mypage.css" rel="stylesheet">
 <script src="/erp/js/employee/mypage.js"></script>
 
@@ -54,6 +62,11 @@
 <title>ERP</title>
 </head>
 <body style="background-color: rgb(225, 235, 255)">
+	<div id="admin-notice">
+		<h1 id="admin-notice-title">※ 관리자 공지 ※</h1>
+		<div id="admin-notice-content">실시간 공지 내용임</div>
+		<div id="admin-notice-close">x</div>
+	</div>
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
 	<div id="main-content">
@@ -91,12 +104,9 @@
 	
     
     <script>
-    	$(function(){
-			var dept = ("${loginUser.deptCode}").substring(0,1);
-			if(dept != "D"){
-				$(".admin").hide();
-			}
-		});
+    	$("#admin-notice-close").click(function(){
+    		$("#admin-notice").hide();
+    	});
         $(".side-menu").click(function(){
             $($(this).parent()).siblings().find(".sub-menu").slideUp();
             $(this).siblings(".sub-menu").slideToggle();

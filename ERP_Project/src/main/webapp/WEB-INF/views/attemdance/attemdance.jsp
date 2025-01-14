@@ -8,48 +8,46 @@
 <title>Insert title here</title>
 
 <link href="/erp/css/common/modal.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
 <body>
-    
+
 	<%@include file="/WEB-INF/views/common/sidemenu.jsp"%>
 	<c:set var="contextPath"
 		value="${pageContext.servletContext.contextPath}" />
+
 	<div id="attemdance-main-page">
-	<div id="main-content">
-
-
-		<div id="attemdance-content-block">
-			<div id="attListDiv" align="center">
-				<table id="attList">
-					<thead>
-						<tr>
-							<th>근태코드</th>
-							<th>근태명칭</th>
-							<th>근태유형</th>
-							<th colspan="2">사용</th>
-							<!-- <th style="width: 10%;"></th> -->
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
-				<button type="button" class="insertBtn" onclick="modalShow();">항목추가</button>
-			</div>
-		</div>
-
-		<div class="modal-overlay" id="attInsert">
-			<div class="modal">
-				<div class="modal-header">
-					<img src="${contextPath}/icon/x.png" class="modalHide"
-						onclick="modalHide();">
+		<div id="main-content">
+			<div id="attemdance-content-block">
+				<div id="attListDiv" align="center">
+					<table id="attList" class="attTable">
+						<thead>
+							<tr>
+								<th>근태코드</th>
+								<th>근태명칭</th>
+								<th>근태유형</th>
+								<th colspan="2">사용</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					<button type="button" class="insertBtn" onclick="modalShow();">항목추가</button>
 				</div>
+			</div>
 
-				<form action="attInsert" method="post">
+			<div class="modal-overlay" id="attInsertDiv">
+				<div class="modal">
+					<div class="modal-header">
+						<img src="${contextPath}/icon/x.png" class="modalHide"
+							onclick="modalHide();">
+					</div>
+
 					<div class="modal-body">
 						<h4 class="modal-title">항목 추가</h4>
-						<table align="center">
+						<table class="attTable attInsertTable" align="center">
 							<tr>
 								<th>근태명칭</th>
 								<td><input type="text" id="attName" name="attName" required></td>
@@ -57,25 +55,24 @@
 							<tr>
 								<th>근태유형</th>
 								<td><select id="attTypeCode" name="attTypeCode" required>
-										<option value="404">문제</option>
+										<option value="404">데이터 없음</option>
 								</select></td>
 							</tr>
 							<tr>
 								<th>근태수</th>
-								<td><input type="number" step="0.5" min="0.5" id="attCount" name="attCount" required></td>
+								<td><input type="number" step="0.5" min="0.5" id="attCount" required></td>
 							</tr>
 						</table>
 					</div>
 					<div class="modal-footer" align="center">
-						<button type="submit" class="insertBtn" id="attInsert">추가하기</button>
+						<button type="button" class="insertBtn" id="attInsert">추가하기</button>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-	
-	<script>
+
+
+		<script>
 	
 		$(function(){
 			selectAttList();
@@ -83,7 +80,7 @@
 		
 		function selectAttList(){
 			$.ajax({
-				url : "attList",
+				url : "/erp/att/attList",
 				success : function(list){
 					
 					var str = "";
@@ -114,6 +111,36 @@
 			});
 		}
 		
+		//근태 항목 추가
+		$("#attInsert").click(function(){
+			var attName = $("#attName").val();
+			var attTypeCode = $("#attTypeCode").val();
+			var attCount = $("#attCount").val();
+			
+			$.ajax({
+				url : "/erp/att/attInsert",
+				data : {
+					attName : attName,
+					attTypeCode : attTypeCode,
+					attCount : attCount
+				},
+				success : function(result){
+					if (result == "NNNNY") {
+	                    alert("등록이 완료되었습니다.");
+	                    selectAttList();
+	                } else {
+	                    alert("등록 실패");
+	                }
+					
+					modalHide();
+				},
+				error : function(){
+					console.log("통신 오류(추가)");
+					alert("등록 실패");
+				}
+			});
+		});
+		
 		//근태 항목 수정
 		$("#attList").on("click","tbody>tr .attUpdate",function(){
 				
@@ -121,7 +148,7 @@
 			
 			if (confirm("해당 항목의 사용을 중지하시겠습니까?")){
 				$.ajax({
-					url : "attUpdate",
+					url : "/erp/att/attUpdate",
 					data : {
 						attCode : code
 					},
@@ -134,7 +161,7 @@
 		                }
 					},
 					error : function(){
-						
+						alert("수정 실패");
 					}
 				});
 			}
@@ -146,7 +173,7 @@
 			
 			if (confirm("해당 항목을 사용하시겠습니까?")){
 				$.ajax({
-					url : "attUpdate2",
+					url : "/erp/att/attUpdate2",
 					data : {
 						attCode : code
 					},
@@ -159,7 +186,7 @@
 		                }
 					},
 					error : function(){
-						
+						alert("수정 실패");
 					}
 				});
 			}
@@ -173,7 +200,7 @@
 			
 			if (confirm("복구가 불가능합니다. 정말 삭제하시겠습니까?")) {
 		        $.ajax({
-		            url: "attDelete",
+		            url: "/erp/att/attDelete",
 		            method: "GET",
 		            data: { attCode: code },
 		            success: function(result) {
@@ -185,7 +212,7 @@
 		                }
 		            },
 		            error: function() {
-		                alert("통신 오류가 발생했습니다.");
+		            	alert("삭제 실패");
 		            }
 		        });
 		    }

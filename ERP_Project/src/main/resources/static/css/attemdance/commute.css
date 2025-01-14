@@ -1,0 +1,108 @@
+#main-content-header {
+	margin: 30px;
+	width: 93%;
+	height: 100px;
+	border-radius: 20px;
+	background-color: white;
+}
+
+#main-content {
+	margin-left: 60px;
+}
+
+#main-content-block {
+	margin: 30px;
+	padding: 1px 15px;
+	background-color: white;
+	border-radius: 20px;
+	width: 93%;
+}
+
+.comTable tbody tr {
+	height: 10px;
+}
+
+#userCommuteDiv {
+	overflow: auto;
+	white-space: nowrap;
+	margin-bottom: 50px;
+}
+
+#searchDiv {
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+
+#pageChange{
+	display: inline-block;
+	float: right;
+	margin-right: 10%;
+}
+#pageChange p{
+	display: inline-block;
+	margin: 0px 5px 0px 5px;
+}
+
+#loginUserDiv h3, #inputSearchData{
+	display: inline-block;
+}
+
+#loginUserDiv {
+	padding: 15px 0px 15px 0px;
+}
+
+#comInBtn {
+	display: inline-block;
+	float: right;
+	margin-top: 25px;
+	margin-right: 10%;
+}
+
+#inputDate {
+	margin-bottom: 5px;
+}
+
+#comListTable tbody tr:hover {
+	background-color: #DDE5FF;
+}
+#comListTable {
+	margin-left: 10%;
+	margin-bottom: 30px;
+}
+
+.comTable {
+	border: 2px solid #C0C9D1;
+	border-collapse: collapse;
+}
+#comListTable{
+	width: 80%;
+}
+#userCommuteDiv{
+	width: 80%;
+}
+#userWeekTable{
+	width: 100%;
+}
+
+.comTable tr, .comTable td, .comTable th {
+	border: 2px solid #C0C9D1;
+	padding-left: 5px;
+}
+
+.comTable th {
+	text-align: left;
+	background-color: rgb(225, 235, 255);
+}
+#loginUserDiv h3, #inputSearchData {
+	margin-left: 10%;
+}
+
+.modal select {
+	border: 0;
+	width: 100%;
+	outline: none;
+}
+
+#daysc:hover {
+	cursor: pointer;
+}

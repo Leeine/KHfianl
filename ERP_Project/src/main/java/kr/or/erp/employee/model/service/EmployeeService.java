@@ -2,8 +2,10 @@ package kr.or.erp.employee.model.service;
 
 import java.util.ArrayList;
 
+import kr.or.erp.common.model.vo.PageInfo;
+import kr.or.erp.employee.model.vo.Appointment;
 import kr.or.erp.employee.model.vo.Employee;
-import kr.or.erp.messenger.model.vo.Messenger;
+import kr.or.erp.item.model.vo.Search;
 
 public interface EmployeeService {
 
@@ -16,10 +18,35 @@ public interface EmployeeService {
 
 	ArrayList<Employee> approveList(Employee e);
 
+	int employeeListCount();
+
+	ArrayList<Employee> employeeList(PageInfo pi);
+
+	int employeeSearchListCount(Search search);
+
+	ArrayList<Employee> employeeSearchList(PageInfo pi, Search search);
+
+	int updateDept(Employee e);
+
+	int updateRank(Employee e);
+
+	int insertEmployee(Employee e);
+
+	int insertAppointment(Appointment a);
+
+	ArrayList<Appointment> appointmentTypeList();
+
+	int appointmentListCount();
+
+	ArrayList<Appointment> appointmentList(PageInfo pi);
+
+	int appointmentSearchListCount(Search search);
+
+	ArrayList<Appointment> appointmentsearchList(PageInfo pi, Search search);
+
+
 	
 	
-	//메신저용 사원리스트 불러오기
-	ArrayList<Messenger> messengerEmpList(Employee e);
 
 	Employee employeeDetail(Employee e);
 

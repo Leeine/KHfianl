@@ -12,7 +12,7 @@
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}" />
-
+	
 	<div id="messenger-main-page">
 		<div id="messenger-wrap">
             <div id="messenger-header">
@@ -65,7 +65,8 @@
 		    						$("#messenger-emplist-table").on("click", ".messenger-emplist", function(){
 		    							var empNo = $(this).find(".messenger-empNo").val();
 		    							var empName = $(this).find(".messenger-emplist-name").text();
-		    							chat_room(empNo,empName);
+		    							var myEmpNo = "${loginUser.empNo}";
+		    							chat_room(empNo,empName,myEmpNo);
 		    						})
 		    					});
 	                        </script>
@@ -102,13 +103,5 @@
             </div>
 		</div>
 	</div>
-	<script>
-		$(function(){
-			$("#messenger-wrap").on("click",".exit-icon",function(){
-				$("#messenger-user-list").show();
-				$("#direct-message-area").html('');
-			})
-		})
-	</script>
 </body>
 </html>

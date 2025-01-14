@@ -40,7 +40,6 @@
 			, EMAIL
 			, ADDRESS
 			, BIRTHDAY
-			, VACATION
 			, JOIN_DATE
 		FROM EMPLOYEE
 		JOIN DEPARTMENT USING(DEPT_CODE)
@@ -64,51 +63,6 @@
                      WHERE EMP_NO = #{empNo})
 	</select>
 	
-	<select id="messengerEmpList" parameterType="Employee" resultType="Employee">
-		SELECT EMP_NO
-		        , EMP_NAME
-		        , DEPT_CODE
-		        , DEPT_NAME
-		        , EMP_RANK
-		        , RANK_NAME
-		        , UNREAD_COUNT
-		FROM EMPLOYEE
-		JOIN DEPARTMENT USING(DEPT_CODE)
-		JOIN EMPLOYEE_RANK USING(EMP_RANK)
-		LEFT JOIN (
-			    	SELECT SEND, RECEIVE, COUNT(*) AS "UNREAD_COUNT"
-			        FROM MESSAGE_DATA
-			        WHERE RECEIVE = #{empNo} 
-			        AND READ_MSG = 'N'
-			        GROUP BY SEND, RECEIVE
-			        ) ON(EMP_NO = SEND)
-		WHERE EMP_NO != #{empNo} 
-		AND EMP_NO != 99
-		ORDER BY DEPT_CODE, EMP_RANK, EMP_NAME
-	</select>
-	<select id="messengerEmpSearchList" parameterType="Employee" resultType="Messenger">
-		SELECT EMP_NO
-		        , EMP_NAME
-		        , DEPT_CODE
-		        , DEPT_NAME
-		        , EMP_RANK
-		        , RANK_NAME
-		        , UNREAD_COUNT
-		FROM EMPLOYEE
-		JOIN DEPARTMENT USING(DEPT_CODE)
-		JOIN EMPLOYEE_RANK USING(EMP_RANK)
-		LEFT JOIN (
-			    	SELECT SEND, RECEIVE, COUNT(*) AS "UNREAD_COUNT"
-			        FROM MESSAGE_DATA
-			        WHERE RECEIVE = #{empNo} 
-			        AND READ_MSG = 'N'
-			        GROUP BY SEND, RECEIVE
-			        ) ON(EMP_NO = SEND)
-		WHERE EMP_NO != #{empNo} 
-		AND EMP_NO != 99 
-		AND EMP_NAME LIKE '%'||#{empName}||'%'
-		ORDER BY DEPT_CODE, EMP_RANK, EMP_NAME
-	</select>
 	
 	
 	<select id="employeeDetail" parameterType="Employee" resultType="Employee">
@@ -138,4 +92,169 @@
 </select>
 	
 	
+	<select id="employeeListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM EMPLOYEE
+		WHERE EMP_NO != 99
+	</select>
+	<select id="employeeList" resultType="Employee">
+		SELECT EMP_NO
+			, DEPT_NAME
+			, RANK_NAME
+			, EMP_NAME
+			, JOIN_DATE
+		FROM EMPLOYEE
+		JOIN DEPARTMENT USING(DEPT_CODE)
+		JOIN EMPLOYEE_RANK USING(EMP_RANK)
+		WHERE EMP_NO != 99
+		ORDER BY DEPT_CODE, EMP_RANK, EMP_NO
+	</select>
+	
+	
+	<select id="employeeSearchListCount" parameterType="Search" resultType="_int">
+		SELECT COUNT(*)
+		FROM EMPLOYEE
+		WHERE EMP_NO != 99
+		<choose>
+			<when test="mode=='NO'">
+				AND EMP_NO = #{keyword}
+			</when>
+			<when test="mode=='DEPT'">
+				AND DEPT_NAME LIKE '%'||#{keyword}||'%'
+			</when>
+			<when test="mode=='RANK'">
+				AND RANK_NAME LIKE '%'||#{keyword}||'%'
+			</when>
+			<when test="mode=='NAME'">
+				AND EMP_NAME LIKE '%'||#{keyword}||'%'
+			</when>
+			<when test="mode=='DATE'">
+				AND JOIN_DATE LIKE '%'||#{keyword}||'%'
+			</when>
+		</choose>
+	</select>
+	<select id="employeeSearchList" parameterType="Search" resultType="Employee">
+		SELECT EMP_NO
+			, DEPT_NAME
+			, RANK_NAME
+			, EMP_NAME
+			, JOIN_DATE
+		FROM EMPLOYEE
+		JOIN DEPARTMENT USING(DEPT_CODE)
+		JOIN EMPLOYEE_RANK USING(EMP_RANK)
+		WHERE EMP_NO != 99
+		<choose>
+			<when test="mode=='NO'">
+				AND EMP_NO = #{keyword}
+			</when>
+			<when test="mode=='DEPT'">
+				AND DEPT_NAME LIKE '%'||#{keyword}||'%'
+			</when>
+			<when test="mode=='RANK'">
+				AND RANK_NAME LIKE '%'||#{keyword}||'%'
+			</when>
+			<when test="mode=='NAME'">
+				AND EMP_NAME LIKE '%'||#{keyword}||'%'
+			</when>
+			<when test="mode=='DATE'">
+				AND JOIN_DATE LIKE '%'||#{keyword}||'%'
+			</when>
+		</choose>
+		ORDER BY DEPT_CODE, EMP_RANK, EMP_NO
+	</select>
+	
+	<update id="updateDept" parameterType="Employee">
+		UPDATE EMPLOYEE
+		SET DEPT_CODE = #{deptCode}
+		WHERE EMP_NO = #{empNo}
+	</update>
+	<update id="updateRank" parameterType="Employee">
+		UPDATE EMPLOYEE
+		SET EMP_RANK = #{empRank}
+		WHERE EMP_NO = #{empNo}
+	</update>
+	<select id="appointmentTypeList" resultType="Appointment">
+		SELECT *
+		FROM APPOINTMENT_TYPE
+	</select>
+	<insert id="insertEmployee" parameterType="Employee">
+		INSERT INTO EMPLOYEE(EMP_NO,DEPT_CODE,EMP_RANK,EMP_NAME)
+		VALUES(SEQ_EMPLOYEE_NO.NEXTVAL, #{deptCode}, #{empRank}, #{empName})
+	</insert>
+	<insert id="insertAppointment" parameterType="Appointment">
+		INSERT INTO PERSONNEL_APPOINTMENT
+		<choose>
+			<when test="empNo==0">
+				VALUES(SEQ_APPOINTMENT_NO.NEXTVAL, SEQ_EMPLOYEE_NO.CURRVAL, DEFAULT, #{appointmentTypeCode}, #{newDept}, #{newRank})
+			</when>
+			<otherwise>
+				VALUES(SEQ_APPOINTMENT_NO.NEXTVAL, #{empNo}, DEFAULT, #{appointmentTypeCode}, #{newDept}, #{newRank})
+			</otherwise>
+		</choose>
+	</insert>
+	<select id="appointmentListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM PERSONNEL_APPOINTMENT
+	</select>
+	<select id="appointmentList" resultType="Appointment">
+		SELECT APPOINTMENT_NO
+			, EMP_NAME
+			, APPOINTMENT_DATE
+			, APPOINTMENT_TYPE_NAME
+			, D.DEPT_NAME
+			, R.RANK_NAME
+		FROM PERSONNEL_APPOINTMENT P
+		JOIN EMPLOYEE USING(EMP_NO)
+		JOIN APPOINTMENT_TYPE USING(APPOINTMENT_TYPE_CODE)
+		LEFT JOIN DEPARTMENT D ON(D.DEPT_CODE = P.NEW_DEPT)
+		LEFT JOIN EMPLOYEE_RANK R ON(R.EMP_RANK = P.NEW_RANK)
+		ORDER BY APPOINTMENT_DATE
+	</select>
+	
+	
+	<select id="appointmentSearchListCount" parameterType="Search" resultType="_int">
+		SELECT COUNT(*)
+		FROM PERSONNEL_APPOINTMENT
+		JOIN EMPLOYEE USING(EMP_NO)
+		<where>
+			<choose>
+				<when test="mode == 'NO'">
+					APPOINTMENT_NO = #{keyword}
+				</when>
+				<when test="mode == 'NAME'">
+					EMP_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'DATE'">
+					APPOINTMENT_DATE LIKE '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
+	<select id="appointmentSearchList" parameterType="Search" resultType="Appointment">
+		SELECT APPOINTMENT_NO
+			, EMP_NAME
+			, APPOINTMENT_DATE
+			, APPOINTMENT_TYPE_NAME
+			, D.DEPT_NAME
+			, R.RANK_NAME
+		FROM PERSONNEL_APPOINTMENT P
+		JOIN EMPLOYEE USING(EMP_NO)
+		JOIN APPOINTMENT_TYPE USING(APPOINTMENT_TYPE_CODE)
+		LEFT JOIN DEPARTMENT D ON(D.DEPT_CODE = P.NEW_DEPT)
+		LEFT JOIN EMPLOYEE_RANK R ON(R.EMP_RANK = P.NEW_RANK)
+		<where>
+			<choose>
+				<when test="mode == 'NO'">
+					APPOINTMENT_NO = #{keyword}
+				</when>
+				<when test="mode == 'NAME'">
+					EMP_NAME LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="mode == 'DATE'">
+					APPOINTMENT_DATE LIKE '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</where>
+		ORDER BY APPOINTMENT_DATE
+	</select>
 </mapper>

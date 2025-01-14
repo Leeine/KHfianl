@@ -30,6 +30,18 @@ body {
 	width: 200px;
 }
 
+#project-name{
+	font-size: 50px;
+	font-weight: 200;
+	width: fit-content;
+	margin-left: -3px;
+	margin-bottom: 10px;
+}
+
+#project-name:hover{
+	color: cornflowerblue;
+	cursor: pointer;
+}
 .side-menu {
 	color: white;
 	width: fit-content;
@@ -45,7 +57,7 @@ body {
 #user-info-menu {
 	margin: 10px 0;
 	padding-left: 10px;
-	height: 130px;
+	height: 120px;
 	color: white;
 	opacity: 0;
 	font-size: 20px;

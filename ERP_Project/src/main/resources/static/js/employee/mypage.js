@@ -1,7 +1,7 @@
 //사원정보
 function employee_mypage_info(){
 	$.ajax({
-		url : "/erp/employee/mypage/info",
+		url : "/erp/employee/info",
         method: 'GET',
         data : {
 			empNo : $("#empNo").val()

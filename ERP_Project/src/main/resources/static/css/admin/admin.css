@@ -1,0 +1,51 @@
+.admin-help{
+	width: 90%;
+	margin: 10px auto;
+}
+#insert-employee-area{
+	margin: 40px 0px;
+}
+#admin-notice-input-text{
+	font-size: 16px;
+	outline: none;
+	width: 100%;
+	margin: 0 auto;
+	height: 150px;
+}
+.admin-table{
+	margin: 10px auto;
+	width: 80%;
+}
+
+
+.admin-table td{
+	width: fit-content;
+}
+#admin-setting-area{
+	width: 90%;
+	margin: 40px auto;
+}
+.setting-table{
+	width: 100%;
+}
+.setting-table td{
+	border: 1px solid black;
+	vertical-align: 0px;
+}
+#insert-employee-area{
+	font-size: 16px;
+	width: 100%;
+	height: 100%;
+}
+#insert-category-area{
+	font-size: 16px;
+	width: 100%;
+	height: 100%;
+}
+.list-area{
+	border: 1px solid black;
+	width: 100%;
+	height: 150px;
+	margin: 0px auto;
+	overflow-y: auto;
+}
