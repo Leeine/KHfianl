@@ -64,7 +64,6 @@
 	</select>
 	
 	
-	
 	<select id="employeeDetail" parameterType="Employee" resultType="Employee">
 	   SELECT EMP_NO
 			, EMP_NAME

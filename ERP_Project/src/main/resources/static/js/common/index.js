@@ -72,7 +72,6 @@ function employeeDetail(empNo){
 			empNo : empNo
 		},
 		success : function (data){
-		
 			
 			//수정가능한 값 value
 			$('#name').val(data.empName); 
@@ -82,7 +81,9 @@ function employeeDetail(empNo){
             
             //수정불가능 출력값 span
             $('#nameSpan').text(data.empName); 
-            $('#birthSpan').text(data.birthday.split(" ")[0]); 
+            if(data.birthday!=null){
+            	$('#birthSpan').text(data.birthday.split(" ")[0]); 
+            }
             $('#deptSpan').text(data.deptName); 
             $('#emailSpan').text(data.email); 
             $('#rankSpan').text(data.rankName); 
