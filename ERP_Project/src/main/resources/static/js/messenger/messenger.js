@@ -57,7 +57,7 @@ function messenger_emp_search_list(empNo, contextPath) {
 			for (var d of data) {
 				var tr = $("<tr>").addClass("messenger-emplist");
 				var td1 = $("<td>");
-				td1.append($("<input>").attr("type", "hidden").val(d.empNo));
+				td1.append($("<input>").attr("type", "hidden").val(d.empNo).addClass("messenger-empNo"));
 				td1.append($("<img>").attr("src", contextPath + "/icon/mypage.png").addClass("user-icon"));
 				tr.append(td1);
 				var td2 = $("<td>");
@@ -117,9 +117,9 @@ function webSocketConnect(myEmpNo,contextPath) {
 	if (socket && socket.readyState === socket.OPEN) {
 		return;
 	}
-	socket = new WebSocket("ws://localhost:8888/erp/messenger/ws");
+	//socket = new WebSocket("ws://localhost:8888/erp/messenger/ws");
 
-	//socket = new WebSocket("ws://192.168.150.26:8888/erp/messenger/ws");
+	socket = new WebSocket("ws://192.168.150.2:8888/erp/messenger/ws");
 
 	socket.onopen = function() {
 		$("#messenger-status-text").text("온라인").css("background-color", "green");
@@ -140,6 +140,7 @@ function webSocketConnect(myEmpNo,contextPath) {
 		
 		//관리자 실시간 공지를 수신했을 때
 		if(data.notice != null){
+			console.log(data.notice);
 			//관리자의 일괄 로그아웃 요청
 			if(data.notice == "/logoutAll"){
 					location.href = contextPath+"/employee/logout";

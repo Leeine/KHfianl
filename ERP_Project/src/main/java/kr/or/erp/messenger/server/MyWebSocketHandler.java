@@ -59,7 +59,6 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 			//접속중인 모든 사용자에게 전송
 			for (HashMap.Entry<String,WebSocketSession> user : users.entrySet()) {
 			    user.getValue().sendMessage(tm);
-				users.remove(user.getKey());
 			}
 			return;
 		}

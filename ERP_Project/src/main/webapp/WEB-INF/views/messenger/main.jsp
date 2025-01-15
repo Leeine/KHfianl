@@ -66,6 +66,7 @@
 		    							var empNo = $(this).find(".messenger-empNo").val();
 		    							var empName = $(this).find(".messenger-emplist-name").text();
 		    							var myEmpNo = "${loginUser.empNo}";
+		    							//console.log(empNo,empName,myEmpNo);
 		    							chat_room(empNo,empName,myEmpNo);
 		    						})
 		    					});
