@@ -50,6 +50,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 		
 		//관리자 공지
 		if(jsonObject.get("notice")!=null) {
+			System.out.println(users.size());
 			// 생성한 메시지 정보 VO를 json 문자열로 변환하여 전달하기
 			MessageVO mv = MessageVO.builder().notice(jsonObject.get("notice").getAsString()).build();
 			String responseMsg = new Gson().toJson(mv); // gson 이용해서 json화 하기
