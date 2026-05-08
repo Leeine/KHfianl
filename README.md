@@ -1,5 +1,4 @@
-# KHfianl
-ERP 프로젝트
+
 
 # KHfinal ERP 프로젝트
 
